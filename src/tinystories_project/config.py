@@ -106,6 +106,69 @@ class Task1Config:
         )
 
 
+@dataclass
+class Task2Config:
+    """A Task 2 qualitative-evaluation run over several models and protocols."""
+
+    run_name: str = "task2"
+    models: list[dict[str, Any]] = field(default_factory=list)
+    prompt_sets: list[str] = field(default_factory=list)
+    protocols: dict[str, dict[str, Any]] = field(default_factory=dict)
+    output_dir: str = "results/task2"
+    device: str = "auto"
+    dtype: str = "float32"
+    seed: int = 42
+    batch_size: int = 1
+    source_path: str | None = None
+
+    def __post_init__(self) -> None:
+        if not self.models:
+            raise ValueError("Config must list at least one model.")
+        for m in self.models:
+            if "model_id" not in m:
+                raise ValueError(f"Every model entry needs 'model_id': {m!r}")
+        ids = [m["model_id"] for m in self.models]
+        if len(set(ids)) != len(ids):
+            raise ValueError(f"Duplicate model_id in config: {ids}")
+        if not self.prompt_sets:
+            raise ValueError("Config must list at least one prompt set.")
+        if not self.protocols:
+            raise ValueError("Config must define at least one protocol.")
+        if self.batch_size < 1:
+            raise ValueError(f"batch_size must be >= 1, got {self.batch_size}")
+
+    def to_dict(self) -> dict[str, Any]:
+        return {
+            "run_name": self.run_name,
+            "models": self.models,
+            "prompt_sets": self.prompt_sets,
+            "protocols": self.protocols,
+            "output_dir": self.output_dir,
+            "device": self.device,
+            "dtype": self.dtype,
+            "seed": self.seed,
+            "batch_size": self.batch_size,
+            "source_path": self.source_path,
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict[str, Any], source_path: str | None = None) -> "Task2Config":
+        known = set(cls.__dataclass_fields__) - {"source_path"}
+        return cls(**{k: v for k, v in data.items() if k in known},
+                   source_path=source_path)
+
+
+def load_task2_config(path: str | Path) -> Task2Config:
+    """Load and validate a Task 2 YAML config."""
+    cfg_path = Path(path).expanduser()
+    if not cfg_path.is_file():
+        raise FileNotFoundError(f"Config not found: {cfg_path}")
+    data = yaml.safe_load(cfg_path.read_text(encoding="utf-8")) or {}
+    if not isinstance(data, dict):
+        raise ValueError(f"{cfg_path} must contain a YAML mapping at the top level.")
+    return Task2Config.from_dict(data, source_path=str(cfg_path))
+
+
 def load_task1_config(path: str | Path) -> Task1Config:
     """Load and validate a Task 1 YAML config."""
     cfg_path = Path(path).expanduser()

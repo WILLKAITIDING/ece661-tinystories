@@ -18,6 +18,14 @@ pytest -m integration                 # downloads ~20 MB; proves the pipeline wo
 python scripts/run_task1.py --config configs/task1.yaml
 ```
 
+Task 2 (qualitative replication, ~4 min on an M1 Pro, ~720 MB of checkpoints):
+
+```bash
+pip install -e ".[analysis]"
+python scripts/run_task2.py --config configs/task2.yaml
+python scripts/make_task2_tables.py      # tables, annotation CSV, figures
+```
+
 Runs on CUDA, Apple Silicon (MPS), or CPU — resolved at runtime, never hardcoded.
 Developed on an M1 Pro using MPS.
 
@@ -45,7 +53,7 @@ See [`notebooks/task1_demo.ipynb`](notebooks/task1_demo.ipynb).
 | Task | Owner | Status |
 |---|---|---|
 | 1 — Load checkpoint, generate, save | Will | ✅ **Done** |
-| 2 — Figures 9–11 + 20 new prompts | Will | ⬜ Not started |
+| 2 — Figures 9–11 + 20 new prompts | Will | ✅ **Done** |
 | 3 — ROUGE (Section 4.4.1, Figures 14–17) | Will | ⬜ Not started |
 | 4 — Gemini judge | Will | ⬜ Not started |
 | Phase 2 — architecture exploration | Rachel | ⬜ Not started |
@@ -54,13 +62,38 @@ See [`notebooks/task1_demo.ipynb`](notebooks/task1_demo.ipynb).
 ## Layout
 
 ```
-configs/task1.yaml    experiment settings    scripts/run_task1.py   CLI runner
-docs/proposal.md      authoritative scope    notebooks/             thin demos
+configs/              task1.yaml, task2.yaml      docs/proposal.md   authoritative scope
+data/prompts/         paper_figures_9_11.json (24), custom_20.json (20)
+data/reference/       the paper's OWN completions and verdicts (not ours)
+scripts/              run_task1, run_task2, make_task2_tables, extract_paper_figures
 results/              git-ignored except results/examples/
 src/tinystories_project/
-  config.py  runtime.py  records.py          inference/{interface,loader,generate}.py
-tests/                test_core, test_generation, test_records, test_integration
+  config.py  runtime.py  records.py   inference/{interface,loader,generate}.py
+                                      evaluation/{prompts,qualitative}.py
+tests/                test_core, test_generation, test_records, test_task2,
+                      test_integration
 ```
+
+## Task 2 at a glance
+
+44 prompts (24 recovered from the paper's Figures 9-11, 20 written by us) run
+across four checkpoints under two protocols: **A** greedy, reproducing the
+paper's zero-temperature setting, and **B** three sampled completions per prompt
+at T=1.0 / top-p 0.95, answering whether output is *consistently* good.
+
+A conservative lexical screen over the 39 prompts with an unambiguous expected
+word (protocol A) shows the paper's size trend clearly:
+
+| checkpoint | layers | hidden | factual | reasoning | context | overall |
+|---|---:|---:|---:|---:|---:|---:|
+| TinyStories-1M | 8 | 64 | 5/15 | 2/13 | 3/11 | **10/39** |
+| TinyStories-8M | 8 | 256 | 9/15 | 7/13 | 5/11 | **21/39** |
+| TinyStories-33M | 4 | 768 | 12/15 | 9/13 | 7/11 | **28/39** |
+| TinyStories-1Layer-21M | 1 | 1024 | 9/15 | 5/13 | 4/11 | **18/39** |
+
+That screen is a keyword heuristic, **not** a quality judgement:
+`results/task2/analysis/annotation_template.csv` is the unlabelled template for
+human rating. See [`results/examples/task2/`](results/examples/task2/).
 
 ## Using your own model with this pipeline
 
@@ -115,8 +148,8 @@ Other verified checkpoint facts are in [`CLAUDE.md`](CLAUDE.md).
 ## Testing
 
 ```bash
-pytest                   # 72 unit tests, offline, ~2 s
-pytest -m integration    # 9 tests against the real checkpoint
+pytest                   # 111 unit tests, offline, ~2 s
+pytest -m integration    # 12 tests against real checkpoints
 ```
 
 The course Gemini API spends a shared **$250** team budget and **is not called by

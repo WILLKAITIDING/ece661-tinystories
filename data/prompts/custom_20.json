@@ -1,0 +1,301 @@
+{
+  "schema_version": "1.0",
+  "name": "custom_20",
+  "description": "20 original prompts written by Team 32, following the three categories of Section 4.2 of the TinyStories paper (factual / reasoning / context-tracking). Vocabulary and syntax deliberately match the TinyStories domain: simple words, short sentences, child-story situations.",
+  "source": {
+    "authors": "Team 32 (Will Ding)",
+    "written_on": "2026-10-29",
+    "basis": "Categories defined in arXiv:2305.07759v2 Section 4.2"
+  },
+  "notes": [
+    "These are newly authored prompts, not copied or paraphrased from Figures 9-11.",
+    "We have NOT verified that they are absent from the TinyStories training corpus; the paper's own manual n-gram check was not reproduced here.",
+    "'expected' is a short grading rubric for human annotation, written before any model was run.",
+    "'auto_accept' lists lower-case substrings for a CONSERVATIVE automatic screen. It is a mechanical rendering of 'expected' and is NOT a substitute for human judgement; a hit only means the expected word appears somewhere in the answer."
+  ],
+  "prompts": [
+    {
+      "id": "cust_fact_01",
+      "origin": "team32",
+      "figure": null,
+      "category": "factual",
+      "text": "Tom left his ice cream outside in the hot sun. After a little while, the ice cream started to",
+      "capability": "Physical change: heat melts ice cream.",
+      "expected": "Says it melted / started to melt or drip.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "melt"
+      ]
+    },
+    {
+      "id": "cust_fact_02",
+      "origin": "team32",
+      "figure": null,
+      "category": "factual",
+      "text": "The room was dark, so Lucy wanted to make it bright. She walked over and turned on the",
+      "capability": "Everyday object that produces light.",
+      "expected": "A light, lamp, or light switch.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "light",
+        "lamp"
+      ]
+    },
+    {
+      "id": "cust_fact_03",
+      "origin": "team32",
+      "figure": null,
+      "category": "factual",
+      "text": "Ben ran and ran until he was very thirsty. He went inside and drank a big glass of",
+      "capability": "What one drinks when thirsty.",
+      "expected": "A drink: water, milk, or juice.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "water",
+        "milk",
+        "juice"
+      ]
+    },
+    {
+      "id": "cust_fact_04",
+      "origin": "team32",
+      "figure": null,
+      "category": "factual",
+      "text": "The little duck lived beside a pond. When she wanted to get to the other side of the water, she began to",
+      "capability": "Animal behaviour: ducks swim.",
+      "expected": "Says she swam / began to swim (paddling is acceptable).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "swim",
+        "paddl"
+      ]
+    },
+    {
+      "id": "cust_fact_05",
+      "origin": "team32",
+      "figure": null,
+      "category": "factual",
+      "text": "Mia looked up at the sky late at night. She saw the big round moon and lots of tiny",
+      "capability": "What is visible in the night sky.",
+      "expected": "Stars.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "star"
+      ]
+    },
+    {
+      "id": "cust_fact_06",
+      "origin": "team32",
+      "figure": null,
+      "category": "factual",
+      "text": "Dad looked out and said it was raining hard. Before Sam went outside, he picked up his",
+      "capability": "Appropriate object for rainy weather.",
+      "expected": "Umbrella, raincoat, or boots.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "umbrella",
+        "raincoat",
+        "rain coat",
+        "coat",
+        "boot"
+      ]
+    },
+    {
+      "id": "cust_fact_07",
+      "origin": "team32",
+      "figure": null,
+      "category": "factual",
+      "text": "It got very cold in the winter. The water in the pond outside slowly turned into",
+      "capability": "Physical change: water freezes into ice.",
+      "expected": "Ice (frozen / froze is acceptable).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "ice",
+        "froze",
+        "frozen"
+      ]
+    },
+    {
+      "id": "cust_reas_01",
+      "origin": "team32",
+      "figure": null,
+      "category": "reasoning",
+      "text": "Ben forgot to close the window before the big storm. When he came back to his room, the floor by the window was all",
+      "capability": "Cause and effect: open window in a storm lets rain in.",
+      "expected": "Wet (or covered in water / soaked).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "wet",
+        "water",
+        "soak",
+        "puddle"
+      ]
+    },
+    {
+      "id": "cust_reas_02",
+      "origin": "team32",
+      "figure": null,
+      "category": "reasoning",
+      "text": "There were three hats on the shelf: a red one, a blue one, and a green one. Anna did not like red and she did not like green, so she picked the",
+      "capability": "Elimination: rule out two of three options.",
+      "expected": "The blue hat.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "blue"
+      ]
+    },
+    {
+      "id": "cust_reas_03",
+      "origin": "team32",
+      "figure": null,
+      "category": "reasoning",
+      "text": "Sara had only one coin. The apple cost one coin and the big toy cost three coins. Sara looked at both and bought the",
+      "capability": "Preference under a resource constraint.",
+      "expected": "The apple (the only affordable item).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "apple"
+      ]
+    },
+    {
+      "id": "cust_reas_04",
+      "origin": "team32",
+      "figure": null,
+      "category": "reasoning",
+      "text": "Every morning Max brushed his teeth first and ate after that. This morning, as soon as Max finished brushing his teeth, he sat down to eat his",
+      "capability": "Temporal ordering stated in the prompt.",
+      "expected": "Breakfast (or a breakfast food).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "breakfast"
+      ]
+    },
+    {
+      "id": "cust_reas_05",
+      "origin": "team32",
+      "figure": null,
+      "category": "reasoning",
+      "text": "Lily was carrying a full glass of milk much too fast, and then she tripped on a toy. The milk",
+      "capability": "Consequence of an action.",
+      "expected": "Spilled / fell / went everywhere.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "spill",
+        "spilt",
+        "fell",
+        "drop",
+        "splash"
+      ]
+    },
+    {
+      "id": "cust_reas_06",
+      "origin": "team32",
+      "figure": null,
+      "category": "reasoning",
+      "text": "It was freezing outside. Tom had a thin coat and a thick coat. He wanted to stay as warm as he could, so he put on the",
+      "capability": "Commonsense choice between two options given a goal.",
+      "expected": "The thick coat.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "thick"
+      ]
+    },
+    {
+      "id": "cust_reas_07",
+      "origin": "team32",
+      "figure": null,
+      "category": "reasoning",
+      "text": "Pip the puppy was very afraid of deep water. His friends ran to the lake and asked Pip to jump in with them. Pip said",
+      "capability": "Acting consistently with a stated fear.",
+      "expected": "A refusal: no, or that he is scared and will not jump in.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "no",
+        "not",
+        "n't",
+        "scared",
+        "afraid"
+      ]
+    },
+    {
+      "id": "cust_ctx_01",
+      "origin": "team32",
+      "figure": null,
+      "category": "context",
+      "text": "Nina and her brother Leo went to the park. Nina brought a red ball and Leo brought a blue kite. Leo ran across the grass to fly his",
+      "capability": "Binding an object to the right character.",
+      "expected": "The kite (blue kite).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "kite"
+      ]
+    },
+    {
+      "id": "cust_ctx_02",
+      "origin": "team32",
+      "figure": null,
+      "category": "context",
+      "text": "Sam had a toy car and his sister Ella had a toy train. Sam gave his toy car to Ella. Now Ella had her toy train and also a",
+      "capability": "Tracking a transfer of ownership between two characters.",
+      "expected": "The toy car.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "car"
+      ]
+    },
+    {
+      "id": "cust_ctx_03",
+      "origin": "team32",
+      "figure": null,
+      "category": "context",
+      "text": "Mom put the cookies in a tin on the top shelf, and she put the bread in a bag on the table. Ben wanted a cookie, so he went straight to the",
+      "capability": "Recalling which of two items is in which location.",
+      "expected": "The tin / the top shelf (not the table or the bread).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "tin",
+        "shelf"
+      ]
+    },
+    {
+      "id": "cust_ctx_04",
+      "origin": "team32",
+      "figure": null,
+      "category": "context",
+      "text": "The cup on the table was full of juice. Rosa picked it up and drank every last drop. Now the cup was",
+      "capability": "Tracking a change of state.",
+      "expected": "Empty.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "empty"
+      ]
+    },
+    {
+      "id": "cust_ctx_05",
+      "origin": "team32",
+      "figure": null,
+      "category": "context",
+      "text": "On the farm there were three animals: a cow named Bella, a pig named Pip, and a duck named Dot. One of them said \"quack\", and it was",
+      "capability": "Holding three name-to-animal bindings at once.",
+      "expected": "Dot (the duck).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "dot",
+        "duck"
+      ]
+    },
+    {
+      "id": "cust_ctx_06",
+      "origin": "team32",
+      "figure": null,
+      "category": "context",
+      "text": "Jon put on his yellow coat and his friend Ana put on her purple coat, and they played in the snow all afternoon. When it was time to go home, Jon could not find his",
+      "capability": "Recalling an attribute introduced earlier for the right character.",
+      "expected": "His yellow coat (yellow, not purple).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "yellow"
+      ]
+    }
+  ]
+}

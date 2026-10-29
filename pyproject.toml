@@ -27,9 +27,14 @@ dependencies = [
 dev = ["pytest>=8.0"]
 notebook = ["ipykernel>=6.29"]
 
+# Task 2 analysis: tables, figures, and extracting Figures 9-11 from the PDF.
+# pymupdf is only needed to re-run scripts/extract_paper_figures.py; the
+# extracted prompt files are committed, so most people never need it.
+analysis = ["matplotlib>=3.8", "pymupdf>=1.24"]
+
 # --- NOT INSTALLED YET. Documented so later tasks are a one-line install. ---
 # Task 3 (ROUGE, Section 4.4.1 / Figures 14-17)
-eval = ["rouge-score>=0.1.2", "datasets>=2.19", "matplotlib>=3.8", "pandas>=2.2"]
+eval = ["rouge-score>=0.1.2", "datasets>=2.19", "pandas>=2.2"]
 # Task 4 (Gemini judge via the OpenAI-compatible course proxy)
 judge = ["openai>=1.30", "tenacity>=8.3", "python-dotenv>=1.0"]
 # Phase 2 (Rachel) / Phase 3 (Luel)

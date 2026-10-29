@@ -1,0 +1,419 @@
+{
+  "schema_version": "1.0",
+  "name": "paper_figures_9_11",
+  "description": "Prompts of Figures 9-11 of the TinyStories paper, recovered from the published PDF by layout-aware extraction. 'capability' and 'expected' are Team 32 grading criteria, not the paper's.",
+  "source": {
+    "paper": "TinyStories: How Small Can Language Models Be and Still Speak Coherent English?",
+    "authors": "Eldan and Li",
+    "arxiv_id": "2305.07759",
+    "version": "v2",
+    "pdf_sha256": "e9d2d82534b4ccb7163559f00e68556988c49192a1433f860481544bc7dc2445",
+    "extracted_on": "2026-10-28",
+    "extracted_by": "scripts/extract_paper_figures.py"
+  },
+  "notes": [
+    "Quotes normalised from the PDF's U+201D to ASCII; text_pdf_raw keeps the original.",
+    "Hyphens inserted by the figure's line wrapping were removed.",
+    "The paper states no expected answers; it only colour-codes its own outputs.",
+    "'auto_accept' drives a conservative lexical screen, NOT human judgement; it is empty where substring matching cannot settle the answer."
+  ],
+  "prompts": [
+    {
+      "id": "fig9_01",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 1 (p.13)",
+      "text": "Alice was so tired when she got back home so she went",
+      "text_pdf_raw": "Alice was so tired when she got back home so she went",
+      "capability": "Everyday routine: being tired leads to sleeping.",
+      "expected": "Says she went to bed / to sleep.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "bed",
+        "sleep",
+        "slept"
+      ]
+    },
+    {
+      "id": "fig9_02",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 2 (p.13)",
+      "text": "Jack and Lily saw a rainbow after a rainy day. They were amazed by the colors. Jack said, \"Look, Lily. A rainbow has",
+      "text_pdf_raw": "Jack and Lily saw a rain- bow after a rainy day. They were amazed by the colors. Jack said, ”Look, Lily. A rainbow has",
+      "capability": "Property of rainbows: they are multi-coloured.",
+      "expected": "Mentions many colours, or lists rainbow colours.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "color",
+        "colour",
+        "red",
+        "blue",
+        "green",
+        "yellow",
+        "purple",
+        "orange"
+      ]
+    },
+    {
+      "id": "fig9_03",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 3 (p.13)",
+      "text": "Jack and Lily liked to watch the moon at night. They noticed that the moon changed its shape every night. Sometimes the moon was big and round, and sometimes it was",
+      "text_pdf_raw": "Jack and Lily liked to watch the moon at night. They noticed that the moon changed its shape every night. Sometimes the moon was big and round, and sometimes it was",
+      "capability": "Moon phases contrast with 'big and round'.",
+      "expected": "A contrasting shape: small, thin, crescent, a sliver.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "small",
+        "thin",
+        "crescent",
+        "sliver",
+        "half"
+      ]
+    },
+    {
+      "id": "fig9_04",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 4 (p.13)",
+      "text": "Jack wanted to read a book, so he went to",
+      "text_pdf_raw": "Jack wanted to read a book, so he went to",
+      "capability": "Where one goes to get or read a book.",
+      "expected": "A library, bookshelf, bookstore, or somewhere to read.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "library",
+        "bookshelf",
+        "book shelf",
+        "bookstore",
+        "book store"
+      ]
+    },
+    {
+      "id": "fig9_05",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 5 (p.13)",
+      "text": "\"Can cows fly?\", Alice asked her mother.",
+      "text_pdf_raw": "”Can cows fly?”, Alice asked her mother.",
+      "capability": "Cows cannot fly.",
+      "expected": "A negative answer: no, cows can't fly.",
+      "criterion_author": "team32",
+      "auto_accept": []
+    },
+    {
+      "id": "fig9_06",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 6 (p.13)",
+      "text": "\"What do birds like to eat?\", Tom asked his mother.",
+      "text_pdf_raw": "”What do birds like to eat?”, Tom asked his mother.",
+      "capability": "What birds eat.",
+      "expected": "Names a plausible bird food: worms, bugs, seeds, berries.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "worm",
+        "bug",
+        "seed",
+        "berry",
+        "insect",
+        "fish",
+        "bread"
+      ]
+    },
+    {
+      "id": "fig9_07",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 7 (p.13)",
+      "text": "\"What language do they speak in France?\", Tom asked his mother",
+      "text_pdf_raw": "”What language do they speak in France?”, Tom asked his mother",
+      "capability": "The language spoken in France.",
+      "expected": "French.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "french"
+      ]
+    },
+    {
+      "id": "fig9_08",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 8 (p.13)",
+      "text": "If I throw a ball up in the air, eventually it will",
+      "text_pdf_raw": "If I throw a ball up in the air, eventually it will",
+      "capability": "Gravity: a thrown ball falls back down.",
+      "expected": "Says it will come / fall down.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "come down",
+        "fall",
+        "fell",
+        "down",
+        "ground"
+      ]
+    },
+    {
+      "id": "fig9_09",
+      "origin": "paper",
+      "figure": 9,
+      "category": "factual",
+      "source_ref": "arXiv:2305.07759v2 Figure 9, row 9 (p.13)",
+      "text": "It was winter and cold outside so his mother told him, \"You should",
+      "text_pdf_raw": "It was winter and cold outside so his mother told him, ”You should",
+      "capability": "Appropriate advice for cold winter weather.",
+      "expected": "Advice to wear warm clothing or stay warm.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "coat",
+        "warm",
+        "jacket",
+        "scarf",
+        "hat",
+        "mitten",
+        "glove",
+        "sweater"
+      ]
+    },
+    {
+      "id": "fig10_01",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 1 (p.14)",
+      "text": "Lily likes cats and dogs. She asked her mom for a dog and her mom said no, so instead she asked",
+      "text_pdf_raw": "Lily likes cats and dogs. She asked her mom for a dog and her mom said no, so instead she asked",
+      "capability": "Elimination: after a refusal, change who is asked or what is asked for.",
+      "expected": "Asks a different person such as her dad, or asks for a different pet.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "dad",
+        "father",
+        "cat"
+      ]
+    },
+    {
+      "id": "fig10_02",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 2 (p.14)",
+      "text": "Jack told Mary, \"If you give me your banana, I'll give you my apple\". Mary gave Jack her Banana so",
+      "text_pdf_raw": "Jack told Mary, ”If you give me your banana, I’ll give you my apple”. Mary gave Jack her Ba- nana so",
+      "capability": "Honouring a stated trade.",
+      "expected": "Jack gives Mary the apple in return.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "apple"
+      ]
+    },
+    {
+      "id": "fig10_03",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 3 (p.14)",
+      "text": "On weekends Jack went to visit his grandmother whereas on weekdays he would go to school. Last weekend, when Jack was on his way to",
+      "text_pdf_raw": "On weekends Jack went to visit his grandmother whereas on weekdays he would go to school. Last weekend, when Jack was on his way to",
+      "capability": "Applying a weekday/weekend rule.",
+      "expected": "Going to his grandmother's, not to school.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "grandmother",
+        "grandma",
+        "granny"
+      ]
+    },
+    {
+      "id": "fig10_04",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 4 (p.14)",
+      "text": "Lily and Ben were having an argument. Ben said that cake is much better than ice cream and Lily said that",
+      "text_pdf_raw": "Lily and Ben were hav- ing an argument. Ben said that cake is much better than ice cream and Lily said that",
+      "capability": "Taking the opposing side of a stated argument.",
+      "expected": "Lily argues ice cream is better than cake.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "ice cream"
+      ]
+    },
+    {
+      "id": "fig10_05",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 5 (p.14)",
+      "text": "Lily and Ben are having an argument. They are trying to decide between the park and the swimming pool. Ben says, \"I want to go to the park\". Lily says",
+      "text_pdf_raw": "Lily and Ben are having an argument. They are trying to decide between the park and the swim- ming pool. Ben says, ”I want to go to the park”. Lily says",
+      "capability": "Choosing the alternative the other character did not pick.",
+      "expected": "Lily wants the swimming pool, not the park.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "pool",
+        "swim"
+      ]
+    },
+    {
+      "id": "fig10_06",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 6 (p.14)",
+      "text": "Jack's mother was not home, and his father was at home. When Jack came home, he said hello to",
+      "text_pdf_raw": "Jack’s mother was not home, and his father was at home. When Jack came home, he said hello to",
+      "capability": "Only the person who is at home can be greeted.",
+      "expected": "He greets his father.",
+      "criterion_author": "team32",
+      "auto_accept": []
+    },
+    {
+      "id": "fig10_07",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 7 (p.14)",
+      "text": "Lily doesn't like swimming. When her father wants to take her to the swimming pool, she says",
+      "text_pdf_raw": "Lily doesn’t like swim- ming. When her father wants to take her to the swimming pool, she says",
+      "capability": "Acting on a stated dislike.",
+      "expected": "Lily refuses / says no.",
+      "criterion_author": "team32",
+      "auto_accept": []
+    },
+    {
+      "id": "fig10_08",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 8 (p.14)",
+      "text": "Both Ben and Lily wanted cake. Father said that there was only one piece of cake left. They",
+      "text_pdf_raw": "Both Ben and Lily wanted cake. Father said that there was only one piece of cake left. They",
+      "capability": "Consequence of two people wanting one item.",
+      "expected": "A plausible consequence: they argue, fight, or agree to share.",
+      "criterion_author": "team32",
+      "auto_accept": []
+    },
+    {
+      "id": "fig10_09",
+      "origin": "paper",
+      "figure": 10,
+      "category": "reasoning",
+      "source_ref": "arXiv:2305.07759v2 Figure 10, row 9 (p.14)",
+      "text": "Ben went to visit Lily in her house, but she was not at home. Ben knocked on the door,",
+      "text_pdf_raw": "Ben went to visit Lily in her house, but she was not at home. Ben knocked on the door,",
+      "capability": "Nobody is home, so knocking goes unanswered.",
+      "expected": "No one answers the door.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "no one",
+        "nobody",
+        "did not answer",
+        "didn't answer",
+        "no answer"
+      ]
+    },
+    {
+      "id": "fig11_01",
+      "origin": "paper",
+      "figure": 11,
+      "category": "context",
+      "source_ref": "arXiv:2305.07759v2 Figure 11, row 1 (p.15)",
+      "text": "\"Hi Jane, have you seen Alice? I can't find her anywhere\", said Jack.",
+      "text_pdf_raw": "”Hi Jane, have you seen Alice? I can’t find her anywhere”, said Jack.",
+      "capability": "Keeping three named characters straight.",
+      "expected": "Jane answers Jack about Alice; roles are not swapped.",
+      "criterion_author": "team32",
+      "auto_accept": []
+    },
+    {
+      "id": "fig11_02",
+      "origin": "paper",
+      "figure": 11,
+      "category": "context",
+      "source_ref": "arXiv:2305.07759v2 Figure 11, row 2 (p.15)",
+      "text": "Max had two dogs. One was white and the other was black. Max walked up the street and saw a kid with a dog. He told the kid, \"I see you have a Brown dog. I also have",
+      "text_pdf_raw": "Max had two dogs. One was white and the other was black. Max walked up the street and saw a kid with a dog. He told the kid, ”I see you have a Brown dog. I also have",
+      "capability": "Recalling a quantity stated earlier.",
+      "expected": "Says two dogs (optionally white and black).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "two dog",
+        "2 dog",
+        "white",
+        "black"
+      ]
+    },
+    {
+      "id": "fig11_03",
+      "origin": "paper",
+      "figure": 11,
+      "category": "context",
+      "source_ref": "arXiv:2305.07759v2 Figure 11, row 3 (p.15)",
+      "text": "Anne had a piece of candy in her left pocket and a piece of chocolate in her right pocket. Anne's mom asked her, \"Anne, what is that you have in your left pocket?\"",
+      "text_pdf_raw": "Anne had a piece of candy in her left pocket and a piece of choco- late in her right pocket. Anne’s mom asked her, ”Anne, what is that you have in your left pocket?”",
+      "capability": "Recalling which item is in which pocket.",
+      "expected": "Candy (not chocolate).",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "candy"
+      ]
+    },
+    {
+      "id": "fig11_04",
+      "origin": "paper",
+      "figure": 11,
+      "category": "context",
+      "source_ref": "arXiv:2305.07759v2 Figure 11, row 4 (p.15)",
+      "text": "Alice had both an apple and a carrot in her bag. She took the apple out of the bag and gave it to Jack. She reached into the bag again and took",
+      "text_pdf_raw": "Alice had both an apple and a carrot in her bag. She took the apple out of the bag and gave it to Jack. She reached into the bag again and took",
+      "capability": "Tracking which item remains in the bag.",
+      "expected": "The carrot.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "carrot"
+      ]
+    },
+    {
+      "id": "fig11_05",
+      "origin": "paper",
+      "figure": 11,
+      "category": "context",
+      "source_ref": "arXiv:2305.07759v2 Figure 11, row 5 (p.15)",
+      "text": "Alice and Jack walked up the street and met a girl in a red dress. The girl said to them, \"Hi, I'm Jane. What are your names?\"",
+      "text_pdf_raw": "Alice and Jack walked up the street and met a girl in a red dress. The girl said to them, ”Hi, I’m Jane. What are your names?”",
+      "capability": "Answering with the speakers' own names.",
+      "expected": "Gives Alice and/or Jack, not 'Jane'.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "alice",
+        "jack"
+      ]
+    },
+    {
+      "id": "fig11_06",
+      "origin": "paper",
+      "figure": 11,
+      "category": "context",
+      "source_ref": "arXiv:2305.07759v2 Figure 11, row 6 (p.15)",
+      "text": "Diva was hungry, and wanted to bake a cake, but she didn't have any sugar at home, so she decided to go ask around. She started walking and met a squirrel. She asked the squirrel, \"Would you happen",
+      "text_pdf_raw": "Diva was hungry, and wanted to bake a cake, but she didn’t have any sugar at home, so she decided to go ask around. She started walking and met a squirrel. She asked the squirrel, ”Would you happen",
+      "capability": "Completing a request for the thing that was missing.",
+      "expected": "Continues into asking for sugar.",
+      "criterion_author": "team32",
+      "auto_accept": [
+        "sugar"
+      ]
+    }
+  ]
+}

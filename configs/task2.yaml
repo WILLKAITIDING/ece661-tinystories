@@ -1,0 +1,55 @@
+# Task 2 - qualitative replication of TinyStories Figures 9-11 plus 20 of our
+# own prompts.
+#
+#   python scripts/run_task2.py --config configs/task2.yaml
+#
+# Models are loaded ONE AT A TIME and released before the next, so peak memory
+# stays near the largest single checkpoint rather than their sum.
+
+run_name: task2
+output_dir: results/task2
+device: auto          # cuda -> mps -> cpu
+dtype: float32
+seed: 42
+
+# batch_size 1 is deliberate. Sampling seeds are derived per batch, so batch
+# composition changes sampled text; with one prompt per batch every record is
+# reproducible on its own and independent of how the set is ordered or sliced.
+batch_size: 1
+
+prompt_sets:
+  - data/prompts/paper_figures_9_11.json
+  - data/prompts/custom_20.json
+
+protocols:
+  # Reproduces the paper: Section 4 states that from Figure 6 onward examples
+  # are generated "at zero temperature". Zero temperature IS greedy decoding,
+  # expressed as do_sample=false (temperature=0 is not a valid sampling value).
+  A_greedy:
+    max_new_tokens: 60
+    do_sample: false
+    num_return_sequences: 1
+  # Answers "do the models CONSISTENTLY produce coherent stories?", which a
+  # single greedy completion cannot. NOT a reproduction of the paper's figures.
+  B_sampling:
+    max_new_tokens: 60
+    do_sample: true
+    temperature: 1.0
+    top_p: 0.95
+    num_return_sequences: 3
+
+# Four checkpoints, chosen to test both architectural claims of Section 4.2:
+#   width/size drives factual recall  -> 1M vs 8M vs 33M
+#   depth drives context tracking     -> 1M (8 layers, 64 wide) vs
+#                                        1Layer-21M (1 layer, 1024 wide)
+# figure_column records which column of Figures 9-11 each checkpoint is, so our
+# results can be placed beside the paper's. Verified against each config.json.
+models:
+  - model_id: roneneldan/TinyStories-1M
+    figure_column: "1M/8L"
+  - model_id: roneneldan/TinyStories-8M
+    figure_column: "8.3M/8L"
+  - model_id: roneneldan/TinyStories-33M
+    figure_column: "33M/4L"
+  - model_id: roneneldan/TinyStories-1Layer-21M
+    figure_column: "21M/1L"

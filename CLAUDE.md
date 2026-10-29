@@ -43,7 +43,7 @@ them speculatively.**
 | Task | Owner | Status |
 |---|---|---|
 | 1 — Load checkpoint, generate, save JSONL | Will | **Done** |
-| 2 — Figures 9–11 + 20 new prompts | Will | Not started |
+| 2 — Figures 9–11 + 20 new prompts | Will | **Done** |
 | 3 — ROUGE (Section 4.4.1, Figures 14–17) | Will | Not started |
 | 4 — Gemini judge | Will | Not started |
 | Phase 2 / Phase 3 | Rachel / Luel | Not started |
@@ -51,11 +51,17 @@ them speculatively.**
 ## Layout
 
 ```
-configs/task1.yaml       experiment settings (never hardcode these in code)
+configs/task1.yaml       Task 1 settings (never hardcode these in code)
+configs/task2.yaml       Task 2: models, protocols, prompt sets
+data/prompts/            paper_figures_9_11.json (24), custom_20.json (20)
+data/reference/          the PAPER's own completions + verdicts (not ours)
 docs/proposal.md         authoritative scope
 notebooks/               thin demos only — logic belongs in src/
 results/                 git-ignored except results/examples/
-scripts/run_task1.py     CLI runner
+scripts/run_task1.py     Task 1 CLI runner
+scripts/run_task2.py     Task 2 runner (one model at a time, resumable)
+scripts/make_task2_tables.py   comparison tables, annotation CSV, figures
+scripts/extract_paper_figures.py   rebuilds the prompt files from the PDF
 src/tinystories_project/
   config.py              YAML -> dataclasses; paths resolve to project root
   runtime.py             device resolution + seeding
@@ -65,7 +71,11 @@ src/tinystories_project/
                          TextGenerator protocol
     loader.py            load_causal_lm -> ModelBundle; parameter counting
     generate.py          HFTextGenerator, generate_stories
-tests/                   test_core, test_generation, test_records, test_integration
+  evaluation/
+    prompts.py           EvalPrompt, PromptSet, load_prompt_set
+    qualitative.py       PROTOCOLS, run_prompt_set, answer_span
+tests/                   test_core, test_generation, test_records, test_task2,
+                         test_integration
 ```
 
 ## The shared interface — the most important design rule
@@ -140,14 +150,35 @@ Amharic SentencePiece vocab (4K/8K) is far smaller than GPT-Neo's 50,257.
 ## Testing
 
 ```bash
-pytest                   # 72 unit tests, offline, tiny random model, ~2 s
-pytest -m integration    # 9 tests against the real checkpoint (~20 MB download)
+pytest                   # 111 unit tests, offline, tiny random model, ~2 s
+pytest -m integration    # 12 tests against real checkpoints
 ```
 
 Unit tests must not hit the network; use the fixtures in `tests/conftest.py`.
 **Run them after implementing anything, and report real counts and real
 output** — never claim something works without having executed it. If a
 download or test fails, say so plainly and leave the code ready to retry.
+
+## Task 2 facts (established 2026-10-29)
+
+- Figures 9-11 hold **24** prompts: 9 factual, 9 reasoning, 6 context. They were
+  recovered from the PDF by **layout-aware** extraction (`scripts/extract_paper_figures.py`),
+  because reading the text in order cannot tell where a wrapped prompt cell ends.
+  Do not re-extract by plain text dump.
+- The paper's green/yellow/red verdicts are cell **background fills** and are
+  extracted too, giving its own labels for all 192 cells.
+- **Zero temperature = greedy.** Section 4 says examples from Figure 6 onward are
+  generated "at zero temperature"; Figures 9-11 follow. Express this as
+  `do_sample=False`, never `temperature=0` (which GenerationParams rejects).
+- **We do NOT reproduce the paper's exact strings** (0/24 exact, 7/24 prefix on
+  TinyStories-1M). Verified not to be caused by quote normalisation (ASCII beats
+  the PDF's curly quotes, 7 vs 3) or by batching (greedy is identical at
+  batch_size 1 vs 8). Most likely hardware/library drift since 2023, plus
+  hand-truncation in the figures. Claim reproduction of the **trend**, never of
+  the text.
+- The lexical screen in `make_task2_tables.py` is a keyword heuristic, **not** a
+  quality judgement, and `annotation_template.csv` is **unlabelled**. Never
+  present either as human ratings.
 
 ## Security and budget — hard rules
 

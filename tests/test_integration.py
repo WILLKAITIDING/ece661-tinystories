@@ -121,3 +121,65 @@ def test_end_to_end_write_and_read_back(bundle, tmp_path):
     assert restored[0].model["model_id"] == MODEL_ID
     assert restored[0].completion == out[0].completion
     assert restored[0].model["n_parameters_total"] == 3_745_984
+
+
+# --- Task 2: the qualitative runner against the real checkpoint ------------
+
+def test_task2_prompt_set_runs_end_to_end_on_a_real_model(bundle):
+    """A real checkpoint + the real prompt files, through the Task 2 runner."""
+    from tinystories_project.config import find_project_root
+    from tinystories_project.evaluation import load_prompt_set, run_prompt_set
+    from tinystories_project.evaluation.prompts import PromptSet
+
+    full = load_prompt_set(
+        find_project_root() / "data" / "prompts" / "paper_figures_9_11.json")
+    # One prompt per category keeps the test quick.
+    subset = PromptSet(
+        name="integration_subset",
+        prompts=[full.by_category(c)[0] for c in ("factual", "reasoning", "context")],
+    )
+    gen = HFTextGenerator.from_bundle(bundle, batch_size=1)
+
+    records = run_prompt_set(gen, subset, protocol="A_greedy", run_id="it")
+    assert len(records) == 3
+    for rec, prompt in zip(records, subset.prompts):
+        assert rec.extra["prompt_id"] == prompt.id
+        assert rec.extra["category"] == prompt.category
+        assert rec.extra["protocol"] == "A_greedy"
+        assert rec.completion.strip(), f"empty completion for {prompt.id}"
+        assert rec.extra["answer_span"].strip()
+        assert not rec.completion.startswith(rec.prompt)
+        assert rec.model["model_id"] == MODEL_ID
+
+
+def test_task2_greedy_protocol_is_reproducible_on_a_real_model(bundle):
+    from tinystories_project.config import find_project_root
+    from tinystories_project.evaluation import load_prompt_set, run_prompt_set
+    from tinystories_project.evaluation.prompts import PromptSet
+
+    full = load_prompt_set(
+        find_project_root() / "data" / "prompts" / "custom_20.json")
+    subset = PromptSet(name="sub", prompts=full.prompts[:3])
+    gen = HFTextGenerator.from_bundle(bundle, batch_size=1)
+    a = run_prompt_set(gen, subset, protocol="A_greedy", run_id="r1")
+    b = run_prompt_set(gen, subset, protocol="A_greedy", run_id="r2")
+    assert [r.completion for r in a] == [r.completion for r in b]
+    # Same request => same record_id, which is what makes resume safe.
+    assert [r.record_id for r in a] == [r.record_id for r in b]
+
+
+def test_task2_sampling_protocol_gives_several_completions(bundle):
+    from tinystories_project.config import find_project_root
+    from tinystories_project.evaluation import load_prompt_set, run_prompt_set
+    from tinystories_project.evaluation.prompts import PromptSet
+
+    full = load_prompt_set(
+        find_project_root() / "data" / "prompts" / "custom_20.json")
+    subset = PromptSet(name="sub", prompts=full.prompts[:2])
+    gen = HFTextGenerator.from_bundle(bundle, batch_size=1)
+    records = run_prompt_set(gen, subset, protocol="B_sampling", run_id="r", seed=42)
+    assert len(records) == 6
+    for prompt in subset.prompts:
+        mine = [r for r in records if r.extra["prompt_id"] == prompt.id]
+        assert sorted(r.sample_index for r in mine) == [0, 1, 2]
+    assert len({r.record_id for r in records}) == 6
