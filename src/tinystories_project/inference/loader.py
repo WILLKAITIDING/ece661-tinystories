@@ -14,7 +14,8 @@ Hugging Face API on 2026-10-28, not assumed):
     NOT required and is never set by this module.
   * Weights ship as `pytorch_model.bin` only (no safetensors).
   * The tokenizer is a GPT-2 BPE with vocab 50257 and `pad_token = null`, so a
-    pad token MUST be assigned before batched generation.
+    pad token MUST be assigned before batched generation. The bundled files
+    were verified identical to `EleutherAI/gpt-neo-125M`.
   * Loading under transformers >= 5 reports `attn.attention.bias` and
     `attn.attention.masked_bias` as UNEXPECTED. Those are obsolete causal-mask
     buffers from transformers 4.28, not learned weights. Ignoring them is
@@ -30,13 +31,14 @@ from typing import Any
 import torch
 from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
 
-from tinystories_project.devices import describe_device, resolve_device
+from tinystories_project.runtime import describe_device, resolve_device
 from tinystories_project.inference.interface import ModelMetadata
 
 logger = logging.getLogger(__name__)
 
-# The checkpoints' own README recommends this tokenizer. The repos now also
-# ship identical BPE files; `verify_tokenizer_matches` checks that claim.
+# The checkpoints' own README recommends this tokenizer. The repos also ship
+# their own BPE files, verified identical to this one (vocab 50257, same ids).
+# Pass tokenizer_id=GPT_NEO_TOKENIZER_ID if a checkpoint ever ships none.
 GPT_NEO_TOKENIZER_ID = "EleutherAI/gpt-neo-125M"
 
 DTYPES: dict[str, torch.dtype] = {
@@ -230,32 +232,6 @@ def prepare_tokenizer_for_generation(tokenizer: Any) -> Any:
 
     tokenizer.padding_side = "left"
     return tokenizer
-
-
-def verify_tokenizer_matches(model_id: str, reference_id: str = GPT_NEO_TOKENIZER_ID) -> bool:
-    """Check a checkpoint's bundled tokenizer against the reference GPT-Neo one.
-
-    The upstream README says to load the tokenizer from `EleutherAI/gpt-neo-125M`
-    while the repos also ship their own files. Rather than assume they agree,
-    this encodes a probe string with both and compares the ids.
-    """
-    probe = (
-        "Once upon a time, there was a little girl named Lily. "
-        "She saw a shiny red balloon! <|endoftext|>"
-    )
-    a = AutoTokenizer.from_pretrained(model_id)
-    b = AutoTokenizer.from_pretrained(reference_id)
-    same_vocab = a.vocab_size == b.vocab_size
-    same_ids = a.encode(probe) == b.encode(probe)
-    if not (same_vocab and same_ids):
-        logger.warning(
-            "Tokenizer mismatch: %s vs %s (vocab match=%s, ids match=%s)",
-            model_id,
-            reference_id,
-            same_vocab,
-            same_ids,
-        )
-    return same_vocab and same_ids
 
 
 def _looks_like_path(model_id: str) -> bool:

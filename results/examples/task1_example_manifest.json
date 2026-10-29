@@ -1,10 +1,11 @@
 {
-  "run_id": "example-5c922ff7",
-  "created_utc": "2026-10-29T00:56:24+00:00",
+  "run_id": "example-6e4ccff7",
+  "created_utc": "2026-10-29T01:28:42+00:00",
   "config": {
     "run_name": "example",
     "seed": 42,
     "batch_size": 8,
+    "output_dir": "results/examples",
     "model": {
       "model_id": "roneneldan/TinyStories-1M",
       "tokenizer_id": null,
@@ -13,7 +14,7 @@
       "dtype": "float32"
     },
     "generation": {
-      "max_new_tokens": 150,
+      "max_new_tokens": 200,
       "temperature": 1.0,
       "top_p": 0.95,
       "top_k": null,
@@ -21,27 +22,20 @@
       "repetition_penalty": 1.0,
       "num_return_sequences": 1
     },
-    "output": {
-      "dir": "results/examples",
-      "filename": null,
-      "write_manifest": true
-    },
     "prompts": [
-      "Once upon a time, there was a little girl named Lily."
+      "Once upon a time, there was a little girl named Lily.",
+      "Once upon a time there was",
+      "Tom and Jane were playing in the park when they found a tiny blue key."
     ],
     "source_path": "/Users/jennahe/Desktop/DUKE/ECE661/FinalProject/ece661-tinystories/configs/task1.yaml"
   },
   "cli_overrides": {
     "seed": 42,
-    "run_name": "example",
-    "output.dir": "results/examples",
-    "prompts": [
-      "Once upon a time, there was a little girl named Lily."
-    ],
-    "generation.max_new_tokens": 150
+    "output_dir": "results/examples",
+    "run_name": "example"
   },
-  "git_commit": null,
-  "n_records": 1,
+  "git_commit": "ed321c61393353833d6131b18159c7c2ad822ff9",
+  "n_records": 3,
   "model": {
     "model_id": "roneneldan/TinyStories-1M",
     "architecture": "GPTNeoForCausalLM",
@@ -67,5 +61,5 @@
     "torch": "2.15.0",
     "transformers": "5.21.0"
   },
-  "records_file": "example_TinyStories-1M_20261029T005624Z.jsonl"
+  "records_file": "example_TinyStories-1M_20261029T012842Z.jsonl"
 }

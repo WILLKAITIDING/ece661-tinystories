@@ -8,7 +8,7 @@ Reproducibility, stated precisely
 ---------------------------------
 `model.generate()` takes no `torch.Generator`, so sampling is made reproducible
 by seeding global RNGs right before each batch, using a seed derived from the
-base seed and the batch index (`seeding.derive_seed`).
+base seed and the batch index (`runtime.batch_seed`).
 
 Consequence, and it is a real limitation: results are identical across runs
 given the same model, params, prompt ORDER, batch_size, device, and library
@@ -35,7 +35,7 @@ from tinystories_project.inference.loader import (
     ModelBundle,
     prepare_tokenizer_for_generation,
 )
-from tinystories_project.seeding import derive_seed, seed_everything
+from tinystories_project.runtime import batch_seed, seed_everything
 
 logger = logging.getLogger(__name__)
 
@@ -106,15 +106,11 @@ class HFTextGenerator:
         results: list[GeneratedText] = []
         for batch_index, start in enumerate(range(0, len(prompts), self.batch_size)):
             batch = prompts[start : start + self.batch_size]
-            batch_seed = (
-                derive_seed(seed, "batch", batch_index) if seed is not None else None
-            )
-            if batch_seed is not None:
-                seed_everything(batch_seed)
+            seed_this_batch = batch_seed(seed, batch_index) if seed is not None else None
+            if seed_this_batch is not None:
+                seed_everything(seed_this_batch)
             results.extend(
-                self._generate_batch(
-                    batch, params, offset=start, seed=batch_seed
-                )
+                self._generate_batch(batch, params, offset=start, seed=seed_this_batch)
             )
         return results
 

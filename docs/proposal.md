@@ -78,7 +78,7 @@ The course provides a personal API key per student with a **shared team budget o
 
 ## Not specified by the proposal
 
-The proposal does **not** fix: the exact 20 additional prompts; which specific checkpoint sizes are used for each figure; generation length for ROUGE prefixes; or the judge prompt wording. These are open decisions, to be recorded in `docs/experiment_protocol.md` as they are made.
+The proposal does **not** fix: the exact 20 additional prompts; which specific checkpoint sizes are used for each figure; generation length for ROUGE prefixes; or the judge prompt wording. These are open decisions, to be recorded here as they are made.
 
 ## References
 

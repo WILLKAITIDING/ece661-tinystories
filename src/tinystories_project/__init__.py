@@ -1,21 +1,14 @@
 """ECE 661 Team 32 - Tiny Language Models.
 
-Shared library for all three project phases. The package is deliberately split
-so that one person's work does not block another's:
+Shared library for all three project phases:
 
     inference/   generation interfaces + checkpoint loading   (Will, Phase 1)
-    evaluation/  qualitative, ROUGE, and LLM-judge scoring    (Will, Phase 1)
-    io/          on-disk record schemas and (de)serialization (shared)
-    models/      custom architectures                         (Rachel, Phase 2)
-    training/    training loops and configs                   (Rachel, Phase 2)
-    data/        corpus generation, filtering, tokenizers     (Luel, Phase 3)
+    records.py   the JSONL schema every task reads and writes (shared)
+    runtime.py   device selection and seeding                 (shared)
+    config.py    YAML experiment configs                      (shared)
 
-Only `inference` and `io` are implemented at this point (Task 1).
+Rachel's architectures and Luel's Amharic data get their own modules when that
+work starts; see CLAUDE.md for the layout and the TextGenerator contract.
 """
 
 __version__ = "0.1.0"
-
-from tinystories_project.devices import resolve_device
-from tinystories_project.seeding import seed_everything
-
-__all__ = ["__version__", "resolve_device", "seed_everything"]
