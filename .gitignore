@@ -1,0 +1,62 @@
+# ---- Secrets (NEVER commit) -------------------------------------------------
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+credentials.json
+service_account*.json
+
+# ---- Python -----------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+env/
+.python-version
+
+# ---- Testing / tooling ------------------------------------------------------
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# ---- Jupyter ----------------------------------------------------------------
+.ipynb_checkpoints/
+
+# ---- Model checkpoints & caches (large; keep out of Git) --------------------
+checkpoints/
+*.pt
+*.bin
+*.safetensors
+*.ckpt
+*.gguf
+.cache/
+hf_cache/
+wandb/
+
+# ---- Datasets (large; regenerate or download instead) -----------------------
+data/raw/
+data/processed/
+data/interim/
+*.arrow
+*.parquet
+
+# ---- Generated results ------------------------------------------------------
+# Results are reproducible outputs. Everything under results/ is ignored EXCEPT
+# small, deliberately curated examples under results/examples/ (see docs/).
+results/*
+!results/.gitkeep
+!results/examples/
+!results/examples/**
+
+# ---- OS / editor ------------------------------------------------------------
+.DS_Store
+.vscode/*
+!.vscode/settings.json.example
+.idea/

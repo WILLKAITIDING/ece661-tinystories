@@ -1,0 +1,58 @@
+# Task 1 - load an official TinyStories checkpoint and generate a story.
+#
+# Run with:  python scripts/run_task1.py --config configs/task1.yaml
+# Override:  python scripts/run_task1.py --config configs/task1.yaml --model-id roneneldan/TinyStories-33M
+#
+# Everything here is recorded in the output manifest, so a run is replayable.
+
+run_name: task1_baseline
+seed: 42
+batch_size: 8
+
+model:
+  # Verified 2026-10-28 against the Hugging Face API: GPTNeoForCausalLM,
+  # public, ungated, fine-tuned from EleutherAI/gpt-neo-125M.
+  # Measured size: 3,745,984 params total / 398,464 non-embedding.
+  # Other verified options: TinyStories-3M, -8M, -28M, -33M,
+  #   -1Layer-21M, -2Layers-33M, and the TinyStories-Instruct-* variants.
+  model_id: roneneldan/TinyStories-1M
+
+  # null -> use the checkpoint's own tokenizer files.
+  # The upstream README instead recommends "EleutherAI/gpt-neo-125M"; the two
+  # are verified equivalent by tests/test_loader_integration.py.
+  tokenizer_id: null
+
+  # Pin a commit SHA here for a strictly reproducible run. null = latest main.
+  revision: null
+
+  # auto -> cuda, else mps (Apple Silicon), else cpu. Never hardcode cuda.
+  device: auto
+
+  # These checkpoints are stored in float32 and are tiny; reduced precision
+  # would only make results harder to compare across machines.
+  dtype: float32
+
+generation:
+  # Proposal settings for the judge pass are temperature 1.0 with 10
+  # completions per prompt. Task 1 keeps 1 completion for a fast check;
+  # num_return_sequences is raised to 10 in Task 4.
+  max_new_tokens: 200
+  temperature: 1.0
+  top_p: 0.95
+  top_k: null
+  do_sample: true
+  repetition_penalty: 1.0
+  num_return_sequences: 1
+
+prompts:
+  # The prompt named in the Task 1 brief.
+  - "Once upon a time, there was a little girl named Lily."
+  # The prompt used in the official checkpoint README, for direct comparison.
+  - "Once upon a time there was"
+  # A mid-story prompt: checks the model continues rather than restarts.
+  - "Tom and Jane were playing in the park when they found a tiny blue key."
+
+output:
+  dir: results/task1
+  filename: null        # auto: <run_name>_<model>_<timestamp>.jsonl
+  write_manifest: true

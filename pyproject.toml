@@ -1,0 +1,47 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tinystories-project"
+version = "0.1.0"
+description = "ECE 661 Team 32 - Tiny Language Models: architecture exploration and cross-lingual transfer to Amharic"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [
+    { name = "Will Ding" },
+    { name = "Rachel Odonkor" },
+    { name = "Luel Hagos" },
+]
+
+# Task 1 runtime dependencies ONLY. Anything needed by a later task belongs in
+# an optional-dependency group below so nobody installs 2 GB they do not use.
+dependencies = [
+    "torch>=2.2",
+    "transformers>=4.40",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+notebook = ["ipykernel>=6.29"]
+
+# --- NOT INSTALLED YET. Documented so later tasks are a one-line install. ---
+# Task 3 (ROUGE, Section 4.4.1 / Figures 14-17)
+eval = ["rouge-score>=0.1.2", "datasets>=2.19", "matplotlib>=3.8", "pandas>=2.2"]
+# Task 4 (Gemini judge via the OpenAI-compatible course proxy)
+judge = ["openai>=1.30", "tenacity>=8.3", "python-dotenv>=1.0"]
+# Phase 2 (Rachel) / Phase 3 (Luel)
+training = ["accelerate>=0.30", "datasets>=2.19", "sentencepiece>=0.2", "wandb>=0.17"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Real-network / real-checkpoint tests are opt-in: `pytest -m integration`
+markers = [
+    "integration: requires downloading a real checkpoint from the Hugging Face Hub",
+]
+addopts = "-m 'not integration' --strict-markers -q"
