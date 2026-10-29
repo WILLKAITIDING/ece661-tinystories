@@ -1,0 +1,35 @@
+figure,split,model,metric,n,mean,median,p25,p75,min,max,frac_never_in_corpus,median_frequency_g_r
+14,train,TinyStories-1Layer-21M,rouge2_precision_vs_original,100,0.142165,0.126603,0.089585,0.18007,0.0,0.47619,,
+14,train,TinyStories-1M,rouge2_precision_vs_original,100,0.13139,0.120586,0.074671,0.164394,0.0,0.416667,,
+14,train,TinyStories-33M,rouge2_precision_vs_original,100,0.164833,0.156923,0.093026,0.215344,0.019417,0.413793,,
+14,train,TinyStories-8M,rouge2_precision_vs_original,100,0.16051,0.128388,0.092172,0.201724,0.030303,0.454545,,
+14,validation,TinyStories-1Layer-21M,rouge2_precision_vs_original,100,0.146064,0.118082,0.083333,0.175517,0.0,1.0,,
+14,validation,TinyStories-1M,rouge2_precision_vs_original,100,0.145448,0.129521,0.075354,0.195955,0.0,0.5,,
+14,validation,TinyStories-33M,rouge2_precision_vs_original,100,0.167123,0.156087,0.094705,0.231158,0.0,0.474576,,
+14,validation,TinyStories-8M,rouge2_precision_vs_original,100,0.158553,0.131482,0.077825,0.2,0.0,0.818182,,
+15,train,DATASET (real continuations),max_rouge2_f_vs_other_generations,100,0.091116,0.08916,0.076611,0.108434,0.039474,0.13253,,
+15,train,TinyStories-1Layer-21M,max_rouge2_f_vs_other_generations,100,0.156496,0.153908,0.129249,0.181818,0.04878,0.246154,,
+15,train,TinyStories-1M,max_rouge2_f_vs_other_generations,100,0.268996,0.25641,0.221667,0.305586,0.080808,0.545455,,
+15,train,TinyStories-33M,max_rouge2_f_vs_other_generations,100,0.138716,0.136403,0.114853,0.155681,0.060837,0.274112,,
+15,train,TinyStories-8M,max_rouge2_f_vs_other_generations,100,0.158174,0.148148,0.118816,0.183673,0.067114,0.35443,,
+15,validation,DATASET (real continuations),max_rouge2_f_vs_other_generations,100,0.096268,0.090703,0.07674,0.111749,0.046693,0.197368,,
+15,validation,TinyStories-1Layer-21M,max_rouge2_f_vs_other_generations,100,0.170233,0.170272,0.124898,0.201908,0.0,0.360656,,
+15,validation,TinyStories-1M,max_rouge2_f_vs_other_generations,100,0.277994,0.283208,0.226103,0.319011,0.0,0.624113,,
+15,validation,TinyStories-33M,max_rouge2_f_vs_other_generations,100,0.141825,0.14019,0.109451,0.170797,0.0,0.255319,,
+15,validation,TinyStories-8M,max_rouge2_f_vs_other_generations,100,0.161774,0.150973,0.125993,0.182165,0.0,0.350515,,
+16,train,TinyStories-1Layer-21M,occurrences_per_generated_2gram_in_corpus,6948,143512.305,33622,,,0,1957022,0.00331,8.987308443353885e-05
+16,train,TinyStories-1M,occurrences_per_generated_2gram_in_corpus,5451,174637.475,61981,,,0,1957022,0.002018,0.00016567793844135303
+16,train,TinyStories-33M,occurrences_per_generated_2gram_in_corpus,7952,130898.985,26646,,,0,1957022,0.002515,7.122592968342384e-05
+16,train,TinyStories-8M,occurrences_per_generated_2gram_in_corpus,7361,139907.599,33684,,,0,1957022,0.002853,9.003881315981568e-05
+16,validation,TinyStories-1Layer-21M,occurrences_per_generated_2gram_in_corpus,6393,146669.43,35629,,,0,1957022,0.001408,9.523788368575801e-05
+16,validation,TinyStories-1M,occurrences_per_generated_2gram_in_corpus,4724,181770.792,66292,,,0,1957022,0.00254,0.00017720143100553678
+16,validation,TinyStories-33M,occurrences_per_generated_2gram_in_corpus,7700,129575.824,27269,,,0,1957022,0.001688,7.289123607810871e-05
+16,validation,TinyStories-8M,occurrences_per_generated_2gram_in_corpus,6869,147917.991,36105,,,0,1957022,0.002038,9.651025261652847e-05
+17,train,TinyStories-1Layer-21M,max_rouge2_precision_vs_corpus,100,0.413717,0.38936,0.337648,0.466484,0.25,0.8,,
+17,train,TinyStories-1M,max_rouge2_precision_vs_corpus,100,0.485864,0.464815,0.408792,0.551393,0.291139,1.0,,
+17,train,TinyStories-33M,max_rouge2_precision_vs_corpus,100,0.366648,0.354497,0.320929,0.416667,0.225806,0.531915,,
+17,train,TinyStories-8M,max_rouge2_precision_vs_corpus,100,0.391059,0.389033,0.320246,0.438781,0.25,0.689655,,
+17,validation,TinyStories-1Layer-21M,max_rouge2_precision_vs_corpus,100,0.432535,0.405951,0.356985,0.492925,0.0,1.0,,
+17,validation,TinyStories-1M,max_rouge2_precision_vs_corpus,100,0.521908,0.484974,0.444048,0.556202,0.0,1.0,,
+17,validation,TinyStories-33M,max_rouge2_precision_vs_corpus,100,0.393374,0.364935,0.318071,0.445971,0.0,0.866667,,
+17,validation,TinyStories-8M,max_rouge2_precision_vs_corpus,100,0.426846,0.394103,0.339478,0.473137,0.0,1.0,,

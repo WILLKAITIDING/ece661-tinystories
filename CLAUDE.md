@@ -37,14 +37,14 @@ seeds give different ids. Prompts must be unique within a config (enforced in
 
 ## Status
 
-**Task 1 is done. Tasks 2–4 and Phases 2–3 are not started — do not implement
+**Tasks 1–3 are done. Task 4 and Phases 2–3 are not started — do not implement
 them speculatively.**
 
 | Task | Owner | Status |
 |---|---|---|
 | 1 — Load checkpoint, generate, save JSONL | Will | **Done** |
 | 2 — Figures 9–11 + 20 new prompts | Will | **Done** |
-| 3 — ROUGE (Section 4.4.1, Figures 14–17) | Will | Not started |
+| 3 — ROUGE (Section 4.4.1, Figures 14–17) | Will | **Done** |
 | 4 — Gemini judge | Will | Not started |
 | Phase 2 / Phase 3 | Rachel / Luel | Not started |
 
@@ -53,6 +53,7 @@ them speculatively.**
 ```
 configs/task1.yaml       Task 1 settings (never hardcode these in code)
 configs/task2.yaml       Task 2: models, protocols, prompt sets
+configs/task3.yaml       Task 3: dataset, sampling, ROUGE run
 data/prompts/            paper_figures_9_11.json (24), custom_20.json (20)
 data/reference/          the PAPER's own completions + verdicts (not ours)
 data/annotations/        task2_final.csv - the final Task 2 labels
@@ -62,6 +63,8 @@ results/                 git-ignored except results/examples/
 scripts/run_task1.py     Task 1 CLI runner
 scripts/run_task2.py     Task 2 runner (one model at a time, resumable)
 scripts/make_task2_tables.py   comparison tables, annotation CSV, figures
+scripts/run_task3.py     Task 3 runner (samples prefixes, generates)
+scripts/make_task3_tables.py   Figures 14-17 (caches the corpus scan)
 scripts/extract_paper_figures.py   rebuilds the prompt files from the PDF
 src/tinystories_project/
   config.py              YAML -> dataclasses; paths resolve to project root
@@ -76,6 +79,8 @@ src/tinystories_project/
     prompts.py           EvalPrompt, PromptSet, load_prompt_set
     qualitative.py       PROTOCOLS, run_prompt_set, answer_span
     annotations.py       load_annotations, accuracy, provenance
+    rouge.py             Section 4.4.1 measures + scan_corpus
+    corpus.py            TinyStories parquet loading / streaming
 tests/                   test_core, test_generation, test_records, test_task2,
                          test_integration
 ```
@@ -152,7 +157,7 @@ Amharic SentencePiece vocab (4K/8K) is far smaller than GPT-Neo's 50,257.
 ## Testing
 
 ```bash
-pytest                   # 120 unit tests, offline, tiny random model, ~3 s
+pytest                   # 152 unit tests, offline, tiny random model, ~3 s
 pytest -m integration    # 12 tests against real checkpoints
 ```
 
@@ -190,6 +195,25 @@ download or test fails, say so plainly and leave the code ready to retry.
   accuracy. The keyword proxy in the consistency CSV is a heuristic only.
 - Comparing our accuracy to the paper's colours mixes a model difference with a
   judge difference. Report it as a trend check, not a measured delta.
+
+## Task 3 facts (established 2026-10-29)
+
+- Section 4.4.1 defines its OWN quantities; this is not generic ROUGE. `R_k,p`
+  is over k-gram **SETS**, and the f-measure is the harmonic mean of the two
+  precisions. The paper has a typo there (`R_k` where `R_k,p` is meant).
+- The four figures measure different things — see `rouge.py`. Figures 14, 15, 17
+  are Rouge-2; Figure 16 is a normalised corpus frequency `g_r`, which is a term
+  frequency (occurrences), not a document frequency.
+- Figures 16/17 are defined over the whole corpus but do NOT need 800 x 2.12M
+  comparisons: `scan_corpus()` indexes only the generated k-grams and makes one
+  pass. It is verified against brute force in `tests/test_task3.py` — keep that
+  test if you touch it.
+- The corpus pass takes ~10 min and is cached in
+  `results/task3/analysis/corpus_scan_cache.json`, keyed to the generations and
+  corpus files. Delete it to force a rescan.
+- The paper does not state a temperature for 4.4.1. We use **greedy**: strictest
+  memorisation test and reproducible. Say so when reporting.
+- Result: train-minus-validation is ~0 on every model, i.e. no memorisation.
 
 ## Security and budget — hard rules
 

@@ -26,6 +26,15 @@ python scripts/run_task2.py --config configs/task2.yaml
 python scripts/make_task2_tables.py      # tables, annotation CSV, figures
 ```
 
+Task 3 (Section 4.4.1 ROUGE replication, ~16 min to generate + ~10 min to scan
+the corpus; downloads ~1 GB of TinyStories data):
+
+```bash
+pip install -e ".[task3,analysis]"
+python scripts/run_task3.py --config configs/task3.yaml
+python scripts/make_task3_tables.py --config configs/task3.yaml
+```
+
 Runs on CUDA, Apple Silicon (MPS), or CPU — resolved at runtime, never hardcoded.
 Developed on an M1 Pro using MPS.
 
@@ -54,7 +63,7 @@ See [`notebooks/task1_demo.ipynb`](notebooks/task1_demo.ipynb).
 |---|---|---|
 | 1 — Load checkpoint, generate, save | Will | ✅ **Done** |
 | 2 — Figures 9–11 + 20 new prompts | Will | ✅ **Done** |
-| 3 — ROUGE (Section 4.4.1, Figures 14–17) | Will | ⬜ Not started |
+| 3 — ROUGE (Section 4.4.1, Figures 14–17) | Will | ✅ **Done** |
 | 4 — Gemini judge | Will | ⬜ Not started |
 | Phase 2 — architecture exploration | Rachel | ⬜ Not started |
 | Phase 3 — Amharic transfer | Luel | ⬜ Not started |
@@ -139,6 +148,28 @@ checkpoints, datasets, `.env`, or API keys — `.gitignore` covers these, and
 `.env.example` holds placeholder names only. Don't refactor a teammate's module
 to suit your own; raise it at the weekly sync instead.
 
+## Task 3 at a glance
+
+Section 4.4.1's four measures, implemented from the paper's formulas rather
+than as generic ROUGE. 100 story prefixes per split (train and validation),
+cut at 40%, completed greedily by the same four checkpoints.
+
+| measure | what it asks | result |
+|---|---|---|
+| Fig 14 | is the generation inside the real ending? | mean 0.13–0.17 |
+| Fig 15 | are the 100 generations alike? | 1M 0.27 → 33M 0.14; real stories 0.09 |
+| Fig 16 | how common are the generated 2-grams? | ~0.2% occur nowhere in the corpus |
+| Fig 17 | closest story in the whole corpus | mean 0.37–0.52 |
+
+**Train minus validation is ≈0 or negative on every model and both measures**,
+so the models do not reproduce training prefixes more faithfully than unseen
+ones — the memorisation control, which the paper does not run.
+
+Figures 16 and 17 are defined over the entire 2.12 M-story corpus. Rather than
+the naive 800 × 2.12 M comparisons, we index only the ~20 k k-grams the models
+generated and make **one streaming pass**, verified against a brute-force
+implementation in the tests.
+
 ## Output format
 
 One JSONL line per completion (schema v2.0), documented in
@@ -154,7 +185,7 @@ Other verified checkpoint facts are in [`CLAUDE.md`](CLAUDE.md).
 ## Testing
 
 ```bash
-pytest                   # 120 unit tests, offline, ~3 s
+pytest                   # 152 unit tests, offline, ~3 s
 pytest -m integration    # 12 tests against real checkpoints
 ```
 

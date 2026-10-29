@@ -1,0 +1,56 @@
+# Task 3 - quantitative replication of Section 4.4.1 / Figures 14-17.
+#
+#   python scripts/run_task3.py       --config configs/task3.yaml
+#   python scripts/make_task3_tables.py
+#
+# Section 4.4.1: pick 100 stories from the training set, keep roughly the first
+# 40% as a prompt, generate a completion, then measure four things (see
+# src/tinystories_project/evaluation/rouge.py).
+
+run_name: task3
+output_dir: results/task3
+device: auto
+dtype: float32
+seed: 42
+batch_size: 1
+
+dataset:
+  repo_id: roneneldan/TinyStories
+  # The default parquet config of the dataset the checkpoints were trained on.
+  # We cannot verify which exact snapshot each checkpoint saw; see the Task 3
+  # limitations in the summary.
+  train_files:
+    - data/train-00000-of-00004-2d5a1467fff1081b.parquet
+    - data/train-00001-of-00004-5852b56a2bd28fd9.parquet
+    - data/train-00002-of-00004-a26307300439e943.parquet
+    - data/train-00003-of-00004-d243063613e5a057.parquet
+  validation_files:
+    - data/validation-00000-of-00001-869c898b519ad725.parquet
+
+sampling:
+  n_stories: 100          # the paper's count
+  prompt_fraction: 0.4    # "keeping roughly the first 40%"
+  min_words: 60           # so a 40% prompt is a usable amount of text
+  # The paper runs this on the TRAINING set (it is a memorisation test). We add
+  # validation as a control: the models never trained on those prefixes.
+  splits: [train, validation]
+
+generation:
+  # Section 4.4.1 does not state a temperature. We use greedy decoding because
+  # it is deterministic (so the replication is reproducible) and because it is
+  # the STRICTEST memorisation test: if a model had memorised the story, greedy
+  # is when it would reproduce it. Sampling could only lower the overlap, so our
+  # "not memorising" conclusion is the conservative one.
+  max_new_tokens: 200
+  do_sample: false
+  num_return_sequences: 1
+
+models:
+  - model_id: roneneldan/TinyStories-1M
+    figure_column: "1M/8L"
+  - model_id: roneneldan/TinyStories-8M
+    figure_column: "8.3M/8L"
+  - model_id: roneneldan/TinyStories-33M
+    figure_column: "33M/4L"
+  - model_id: roneneldan/TinyStories-1Layer-21M
+    figure_column: "21M/1L"

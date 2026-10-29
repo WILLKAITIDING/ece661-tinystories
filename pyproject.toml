@@ -32,9 +32,11 @@ notebook = ["ipykernel>=6.29"]
 # extracted prompt files are committed, so most people never need it.
 analysis = ["matplotlib>=3.8", "pymupdf>=1.24"]
 
+# Task 3: reads the TinyStories corpus (pyarrow) and cross-checks our ROUGE
+# implementation against the common package (rouge-score, used in tests only).
+task3 = ["pyarrow>=15.0", "rouge-score>=0.1.2"]
+
 # --- NOT INSTALLED YET. Documented so later tasks are a one-line install. ---
-# Task 3 (ROUGE, Section 4.4.1 / Figures 14-17)
-eval = ["rouge-score>=0.1.2", "datasets>=2.19", "pandas>=2.2"]
 # Task 4 (Gemini judge via the OpenAI-compatible course proxy)
 judge = ["openai>=1.30", "tenacity>=8.3", "python-dotenv>=1.0"]
 # Phase 2 (Rachel) / Phase 3 (Luel)
