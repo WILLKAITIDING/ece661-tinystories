@@ -55,6 +55,7 @@ configs/task1.yaml       Task 1 settings (never hardcode these in code)
 configs/task2.yaml       Task 2: models, protocols, prompt sets
 data/prompts/            paper_figures_9_11.json (24), custom_20.json (20)
 data/reference/          the PAPER's own completions + verdicts (not ours)
+data/annotations/        task2_final.csv - the final Task 2 labels
 docs/proposal.md         authoritative scope
 notebooks/               thin demos only — logic belongs in src/
 results/                 git-ignored except results/examples/
@@ -74,6 +75,7 @@ src/tinystories_project/
   evaluation/
     prompts.py           EvalPrompt, PromptSet, load_prompt_set
     qualitative.py       PROTOCOLS, run_prompt_set, answer_span
+    annotations.py       load_annotations, accuracy, provenance
 tests/                   test_core, test_generation, test_records, test_task2,
                          test_integration
 ```
@@ -150,7 +152,7 @@ Amharic SentencePiece vocab (4K/8K) is far smaller than GPT-Neo's 50,257.
 ## Testing
 
 ```bash
-pytest                   # 111 unit tests, offline, tiny random model, ~2 s
+pytest                   # 120 unit tests, offline, tiny random model, ~3 s
 pytest -m integration    # 12 tests against real checkpoints
 ```
 
@@ -176,9 +178,18 @@ download or test fails, say so plainly and leave the code ready to retry.
   batch_size 1 vs 8). Most likely hardware/library drift since 2023, plus
   hand-truncation in the figures. Claim reproduction of the **trend**, never of
   the text.
-- The lexical screen in `make_task2_tables.py` is a keyword heuristic, **not** a
-  quality judgement, and `annotation_template.csv` is **unlabelled**. Never
-  present either as human ratings.
+- **Final labels live in `data/annotations/task2_final.csv`** (176 rows; 82
+  correct / 25 partial / 69 incorrect). They were **drafted by an AI assistant
+  and reviewed by Will**, who overrode 9 and accepted 167. Always describe them
+  as *human-reviewed AI drafts*, never as independent human annotation — the
+  course requires disclosing AI assistance. `AnnotationSet.provenance()` recomputes
+  the split; do not hardcode it.
+- Do **not** re-label or overwrite those annotations. `make_task2_tables.py`
+  validates every record_id against the generations and fails loudly on drift.
+- Protocol B (528 sampled completions) is **unlabelled**; never report it as
+  accuracy. The keyword proxy in the consistency CSV is a heuristic only.
+- Comparing our accuracy to the paper's colours mixes a model difference with a
+  judge difference. Report it as a trend check, not a measured delta.
 
 ## Security and budget — hard rules
 

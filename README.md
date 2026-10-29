@@ -81,19 +81,25 @@ across four checkpoints under two protocols: **A** greedy, reproducing the
 paper's zero-temperature setting, and **B** three sampled completions per prompt
 at T=1.0 / top-p 0.95, answering whether output is *consistently* good.
 
-A conservative lexical screen over the 39 prompts with an unambiguous expected
-word (protocol A) shows the paper's size trend clearly:
+All 176 greedy completions were labelled correct / partial / incorrect, the
+same three-way scheme the paper colour-codes with. **Strict accuracy
+(correct / 44):**
 
-| checkpoint | layers | hidden | factual | reasoning | context | overall |
+| checkpoint | layers | hidden | factual | reasoning | context | **overall** |
 |---|---:|---:|---:|---:|---:|---:|
-| TinyStories-1M | 8 | 64 | 5/15 | 2/13 | 3/11 | **10/39** |
-| TinyStories-8M | 8 | 256 | 9/15 | 7/13 | 5/11 | **21/39** |
-| TinyStories-33M | 4 | 768 | 12/15 | 9/13 | 7/11 | **28/39** |
-| TinyStories-1Layer-21M | 1 | 1024 | 9/15 | 5/13 | 4/11 | **18/39** |
+| TinyStories-1M | 8 | 64 | 38% | 6% | 17% | **20%** |
+| TinyStories-8M | 8 | 256 | 62% | 56% | 42% | **55%** |
+| TinyStories-33M | 4 | 768 | 88% | 62% | 67% | **73%** |
+| TinyStories-1Layer-21M | 1 | 1024 | 56% | 31% | 25% | **39%** |
 
-That screen is a keyword heuristic, **not** a quality judgement:
-`results/task2/analysis/annotation_template.csv` is the unlabelled template for
-human rating. See [`results/examples/task2/`](results/examples/task2/).
+Accuracy rises monotonically with size, and the shallow-but-wide model shows
+the largest factual-minus-context gap (+31 pts vs +21 for every deeper model) —
+the width/depth dissociation of Section 4.2.
+
+Those labels were **drafted by an AI assistant and reviewed by Will**, who
+overrode 9 and accepted 167 — human-reviewed AI drafts, not independent human
+annotation. Details in [`data/annotations/`](data/annotations/); result tables
+in [`results/examples/task2/`](results/examples/task2/).
 
 ## Using your own model with this pipeline
 
@@ -148,7 +154,7 @@ Other verified checkpoint facts are in [`CLAUDE.md`](CLAUDE.md).
 ## Testing
 
 ```bash
-pytest                   # 111 unit tests, offline, ~2 s
+pytest                   # 120 unit tests, offline, ~3 s
 pytest -m integration    # 12 tests against real checkpoints
 ```
 

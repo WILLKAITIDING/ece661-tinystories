@@ -363,3 +363,83 @@ def test_paper_prompt_text_is_not_silently_rewritten():
     entry = next(e for e in data["prompts"] if e["id"] == "fig10_02")
     # Capital "Banana" is in the paper; it must not be "corrected".
     assert "her Banana so" in entry["text"]
+
+
+# --- final annotations ----------------------------------------------------
+
+ANNOTATIONS = ROOT / "data" / "annotations" / "task2_final.csv"
+
+
+def test_final_annotations_load_with_the_expected_counts():
+    from tinystories_project.evaluation.annotations import load_annotations
+    ann = load_annotations(ANNOTATIONS)
+    assert len(ann) == 176
+    assert ann.counts() == {"correct": 82, "partial": 25, "incorrect": 69}
+
+
+def test_final_annotation_record_ids_are_unique():
+    from tinystories_project.evaluation.annotations import load_annotations
+    ann = load_annotations(ANNOTATIONS)
+    assert len({a.record_id for a in ann}) == 176
+
+
+def test_annotation_provenance_is_recoverable():
+    """The report must be able to state how many labels a human changed."""
+    from tinystories_project.evaluation.annotations import load_annotations
+    prov = load_annotations(ANNOTATIONS).provenance()
+    assert prov["n_total"] == 176
+    assert prov["n_human_overrides"] == 9
+    assert prov["n_accepted_ai_drafts"] == 167
+    assert prov["annotators"] == ["Will"]
+
+
+def test_annotations_cover_exactly_the_greedy_records():
+    """Guards against labels drifting out of sync with the generations."""
+    from tinystories_project.evaluation.annotations import load_annotations
+    from tinystories_project.records import read_jsonl
+    greedy_dir = ROOT / "results" / "task2" / "A_greedy"
+    if not greedy_dir.exists():
+        pytest.skip("Task 2 generations not present; run scripts/run_task2.py")
+    ids = [r.record_id for f in greedy_dir.glob("*.jsonl") for r in read_jsonl(f)]
+    load_annotations(ANNOTATIONS).validate_against(ids)   # raises on mismatch
+
+
+def test_validate_against_rejects_a_mismatch():
+    from tinystories_project.evaluation.annotations import load_annotations
+    ann = load_annotations(ANNOTATIONS)
+    with pytest.raises(ValueError, match="do not match"):
+        ann.validate_against(["r_not_a_real_record"])
+
+
+def test_empty_label_is_rejected(tmp_path):
+    """An unfinished annotation file must fail loudly, not score as 0."""
+    from tinystories_project.evaluation.annotations import load_annotations
+    p = tmp_path / "part.csv"
+    p.write_text("record_id,label,annotator,notes\nr_1,correct,W,\nr_2,,W,\n",
+                 encoding="utf-8")
+    with pytest.raises(ValueError, match="empty label"):
+        load_annotations(p)
+
+
+def test_invalid_label_value_is_rejected(tmp_path):
+    from tinystories_project.evaluation.annotations import load_annotations
+    p = tmp_path / "bad.csv"
+    p.write_text("record_id,label\nr_1,greatish\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="not one of"):
+        load_annotations(p)
+
+
+def test_accuracy_maths():
+    from tinystories_project.evaluation.annotations import accuracy
+    a = accuracy(["correct", "correct", "partial", "incorrect"])
+    assert a["n"] == 4 and a["correct"] == 2
+    assert a["strict"] == 0.5
+    assert a["lenient"] == 0.625           # partial counts half
+    assert a["partial_rate"] == 0.25
+    assert accuracy([])["strict"] is None
+
+
+def test_ambiguous_is_excluded_from_the_denominator():
+    from tinystories_project.evaluation.annotations import accuracy
+    a = accuracy(["correct", "ambiguous", "incorrect"])
+    assert a["n"] == 2 and a["strict"] == 0.5

@@ -1,0 +1,5 @@
+model,figure_column,layers,hidden,n_params_total,n_params_non_embedding,n,correct,partial,incorrect,strict_accuracy,lenient_accuracy,partial_rate
+TinyStories-1M,1M/8L,8,64,3745984,398464,44,9,6,29,0.2045,0.2727,0.1364
+TinyStories-8M,8.3M/8L,8,256,19702528,6312448,44,24,6,14,0.5455,0.6136,0.1364
+TinyStories-33M,33M/4L,4,768,68514048,28343808,44,32,6,6,0.7273,0.7955,0.1364
+TinyStories-1Layer-21M,21M/1L,1,1024,66155520,12595200,44,17,7,20,0.3864,0.4659,0.1591

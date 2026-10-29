@@ -1,0 +1,725 @@
+record_id,model,figure_column,protocol,prompt_id,category,origin,prompt,expected,answer_span,full_completion,label,annotator,notes
+r_8de8d884282d50df,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_fact_01,factual,team32,"Tom left his ice cream outside in the hot sun. After a little while, the ice cream started to",Says it melted / started to melt or drip.,melt.,"melt. Tom was sad, but he knew he had to go back inside. He went back to his house and told his mom about the ice cream.
+
+His mom said, ""Don't worry, Tom. We can get you a new ice cream."" Tom smiled and felt better. He",correct,Will,"AI draft rationale: ""melt"" correctly predicts ice cream melting in the hot sun."
+r_94629b2029b068c8,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_fact_02,factual,team32,"The room was dark, so Lucy wanted to make it bright. She walked over and turned on the","A light, lamp, or light switch.",light.,"light.
+
+Lucy saw a big, bright light in the room. She walked closer and saw a little light. The light was so bright that it made the room bright. Lucy smiled and said, ""Hello, Lucy! I made the light come to see you!""
+
+The light",correct,Will,"AI draft rationale: ""light"" directly identifies the switchable light source."
+r_b62c423f8cc92c7d,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_fact_03,factual,team32,Ben ran and ran until he was very thirsty. He went inside and drank a big glass of,"A drink: water, milk, or juice.",water.,"water. He felt much better and was happy to be safe.
+
+But then, something unexpected happened. A big storm came and the wind blew very hard. The glass fell and broke into many pieces. Ben was very sad and scared. He wished he had listened to his mom and stayed inside",correct,Will,"AI draft rationale: ""water"" is an appropriate drink for thirst."
+r_e938fd6fb0acf7dc,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_fact_04,factual,team32,"The little duck lived beside a pond. When she wanted to get to the other side of the water, she began to",Says she swam / began to swim (paddling is acceptable).,swim.,"swim.
+
+The little duck was so excited to see the water. She swam and swam, and soon she was in the water. She was so happy to be swimming with her friends.
+
+The little duck was so happy to see her friends. She swam and swam",correct,Will,"AI draft rationale: ""swim"" is the appropriate way for a duck to cross water."
+r_e7449c4d18dfdaeb,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_fact_05,factual,team32,Mia looked up at the sky late at night. She saw the big round moon and lots of tiny,Stars.,stars.,"stars. She smiled and said, ""I love the moon!""
+
+Mia's mommy smiled back and said, ""You're so brave, Mia. You're so brave!""
+
+Mia was so proud of herself. She hugged her mommy and said, ""I love you",correct,Will,"AI draft rationale: ""stars"" matches the night-sky fact."
+r_31f568f6ecdbb0ad,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_fact_06,factual,team32,"Dad looked out and said it was raining hard. Before Sam went outside, he picked up his","Umbrella, raincoat, or boots.",umbrella and opened it.,"umbrella and opened it. He was so excited to go out and play.
+
+Sam ran outside and started to play. He ran around and laughed. He was having so much fun. He was so happy he was having a great time.
+
+But then it started to rain. Sam was",correct,Will,"AI draft rationale: ""umbrella"" is appropriate protection in rain."
+r_3415d2c3d385f342,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_fact_07,factual,team32,It got very cold in the winter. The water in the pond outside slowly turned into,Ice (frozen / froze is acceptable).,a big puddle.,"a big puddle. The water was so cold that it made the water freeze.
+
+The little fish was so happy that it swam around the pond. The little fish was happy too because it had found a new friend. From that day on, the little fish and the big fish played",incorrect,Will,"AI draft rationale: ""a big puddle"" is liquid water, not ice; a later mention of freezing does not repair the immediate answer."
+r_cacc7137349709d7,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_reas_01,reasoning,team32,"Ben forgot to close the window before the big storm. When he came back to his room, the floor by the window was all",Wet (or covered in water / soaked).,wet.,"wet. He was sad and didn't know what to do.
+
+Then, something unexpected happened. The storm stopped, and the sun came out. The sun came out, and the storm went away. Ben was happy again. He learned that sometimes, unexpected things can happen, but it's",correct,Will,"AI draft rationale: ""wet"" correctly follows an open window during a storm."
+r_594df57eb2072cb8,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_reas_02,reasoning,team32,"There were three hats on the shelf: a red one, a blue one, and a green one. Anna did not like red and she did not like green, so she picked the",The blue hat.,red one.,"red one.
+
+""Look, Mommy, I found a green hat!"" Anna said, holding up a green hat.
+
+Mommy looked at the hat and smiled. ""That is a very nice hat, Anna. But it is also very special. It is a green hat with",incorrect,Will,"AI draft rationale: ""red one"" directly violates Anna's stated dislike of red."
+r_82c6706d6b6e9d30,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_reas_03,reasoning,team32,Sara had only one coin. The apple cost one coin and the big toy cost three coins. Sara looked at both and bought the,The apple (the only affordable item).,toy.,"toy. She was very happy.
+
+""Thank you, Sara,"" the toy said. ""You are very kind. I will buy you a new toy.""
+
+Sara smiled and hugged her mom. She was happy too. She loved her new toy. She played with it all day",incorrect,Will,"AI draft rationale: ""toy"" costs three coins, but Sara has only one."
+r_5da8faf465c5c0f5,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_reas_04,reasoning,team32,"Every morning Max brushed his teeth first and ate after that. This morning, as soon as Max finished brushing his teeth, he sat down to eat his",Breakfast (or a breakfast food).,breakfast.,"breakfast.
+
+One day, Max's friend, a little bird named Lily, came to visit him. ""Hi Max!"" said Lily. ""Do you want to play with me?"" Max wagged his tail and barked happily.
+
+Lily and Max played together all day. They",correct,Will,"AI draft rationale: ""breakfast"" is the morning meal after brushing teeth."
+r_3cf7c1e6214b94eb,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_reas_05,reasoning,team32,"Lily was carrying a full glass of milk much too fast, and then she tripped on a toy. The milk",Spilled / fell / went everywhere.,spilled all over the floor and made a big mess.,"spilled all over the floor and made a big mess. Lily's mommy came in and saw the mess. She was not happy.
+
+""Lily, you need to be more careful,"" her mommy said. ""You need to be more careful next time.""
+
+Lily felt",correct,Will,"AI draft rationale: ""spilled"" correctly follows stumbling with a full glass."
+r_633e4e7c17f964e3,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_reas_06,reasoning,team32,"It was freezing outside. Tom had a thin coat and a thick coat. He wanted to stay as warm as he could, so he put on the",The thick coat.,coat.,"coat.
+
+Tom went outside and saw his friend, Sam. Sam said, ""Hi, Sam! What are you doing?"" Sam said, ""I am going to freeze my coat. I want to go outside and play."" Tom said, ""I want to play too!""
+
+Sam",partial,Will,"AI draft rationale: ""coat"" omits the essential thick-versus-thin choice."
+r_894a54b240b23ed3,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_reas_07,reasoning,team32,Pip the puppy was very afraid of deep water. His friends ran to the lake and asked Pip to jump in with them. Pip said,"A refusal: no, or that he is scared and will not jump in.",", ""I can't swim, I'm too scared.""",", ""I can't swim, I'm too scared.""
+
+Pip said, ""Don't worry, Pip. I'll help you."" Pip flew up to the top of the water and saw a big fish. Pip said, ""I can help you, Pip. I'll fly up",correct,Will,"AI draft rationale: ""I can't swim, I'm too scared"" clearly refuses the lake invitation because of fear."
+r_b5d29a82b5aa65f1,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_ctx_01,context,team32,Nina and her brother Leo went to the park. Nina brought a red ball and Leo brought a blue kite. Leo ran across the grass to fly his,The kite (blue kite).,kite.,"kite. He was so excited to play with it.
+
+Nina and Leo started to play. They ran around the park, chasing each other and laughing. They had so much fun.
+
+Suddenly, a big gust of wind came and blew the kite away. Nina and Leo",correct,Will,"AI draft rationale: ""kite"" belongs to Leo and is what he would fly."
+r_61cb148388d239d0,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_ctx_02,context,team32,Sam had a toy car and his sister Ella had a toy train. Sam gave his toy car to Ella. Now Ella had her toy train and also a,The toy car.,toy car.,"toy car. They all played together and had fun.
+
+Ella and Sam became good friends. They learned that sharing and helping each other made them happy. And they lived happily ever after.",correct,Will,"AI draft rationale: ""toy car"" is the additional item Ella received from Sam."
+r_608805c71a1a75ee,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_ctx_03,context,team32,"Mom put the cookies in a tin on the top shelf, and she put the bread in a bag on the table. Ben wanted a cookie, so he went straight to the",The tin / the top shelf (not the table or the bread).,table.,"table. He reached for the bread, but he was too short. He tried to grab the bread, but he was too short. He felt sad and angry.
+
+""Mom, I want the bread!"" he shouted. ""It's not fair!""
+
+Mom heard Ben and came to",incorrect,Will,"AI draft rationale: ""table"" is where bread is, not the cookies on the top shelf."
+r_67d1d8ab31f18da0,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_ctx_04,context,team32,The cup on the table was full of juice. Rosa picked it up and drank every last drop. Now the cup was,Empty.,full of juice.,"full of juice.
+
+Rosa was so happy that she had found the juice. She thanked the cup and went back to her room. She was so excited to have a new juice.",incorrect,Will,"AI draft rationale: ""full of juice"" contradicts drinking every last drop."
+r_fc297cdd4bb239d2,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_ctx_05,context,team32,"On the farm there were three animals: a cow named Bella, a pig named Pip, and a duck named Dot. One of them said ""quack"", and it was",Dot (the duck).,very nice.,"very nice.
+
+Bella and Dot became good friends. They played together every day. One day, they found a big box. They opened it and found a lot of toys inside. They were very happy and played with the toys all day.
+
+But then, something unexpected happened.",incorrect,Will,"AI draft rationale: ""very nice"" gives no identification of Dot as the quacking duck."
+r_4ff8ec6f24253c1b,TinyStories-1Layer-21M,21M/1L,A_greedy,cust_ctx_06,context,team32,"Jon put on his yellow coat and his friend Ana put on her purple coat, and they played in the snow all afternoon. When it was time to go home, Jon could not find his","His yellow coat (yellow, not purple).",coat.,"coat. He was sad and he looked everywhere.
+
+Jon's mom saw him looking sad and asked him what was wrong. Jon told her he was sad because he couldn't find his coat. His mom hugged him and said, ""Don't worry Jonny, we'll find your coat.""",partial,Will,"AI draft rationale: ""coat"" recalls the object but not Jon's yellow color needed to distinguish it from Ana's purple one."
+r_cc2093b901bc20b6,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_01,factual,paper,Alice was so tired when she got back home so she went,Says she went to bed / to sleep.,straight to bed.,"straight to bed. She was so tired that she fell asleep right away.
+
+The next morning, Alice woke up feeling refreshed and ready to start her day. She was so happy that she had been able to start her day.",correct,Will,"AI draft rationale: ""straight to bed"" appropriately follows being very tired."
+r_04ca2718f2f27682,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_02,factual,paper,"Jack and Lily saw a rainbow after a rainy day. They were amazed by the colors. Jack said, ""Look, Lily. A rainbow has","Mentions many colours, or lists rainbow colours.","a pretty color.""","a pretty color."" Lily said, ""Yes, it's so pretty.""
+
+Suddenly, the rainbow started to move. It was a magic rainbow! Lily and Jack were so happy. They watched the rainbow until it disappeared. Then, they went back to playing in the park.",partial,Will,"AI draft rationale: ""a pretty color"" recognizes color but fails to state the multiple colors of a rainbow."
+r_b430f53a6ec070a8,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_03,factual,paper,"Jack and Lily liked to watch the moon at night. They noticed that the moon changed its shape every night. Sometimes the moon was big and round, and sometimes it was","A contrasting shape: small, thin, crescent, a sliver.",scary.,"scary.
+
+One night, Lily had a dream that she was a brave princess who loved to explore. She went to the moon and found a big, round rock that looked like a star. She tried to count the rocks, but it was too hard. She felt sad and wanted to give",incorrect,Will,"AI draft rationale: ""scary"" is not a contrasting moon phase or shape."
+r_5e4f1dd41bc6ccbd,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_04,factual,paper,"Jack wanted to read a book, so he went to","A library, bookshelf, bookstore, or somewhere to read.",the store and bought a new one.,"the store and bought a new one. He was so excited to read it!
+
+When Jack got home, he opened the book and started to read. He read about a magical dragon and then he saw a dragon. Jack was so happy and he read the book all night long.",correct,Will,AI draft rationale: Going to a store to buy a book is a plausible way to obtain a book for reading; acceptable as bookstore-like alternative.
+r_1ff107a245eb0b71,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_05,factual,paper,"""Can cows fly?"", Alice asked her mother.","A negative answer: no, cows can't fly.","""Yes, of course,"" her mother replied.","""Yes, of course,"" her mother replied.
+
+Alice was so excited. She ran to the barn and started to feed the cows. She was so happy to see them.
+
+Alice and her mother watched as the cows ate the hay. She was so happy to see them",incorrect,Will,"AI draft rationale: ""Yes, of course"" wrongly implies cows can fly."
+r_d30db1e0319af0f0,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_06,factual,paper,"""What do birds like to eat?"", Tom asked his mother.","Names a plausible bird food: worms, bugs, seeds, berries.","""Well, you can have a snack, but you must be careful not to get it yourself,"" his mother said.","""Well, you can have a snack, but you must be careful not to get it yourself,"" his mother said.
+
+Tom was so excited. He ran to the kitchen and grabbed a big bowl. He filled it with water and started to pour it into the bowl.",incorrect,Will,"AI draft rationale: The mother tells Tom he can have a snack, not what birds eat."
+r_a6124adab9471596,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_07,factual,paper,"""What language do they speak in France?"", Tom asked his mother",French.,".
+
+""The language is very important,"" replied his mother.",".
+
+""The language is very important,"" replied his mother.
+
+Tom was amazed. He wanted to learn more about the language. He asked his mother if he could learn it too.
+
+""Yes, you can,"" said his mother. ""But first, let's go to",incorrect,Will,AI draft rationale: The response discusses language generally but never identifies French.
+r_c1a7a71f4a5c1a47,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_08,factual,paper,"If I throw a ball up in the air, eventually it will",Says it will come / fall down.,"be like a big bird!""","be like a big bird!""
+
+The little bird was very happy and said, ""Yes, I will be your friend!""
+
+The little bird and the big bird played together every day. They were very happy and had lots of fun.
+
+One day, the big bird said,",incorrect,Will,"AI draft rationale: ""be like a big bird"" is not the ball falling back down."
+r_7ec85b01454797ae,TinyStories-1Layer-21M,21M/1L,A_greedy,fig9_09,factual,paper,"It was winter and cold outside so his mother told him, ""You should",Advice to wear warm clothing or stay warm.,"wear your coat, Timmy.","wear your coat, Timmy. It's too cold outside.""
+
+Timmy didn't want to wear his coat, but he knew his mother was right. So, he put on his coat and went outside to play. He saw his friends playing in the snow and he wanted to join them",correct,Will,"AI draft rationale: ""wear your coat"" is suitable advice for cold winter weather."
+r_95a858bdee1b4054,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_01,reasoning,paper,"Lily likes cats and dogs. She asked her mom for a dog and her mom said no, so instead she asked","Asks a different person such as her dad, or asks for a different pet.",her mom if she could pet the dog.,"her mom if she could pet the dog. Her mom said yes, but warned her to be careful.
+
+Lily went outside to play with the dog. She saw a boy playing with a ball and wanted to play too. She asked the boy if she could play with the ball, but",incorrect,Will,User override of AI draft label (partial -> incorrect); no additional rationale supplied.
+r_efe38c41ce687ffa,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_02,reasoning,paper,"Jack told Mary, ""If you give me your banana, I'll give you my apple"". Mary gave Jack her Banana so",Jack gives Mary the apple in return.,she could have a banana.,"she could have a banana.
+
+Jack was so happy and said, ""Thank you, Mary! You are so kind"". Mary smiled and said, ""You're welcome, Jack. I'm glad I could help you.""
+
+Jack and Mary became good friends. They played together every day",incorrect,Will,"AI draft rationale: ""she could have a banana"" does not state Jack giving Mary the promised apple; it also confuses who has the banana."
+r_cb2fe18571a17ead,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_03,reasoning,paper,"On weekends Jack went to visit his grandmother whereas on weekdays he would go to school. Last weekend, when Jack was on his way to","Going to his grandmother's, not to school.","school, he saw a big, beautiful flower.","school, he saw a big, beautiful flower. He was so excited to see it!
+
+When Jack arrived, he saw the flower and he was so happy. He ran to his teacher and said, ""Look, teacher! I got a flower!"" His teacher smiled and said, ""That",incorrect,Will,"AI draft rationale: ""school"" contradicts the stated weekend rule."
+r_2b3816461e608e2a,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_04,reasoning,paper,Lily and Ben were having an argument. Ben said that cake is much better than ice cream and Lily said that,Lily argues ice cream is better than cake.,she was a good sister and that they should share their ice cream.,"she was a good sister and that they should share their ice cream. They said that they could each have a different flavor and that they could both have.
+
+Lily and Ben were happy and they hugged each other. They said that they were sorry for being mean and that they could have different",incorrect,Will,User override of AI draft label (partial -> incorrect); no additional rationale supplied.
+r_cb7933b237713551,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_05,reasoning,paper,"Lily and Ben are having an argument. They are trying to decide between the park and the swimming pool. Ben says, ""I want to go to the park"". Lily says","Lily wants the swimming pool, not the park.","""No, I want to stay here.","""No, I want to stay here. It is my turn. You can't go in the water. It is too cold and wet. You will get sick.""
+
+Lily and Ben are sad. They don't want to go to the pool. They want to stay in the pool",partial,Will,"AI draft rationale: Lily rejects Ben's choice, but does not select the swimming pool or the alternative asked for."
+r_e829dad1f31cadde,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_06,reasoning,paper,"Jack's mother was not home, and his father was at home. When Jack came home, he said hello to",He greets his father.,Jack and asked him about his day.,"Jack and asked him about his day. Jack told his mother about the big, white bird. His mother smiled and said, ""That sounds like a wonderful idea. You can be a very clever boy.""
+
+Jack was so excited and he ran to the living room. He saw the white bird",incorrect,Will,"AI draft rationale: ""Jack"" cannot be the person Jack greets at home; his father was home."
+r_ccffc5ac894d761d,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_07,reasoning,paper,"Lily doesn't like swimming. When her father wants to take her to the swimming pool, she says",Lily refuses / says no.,", ""No, I don't want to swim in the pool.",", ""No, I don't want to swim in the pool. I want to swim like a fish."" Her father says, ""But you can't swim, Lily. You have to swim with the fish. It's not safe.""
+
+Lily is sad. She wants to swim like",correct,Will,"AI draft rationale: ""No, I don't want to swim in the pool"" explicitly refuses the swim."
+r_61af1226dcfe4989,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_08,reasoning,paper,Both Ben and Lily wanted cake. Father said that there was only one piece of cake left. They,"A plausible consequence: they argue, fight, or agree to share.","both wanted to eat it, but they knew they had to wait until after dinner.","both wanted to eat it, but they knew they had to wait until after dinner.
+
+Lily and Ben were sad, but they knew they had to listen to their parents. They waited and waited, but they did not come. They started to feel sad and angry. They did not know",partial,Will,"AI draft rationale: Waiting until after dinner is a plausible outcome, but does not resolve the one-piece-of-cake conflict stated in the prompt."
+r_695f7e90cf5969e0,TinyStories-1Layer-21M,21M/1L,A_greedy,fig10_09,reasoning,paper,"Ben went to visit Lily in her house, but she was not at home. Ben knocked on the door,",No one answers the door.,and Lily opened it.,"and Lily opened it. She saw Ben and smiled. ""Hi, Ben! Do you want to play with me?"" she asked.
+
+Ben nodded and said, ""Yes, please. I want to play with you."" Lily said, ""Okay, let's play. But first, you",incorrect,Will,"AI draft rationale: ""Lily opened it"" directly contradicts that Lily was not at home."
+r_77fa1c70537a87aa,TinyStories-1Layer-21M,21M/1L,A_greedy,fig11_01,context,paper,"""Hi Jane, have you seen Alice? I can't find her anywhere"", said Jack.",Jane answers Jack about Alice; roles are not swapped.,"""I'm looking for my toy car,"" said Jack.","""I'm looking for my toy car,"" said Jack.
+
+Alice was very sad. She wanted to help Jack find his car.
+
+""Let's look for it together,"" said Alice.
+
+Jack and Alice searched the park. They looked under the trees and behind the",incorrect,Will,AI draft rationale: Jack starts talking about his own toy car instead of Jane answering his question about Alice; speaker roles are derailed.
+r_4c9c9a2bdbce05c4,TinyStories-1Layer-21M,21M/1L,A_greedy,fig11_02,context,paper,"Max had two dogs. One was white and the other was black. Max walked up the street and saw a kid with a dog. He told the kid, ""I see you have a Brown dog. I also have",Says two dogs (optionally white and black).,"a black dog like you.""","a black dog like you.""
+
+The black dog wagged his tail and licked the boy's hand. Max was happy to see the boy and the black dog. He said, ""Thank you, Max. You are a good dog.""
+
+Max barked and wagged his tail",partial,Will,"AI draft rationale: ""a black dog"" remembers a dog/color but fails to report the stated total of two dogs."
+r_cff07899789fe5a2,TinyStories-1Layer-21M,21M/1L,A_greedy,fig11_03,context,paper,"Anne had a piece of candy in her left pocket and a piece of chocolate in her right pocket. Anne's mom asked her, ""Anne, what is that you have in your left pocket?""",Candy (not chocolate).,"Anne was so excited and said, ""Yes, I found it!""","Anne was so excited and said, ""Yes, I found it!""
+Anne's mom smiled and said, ""That's great! Now let's go home and have some more candy.""
+Anne was so happy and she ran to the park to play. She had a great time and was",incorrect,Will,"AI draft rationale: Anne's ""Yes, I found it!"" does not identify the candy in the left pocket."
+r_452d89276ef2dce2,TinyStories-1Layer-21M,21M/1L,A_greedy,fig11_04,context,paper,Alice had both an apple and a carrot in her bag. She took the apple out of the bag and gave it to Jack. She reached into the bag again and took,The carrot.,a big bite.,"a big bite. It was delicious!
+
+Alice was so happy that she had found the apple. She thanked Jack for his help and they both enjoyed the delicious apple together.",incorrect,Will,"AI draft rationale: ""a big bite"" does not identify the carrot remaining in the bag."
+r_1471d5023770f88d,TinyStories-1Layer-21M,21M/1L,A_greedy,fig11_05,context,paper,"Alice and Jack walked up the street and met a girl in a red dress. The girl said to them, ""Hi, I'm Jane. What are your names?""","Gives Alice and/or Jack, not 'Jane'.","Jack said, ""I'm Jack.","Jack said, ""I'm Jack. I like to dress up in my red dress.""
+
+Jane smiled and said, ""That's nice. Can I try it on?""
+
+Jack said, ""Sure! Let's go!""
+
+So Jane and Jack went to the store",correct,Will,"AI draft rationale: Jack identifies himself as ""Jack"", one of the two people Jane asked to name themselves; matches the stated criterion."
+r_7c44c26c25acb09b,TinyStories-1Layer-21M,21M/1L,A_greedy,fig11_06,context,paper,"Diva was hungry, and wanted to bake a cake, but she didn't have any sugar at home, so she decided to go ask around. She started walking and met a squirrel. She asked the squirrel, ""Would you happen",Continues into asking for sugar.,"to help me bake a cake?""","to help me bake a cake?""
+
+The squirrel was so excited and said, ""Yes, please!"" So, the squirrel helped her measure the sugar and they became good friends.
+
+But then, something unexpected happened. The cake started to grow bigger and bigger! The squirrel was surprised and",partial,Will,"AI draft rationale: Requests help baking a cake rather than sugar, so it stays on topic but misses the needed ingredient."
+r_cd12ce8361973a4c,TinyStories-1M,1M/8L,A_greedy,cust_fact_01,factual,team32,"Tom left his ice cream outside in the hot sun. After a little while, the ice cream started to",Says it melted / started to melt or drip.,melt.,"melt. Tom was so happy that he had been able to get the ice cream.
+
+Tom's mom saw him and said, ""Tom, you're so proud of you for taking the ice cream. You are so kind and helpful."" Tom smiled and said, ""Thank you, Mom!""",correct,Will,"AI draft rationale: ""melt"" correctly predicts the effect of hot sunlight on ice cream."
+r_148a771ceec681a8,TinyStories-1M,1M/8L,A_greedy,cust_fact_02,factual,team32,"The room was dark, so Lucy wanted to make it bright. She walked over and turned on the","A light, lamp, or light switch.",door.,"door. She saw a big, shiny box. She was so excited. She ran to the box and opened it. Inside was a big, shiny box. Lucy was so excited. She opened the box and found a big box. Inside was a big box. Lucy was so excited. She opened",incorrect,Will,"AI draft rationale: ""door"" does not make a dark room bright by being turned on."
+r_3a0aeff7eda331ac,TinyStories-1M,1M/8L,A_greedy,cust_fact_03,factual,team32,Ben ran and ran until he was very thirsty. He went inside and drank a big glass of,"A drink: water, milk, or juice.",water.,"water. He was so happy and happy.
+
+But then, he saw a big, scary dog. The dog was barking and running away. Ben was scared and ran away. He ran to the dog and tried to run away. The dog was scared and ran away.
+
+Ben saw",correct,Will,"AI draft rationale: ""water"" is a valid drink after running."
+r_f9b704c61efd548e,TinyStories-1M,1M/8L,A_greedy,cust_fact_04,factual,team32,"The little duck lived beside a pond. When she wanted to get to the other side of the water, she began to",Says she swam / began to swim (paddling is acceptable).,swim around.,"swim around. She was so excited to see the pond.
+
+The little duck swam around the pond, looking for something to eat. Suddenly, she heard a voice. It was a little girl. She was so excited to see the duck.
+
+The little girl said, ""Hello",correct,Will,"AI draft rationale: ""swim around"" identifies the duck's relevant swimming behavior, even though direction is not specified."
+r_8416f42a469a6d00,TinyStories-1M,1M/8L,A_greedy,cust_fact_05,factual,team32,Mia looked up at the sky late at night. She saw the big round moon and lots of tiny,Stars.,clouds.,clouds. She was so happy that she had been able to play with her friends.,incorrect,Will,"AI draft rationale: ""clouds"" fails the target of stars; clouds may occur at night but are not the specific tiny lights suggested here."
+r_48d504b31b8db767,TinyStories-1M,1M/8L,A_greedy,cust_fact_06,factual,team32,"Dad looked out and said it was raining hard. Before Sam went outside, he picked up his","Umbrella, raincoat, or boots.",shoes and ran outside.,"shoes and ran outside. He was so happy and he ran outside to play.
+
+When he got to the park, he saw a big puddle. He ran to the puddle and started to jump. He jumped and jumped, and jumped until he was tired. He ran back to his",incorrect,Will,"AI draft rationale: ""shoes"" does not specify rain-protective boots, raincoat or umbrella; ordinary shoes do not answer the rain-protection criterion."
+r_6403cd0622c0894f,TinyStories-1M,1M/8L,A_greedy,cust_fact_07,factual,team32,It got very cold in the winter. The water in the pond outside slowly turned into,Ice (frozen / froze is acceptable).,the water.,"the water.
+
+The duck was so happy to have a new friend. They played together all day long. They had a great time.",incorrect,Will,"AI draft rationale: ""the water"" does not describe the water freezing into ice."
+r_2c9ca6afbc8f533d,TinyStories-1M,1M/8L,A_greedy,cust_reas_01,reasoning,team32,"Ben forgot to close the window before the big storm. When he came back to his room, the floor by the window was all",Wet (or covered in water / soaked).,gone.,"gone.
+
+""Thank you, Ben!"" Lily said. ""You are a good friend!""
+
+""You're welcome, Ben!"" Ben said. ""You're welcome, Lily. You're my best friend.""
+
+They played together and had a lot of fun. They were happy",incorrect,Will,"AI draft rationale: ""gone"" does not state the expected wet floor after rain entered the window."
+r_376cea0159b5ec16,TinyStories-1M,1M/8L,A_greedy,cust_reas_02,reasoning,team32,"There were three hats on the shelf: a red one, a blue one, and a green one. Anna did not like red and she did not like green, so she picked the",The blue hat.,blue one.,"blue one.
+
+One day, Anna went to the park with her mom. She saw a big slide and wanted to slide down the slide. She ran to the slide and started to slide down. She slid down the slide and slid down the slide. She felt the wind in her hair and",correct,Will,"AI draft rationale: ""blue one"" correctly eliminates red and green hats."
+r_3266753a99783f22,TinyStories-1M,1M/8L,A_greedy,cust_reas_03,reasoning,team32,Sara had only one coin. The apple cost one coin and the big toy cost three coins. Sara looked at both and bought the,The apple (the only affordable item).,coin.,"coin. She was very happy and thanked Sara.
+
+Sara was happy that she had a new friend. She had a new friend. She was a good friend. She was a good friend.",incorrect,Will,"AI draft rationale: ""coin"" is neither purchasable item; the apple is the affordable choice."
+r_5916895a092b3924,TinyStories-1M,1M/8L,A_greedy,cust_reas_04,reasoning,team32,"Every morning Max brushed his teeth first and ate after that. This morning, as soon as Max finished brushing his teeth, he sat down to eat his",Breakfast (or a breakfast food).,favorite snack.,"favorite snack.
+
+Max was so happy that he had made a new friend. He was so happy that he had been able to eat his snack. Max was so happy that he had made a new friend.",partial,Will,"AI draft rationale: ""favorite snack"" is a plausible morning food but does not establish breakfast or a breakfast item."
+r_1ee7edb08e0912c1,TinyStories-1M,1M/8L,A_greedy,cust_reas_05,reasoning,team32,"Lily was carrying a full glass of milk much too fast, and then she tripped on a toy. The milk",Spilled / fell / went everywhere.,was very hot and it was too hot.,"was very hot and it was too hot. Lily was sad and cried.
+
+Her mom came and saw what happened. She said, ""Lily, what are you doing? You have to clean up the mess. You have to clean up the mess."" Lily said, ""I'm sorry",incorrect,Will,"AI draft rationale: ""was very hot"" does not say the milk spilled after Lily tripped."
+r_28591e3a022e905e,TinyStories-1M,1M/8L,A_greedy,cust_reas_06,reasoning,team32,"It was freezing outside. Tom had a thin coat and a thick coat. He wanted to stay as warm as he could, so he put on the",The thick coat.,coat and coat.,"coat and coat.
+
+Tom was so happy. He ran to the snowman and put it in his coat. He said, ""Thank you, Tom! You are a good friend!""
+
+Tom smiled and said, ""You're welcome, Tom. You're welcome. I'm glad",partial,Will,"AI draft rationale: ""coat and coat"" recognizes the clothing category but does not distinguish thick from thin."
+r_a7c04361ca737bf8,TinyStories-1M,1M/8L,A_greedy,cust_reas_07,reasoning,team32,Pip the puppy was very afraid of deep water. His friends ran to the lake and asked Pip to jump in with them. Pip said,"A refusal: no, or that he is scared and will not jump in.",", ""I'm scared of you, I'm scared of you.",", ""I'm scared of you, I'm scared of you. I'm just playing with you.""
+
+Pip was very happy and said, ""I'm glad you're safe and you are safe. I will be your friend.""
+
+Pip felt happy and proud of himself.",incorrect,Will,User override of AI draft label (partial -> incorrect); no additional rationale supplied.
+r_7be0e4b07c73a0c5,TinyStories-1M,1M/8L,A_greedy,cust_ctx_01,context,team32,Nina and her brother Leo went to the park. Nina brought a red ball and Leo brought a blue kite. Leo ran across the grass to fly his,The kite (blue kite).,kite.,"kite.
+
+""Look, Mia, a kite!"" Leo said. ""It's so pretty!""
+
+Mia smiled and said, ""Yes, Leo! Let's go!""
+
+They ran to the kite and started to fly. They flew high and low, but",correct,Will,"AI draft rationale: ""kite"" is Leo's item to fly."
+r_ece090a6d6f02dc2,TinyStories-1M,1M/8L,A_greedy,cust_ctx_02,context,team32,Sam had a toy car and his sister Ella had a toy train. Sam gave his toy car to Ella. Now Ella had her toy train and also a,The toy car.,toy car.,"toy car. It was a big, red car. It was a big car. It was a big car. It was a big car. It was a car. It was a car. It had a car. It had a car. It had a car. It had a car. It",correct,Will,"AI draft rationale: ""toy car"" correctly tracks the transfer to Ella."
+r_1d7c1f87ed49c37d,TinyStories-1M,1M/8L,A_greedy,cust_ctx_03,context,team32,"Mom put the cookies in a tin on the top shelf, and she put the bread in a bag on the table. Ben wanted a cookie, so he went straight to the",The tin / the top shelf (not the table or the bread).,table.,"table. He saw a big, red cookie on the table. He wanted to eat it. He ran to the table and grabbed the cookie. He ate it and ate it. He was very happy.
+
+But then, he saw a big dog. The dog was barking and running towards the",incorrect,Will,"AI draft rationale: ""table"" incorrectly treats the bread location as the cookie location."
+r_387b6049f3f03b7e,TinyStories-1M,1M/8L,A_greedy,cust_ctx_04,context,team32,The cup on the table was full of juice. Rosa picked it up and drank every last drop. Now the cup was,Empty.,very sweet and yummy.,"very sweet and yummy.
+
+Rosa was so happy. She had made a new friend. She was so happy to have a new friend.",incorrect,Will,"AI draft rationale: ""very sweet and yummy"" describes juice, not an empty cup after drinking it all."
+r_b35fe08152789168,TinyStories-1M,1M/8L,A_greedy,cust_ctx_05,context,team32,"On the farm there were three animals: a cow named Bella, a pig named Pip, and a duck named Dot. One of them said ""quack"", and it was",Dot (the duck).,very happy.,"very happy.
+
+""Hi, Dilly!"" said Dilly. ""Do you want to play with me?""
+
+""Yes, please!"" said Dilly. ""I want to play with you!""
+
+So, they played together and had lots of fun. They had so much",incorrect,Will,"AI draft rationale: ""very happy"" fails to identify Dot as the quacking duck."
+r_e4fab8115583e02e,TinyStories-1M,1M/8L,A_greedy,cust_ctx_06,context,team32,"Jon put on his yellow coat and his friend Ana put on her purple coat, and they played in the snow all afternoon. When it was time to go home, Jon could not find his","His yellow coat (yellow, not purple).",coat.,"coat. He was so happy and he ran to his mom and said, ""Mommy, I'm so glad I had a coat!""
+
+His mom smiled and said, ""That's a great idea, Jon. Let's go and play together!""
+
+Jon and his mommy went",partial,Will,"AI draft rationale: ""coat"" tracks Jon's lost object but not the identifying color yellow."
+r_026c72a81a780bc9,TinyStories-1M,1M/8L,A_greedy,fig9_01,factual,paper,Alice was so tired when she got back home so she went,Says she went to bed / to sleep.,to bed.,to bed. She was so happy and she was so happy to have her new friend.,correct,Will,"AI draft rationale: ""to bed"" is correct for tired Alice."
+r_fb5805de73873977,TinyStories-1M,1M/8L,A_greedy,fig9_02,factual,paper,"Jack and Lily saw a rainbow after a rainy day. They were amazed by the colors. Jack said, ""Look, Lily. A rainbow has","Mentions many colours, or lists rainbow colours.","a rainbow!""","a rainbow!"" Lily said, ""Yes, it is so pretty!"" They both laughed and played together all day.",partial,Will,User override of AI draft label (incorrect -> partial); no additional rationale supplied.
+r_031508f52960f9bf,TinyStories-1M,1M/8L,A_greedy,fig9_03,factual,paper,"Jack and Lily liked to watch the moon at night. They noticed that the moon changed its shape every night. Sometimes the moon was big and round, and sometimes it was","A contrasting shape: small, thin, crescent, a sliver.",too big and it was just a star.,"too big and it was just a star.
+
+One day, the moon was very big and the moon was very big and strong. Lily and Lily were so happy and excited to see the moon. They played together and had lots of fun.
+
+After a while, they went home.",incorrect,Will,"AI draft rationale: ""too big ... a star"" contradicts the premise of smaller/different moon shapes."
+r_980b3e9496a4489f,TinyStories-1M,1M/8L,A_greedy,fig9_04,factual,paper,"Jack wanted to read a book, so he went to","A library, bookshelf, bookstore, or somewhere to read.",the library.,"the library. He saw a book about a princess and a princess. He was so happy and he wanted to read it.
+
+But then, a big dog came and tried to pull the book. The dog was scared and ran away. Jack was very sad and he didn't know what to",correct,Will,"AI draft rationale: ""the library"" is the relevant place to read/get books."
+r_19d2e8d5d06e61f0,TinyStories-1M,1M/8L,A_greedy,fig9_05,factual,paper,"""Can cows fly?"", Alice asked her mother.","A negative answer: no, cows can't fly.","""Sure, but be careful,"" her mother said.","""Sure, but be careful,"" her mother said. ""But don't be too big.""
+
+Alice was happy to have her friend. She ran to the farm and saw a big truck. She was so excited to see it. She ran to the truck and grabbed it.",incorrect,Will,"AI draft rationale: ""Sure, but be careful"" responds permissively to cow flight instead of saying cows cannot fly."
+r_1e1b3b7d77c8e16d,TinyStories-1M,1M/8L,A_greedy,fig9_06,factual,paper,"""What do birds like to eat?"", Tom asked his mother.","Names a plausible bird food: worms, bugs, seeds, berries.","""I don't know, but it's too dangerous,"" his mother said.","""I don't know, but it's too dangerous,"" his mother said.
+
+Tom was so excited. He ran to the park and saw a big tree. He wanted to climb it, but he couldn't reach it. He tried to climb it, but it was too high",incorrect,Will,"AI draft rationale: ""I don't know ... dangerous"" does not name any bird food."
+r_22f5b833b2ad36bf,TinyStories-1M,1M/8L,A_greedy,fig9_07,factual,paper,"""What language do they speak in France?"", Tom asked his mother",French.,".
+
+""They are very loud and loud,"" his mother said.",".
+
+""They are very loud and loud,"" his mother said. ""It's a very loud noise. They can't hear us. They are not happy. They are not scared anymore.""
+
+Tom and his mother looked at each other. They saw a big dog. The dog was",incorrect,Will,"AI draft rationale: The dialogue says only that ""they are very loud""; it never answers that France speaks French."
+r_fa9769be15bcde8d,TinyStories-1M,1M/8L,A_greedy,fig9_08,factual,paper,"If I throw a ball up in the air, eventually it will",Says it will come / fall down.,be fun.,"be fun.
+
+The little girl was so happy. She ran to the park and started to play. She was so happy that she had a new friend.
+
+The little girl was so happy that she had a new friend. She was so happy that she had a new friend.",incorrect,Will,"AI draft rationale: ""be fun"" gives no consequence of gravity on a thrown ball."
+r_e2baedc785e32888,TinyStories-1M,1M/8L,A_greedy,fig9_09,factual,paper,"It was winter and cold outside so his mother told him, ""You should",Advice to wear warm clothing or stay warm.,"not go outside and get wet.""","not go outside and get wet.""
+
+Timmy was sad and he didn't want to go outside. He asked his mother if he could go outside and play. His mother said, ""No, Timmy. You can't go outside and play outside.""
+
+Timmy was sad and",correct,Will,User override of AI draft label (partial -> correct); no additional rationale supplied.
+r_fc362fb455aab521,TinyStories-1M,1M/8L,A_greedy,fig10_01,reasoning,paper,"Lily likes cats and dogs. She asked her mom for a dog and her mom said no, so instead she asked","Asks a different person such as her dad, or asks for a different pet.",her to play with her.,"her to play with her. Lily was sad and didn't want to play with her mom.
+
+Her mom said, ""Lily, you need to be careful and not play with your toys. You have to be careful and not play with your toys. You have to be careful and not",incorrect,Will,"AI draft rationale: ""her to play with her"" repeats a request to her mother, with no meaningful alternative to the refused dog."
+r_55feabfbab86e309,TinyStories-1M,1M/8L,A_greedy,fig10_02,reasoning,paper,"Jack told Mary, ""If you give me your banana, I'll give you my apple"". Mary gave Jack her Banana so",Jack gives Mary the apple in return.,"he said, ""Thank you, Jack.","he said, ""Thank you, Jack. I'm glad you're happy.""
+
+Jack smiled and said, ""I'm glad you're so kind. I'm glad you're happy.""",incorrect,Will,"AI draft rationale: ""Thank you, Jack"" fails the promised exchange of Jack's apple for Mary's banana and muddles speaker identity."
+r_cb62b1726adae60e,TinyStories-1M,1M/8L,A_greedy,fig10_03,reasoning,paper,"On weekends Jack went to visit his grandmother whereas on weekdays he would go to school. Last weekend, when Jack was on his way to","Going to his grandmother's, not to school.","school, he was very excited.","school, he was very excited. He wanted to go to school and play with his grandpa.
+
+When Jack got to the school, he saw a big, shiny toy car. He was so excited to see it. He asked his grandpa if he could go to the park. His",incorrect,Will,"AI draft rationale: ""school"" violates the weekend/grandmother rule."
+r_c066ef0b3b8aaccc,TinyStories-1M,1M/8L,A_greedy,fig10_04,reasoning,paper,Lily and Ben were having an argument. Ben said that cake is much better than ice cream and Lily said that,Lily argues ice cream is better than cake.,they were going to have a picnic.,"they were going to have a picnic. They both wanted to have a picnic, but they were too busy to wait.
+
+The next day, they went to the park to play. They saw a big, red balloon. It was red and blue and had a long tail. They wanted to",incorrect,Will,AI draft rationale: A picnic has no bearing on Lily taking the opposite position in the cake-versus-ice-cream argument.
+r_64a8916033d145b7,TinyStories-1M,1M/8L,A_greedy,fig10_05,reasoning,paper,"Lily and Ben are having an argument. They are trying to decide between the park and the swimming pool. Ben says, ""I want to go to the park"". Lily says","Lily wants the swimming pool, not the park.",", ""No, Ben, you can't.",", ""No, Ben, you can't. You have to be careful. You have to be careful. You have to be careful and not to play. You have to be careful and respectful.""
+
+Ben and Ben are sad. They say, ""We are sorry, Lily. We will",partial,Will,"AI draft rationale: ""No, Ben, you can't"" opposes Ben but does not select the swimming pool; the required preference is missing."
+r_010b9f9108e085ce,TinyStories-1M,1M/8L,A_greedy,fig10_06,reasoning,paper,"Jack's mother was not home, and his father was at home. When Jack came home, he said hello to",He greets his father.,Jack and his mom.,"Jack and his mom. Jack was so happy and thanked his mother.
+
+Jack's mom said, ""Jack, you are such a good friend. You are very kind and kind."" Jack smiled and said, ""I'm glad you're so kind.""",incorrect,Will,"AI draft rationale: ""Jack and his mom"" contradicts the premise that his mother was away and does not greet his father."
+r_3f4e1004c4046544,TinyStories-1M,1M/8L,A_greedy,fig10_07,reasoning,paper,"Lily doesn't like swimming. When her father wants to take her to the swimming pool, she says",Lily refuses / says no.,", ""Lily, you can swim in the pool.",", ""Lily, you can swim in the pool. It is fun!""
+
+Lily and Ben are scared. They want to swim in the pool. They run to the pool and splash. They swim and splash and splash. They are happy.
+
+But then, they hear a",incorrect,Will,"AI draft rationale: The answer changes the speaker to ""Lily, you can swim"" and contradicts Lily's dislike rather than refusing."
+r_d896e5ee704e5b32,TinyStories-1M,1M/8L,A_greedy,fig10_08,reasoning,paper,Both Ben and Lily wanted cake. Father said that there was only one piece of cake left. They,"A plausible consequence: they argue, fight, or agree to share.",said that they had to wait for the cake to bake.,"said that they had to wait for the cake to bake.
+
+Lily and Ben did not want to wait. They wanted to make the cake look nice. They wanted to make the cake look nice. They wanted to make the cake look nice. They wanted to make the cake.",incorrect,Will,"AI draft rationale: Waiting for the cake ""to bake"" ignores the stated last piece and does not resolve the competition for it."
+r_9499fe9bd7f91a25,TinyStories-1M,1M/8L,A_greedy,fig10_09,reasoning,paper,"Ben went to visit Lily in her house, but she was not at home. Ben knocked on the door,",No one answers the door.,but it was too late.,"but it was too late. Lily was sad and angry. She wanted to play with her toys, but she was too small. She had a big smile on her face and a smile.
+
+""Ben, you are a good friend. You are my friend. You are my friend. You",incorrect,Will,"AI draft rationale: ""but it was too late"" does not establish that nobody answered the door and the rest changes the scenario."
+r_c1196748c71dd14d,TinyStories-1M,1M/8L,A_greedy,fig11_01,context,paper,"""Hi Jane, have you seen Alice? I can't find her anywhere"", said Jack.",Jane answers Jack about Alice; roles are not swapped.,Jane was so excited.,"Jane was so excited. She opened her eyes and saw a big, shiny object. It was a shiny object. Jane was so excited. She ran to her mom and said, ""Mommy, look! I found a toy!""
+
+Her mom smiled and said, ""That's",incorrect,Will,AI draft rationale: Jane becomes excited about a toy rather than addressing Jack's question about Alice.
+r_30933090b30cc57d,TinyStories-1M,1M/8L,A_greedy,fig11_02,context,paper,"Max had two dogs. One was white and the other was black. Max walked up the street and saw a kid with a dog. He told the kid, ""I see you have a Brown dog. I also have",Says two dogs (optionally white and black).,"a pet dog.""","a pet dog.""
+
+Max was scared. He wanted to pet the dog, but he was scared. He said, ""Don't be scared, Max. I will be your friend.""
+
+Max was scared. He said, ""Don't be scared, Max. I will be your",partial,Will,"AI draft rationale: ""a pet dog"" identifies a dog but loses the detail that Max has two dogs."
+r_4f7b0a9c07fa96ae,TinyStories-1M,1M/8L,A_greedy,fig11_03,context,paper,"Anne had a piece of candy in her left pocket and a piece of chocolate in her right pocket. Anne's mom asked her, ""Anne, what is that you have in your left pocket?""",Candy (not chocolate).,"Anne was so excited and said, ""I want to buy some candy!""","Anne was so excited and said, ""I want to buy some candy!""
+
+Her mom smiled and said, ""Yes, Anne. I'm so happy to buy the candy and I will buy it.""
+
+Anne was so excited and she ran to the store to buy the candy",incorrect,Will,"AI draft rationale: ""I want to buy some candy"" mentions candy but does not identify the candy already in Anne's left pocket."
+r_901f8b9ad80489ee,TinyStories-1M,1M/8L,A_greedy,fig11_04,context,paper,Alice had both an apple and a carrot in her bag. She took the apple out of the bag and gave it to Jack. She reached into the bag again and took,The carrot.,the apple.,"the apple. She was so happy!
+
+Jack was so happy that he had found the apple. He thanked the apple and went back home. He was so happy that he had found the apple and was very happy.",incorrect,Will,"AI draft rationale: ""the apple"" was already taken out and given to Jack; only the carrot should remain."
+r_da53811eefccc0be,TinyStories-1M,1M/8L,A_greedy,fig11_05,context,paper,"Alice and Jack walked up the street and met a girl in a red dress. The girl said to them, ""Hi, I'm Jane. What are your names?""","Gives Alice and/or Jack, not 'Jane'.","The girl said, ""I'm Ben.","The girl said, ""I'm Ben. I'm playing with you. I'm going to play with you.""
+
+Tom and Lucy were very happy. They played together and had lots of fun. They had a great time playing together.",incorrect,Will,AI draft rationale: The answer has the girl introducing herself as Ben instead of Alice or Jack responding with their names.
+r_30b0b5da3afb547a,TinyStories-1M,1M/8L,A_greedy,fig11_06,context,paper,"Diva was hungry, and wanted to bake a cake, but she didn't have any sugar at home, so she decided to go ask around. She started walking and met a squirrel. She asked the squirrel, ""Would you happen",Continues into asking for sugar.,"now?""","now?"" The squirrel said, ""Yes, please!""
+
+The squirrel was so happy to have found the cake. He thanked the squirrel and said, ""Thank you, I'm glad you're so kind."" The squirrel smiled and said, ""You're welcome, I'm glad you're safe",incorrect,Will,"AI draft rationale: ""now?"" does not ask the squirrel for the missing sugar."
+r_8449f74fb9ade36f,TinyStories-33M,33M/4L,A_greedy,cust_fact_01,factual,team32,"Tom left his ice cream outside in the hot sun. After a little while, the ice cream started to",Says it melted / started to melt or drip.,melt.,"melt. Tom was sad because he didn't want his ice cream to melt. He thought about what to do.
+
+Tom had an idea. He went inside and got a big bowl. He put the bowl in the freezer and waited. After a while, the ice cream started to melt.",correct,Will,"AI draft rationale: ""melt"" correctly identifies what happens to ice cream in hot sun."
+r_0a6a356cca7a8647,TinyStories-33M,33M/4L,A_greedy,cust_fact_02,factual,team32,"The room was dark, so Lucy wanted to make it bright. She walked over and turned on the","A light, lamp, or light switch.",light.,"light. She saw a big, bright light in the corner. She smiled and said, ""I'm going to make this room bright!""
+
+Lucy started to make the room brighter. She put the light in the middle and made it look like a big, bright rainbow. She was so",correct,Will,"AI draft rationale: ""light"" correctly describes making the room brighter."
+r_b2b6625aa49cd42e,TinyStories-33M,33M/4L,A_greedy,cust_fact_03,factual,team32,Ben ran and ran until he was very thirsty. He went inside and drank a big glass of,"A drink: water, milk, or juice.",water.,water. Then he went back outside and continued to play. He was so happy that he had found a way to get some water.,correct,Will,"AI draft rationale: ""water"" is appropriate for thirst."
+r_7ec18a98c269542e,TinyStories-33M,33M/4L,A_greedy,cust_fact_04,factual,team32,"The little duck lived beside a pond. When she wanted to get to the other side of the water, she began to",Says she swam / began to swim (paddling is acceptable).,swim.,"swim. She swam and swam until she reached the other side.
+
+When she got there, she saw a big, green frog. The frog said, ""Hello, little duck. What are you doing here?""
+
+The duck said, ""I wanted to get to the other",correct,Will,"AI draft rationale: ""swim"" lets the duck cross the pond."
+r_df7bd872b1a0aee1,TinyStories-33M,33M/4L,A_greedy,cust_fact_05,factual,team32,Mia looked up at the sky late at night. She saw the big round moon and lots of tiny,Stars.,stars.,"stars. She was so excited!
+
+Mia said, ""Mommy, I want to go to the moon!""
+
+Her mom smiled and said, ""Maybe one day you will, Mia. But for now, let's go home and have dinner.""
+
+Mia was so",correct,Will,"AI draft rationale: ""stars"" matches what is seen near the moon at night."
+r_cd2c19b0eb99adde,TinyStories-33M,33M/4L,A_greedy,cust_fact_06,factual,team32,"Dad looked out and said it was raining hard. Before Sam went outside, he picked up his","Umbrella, raincoat, or boots.",umbrella and opened it.,"umbrella and opened it. He was so excited to go outside and play in the rain.
+
+Sam ran outside and jumped in the puddles. He laughed and splashed around, feeling the rain on his face. He was having so much fun.
+
+Suddenly, Sam heard a loud",correct,Will,"AI draft rationale: ""umbrella"" is suitable for heavy rain."
+r_7fc0c18147853633,TinyStories-33M,33M/4L,A_greedy,cust_fact_07,factual,team32,It got very cold in the winter. The water in the pond outside slowly turned into,Ice (frozen / froze is acceptable).,ice.,"ice. The duck was so excited to see the ice that it started to swim around in circles.
+
+The duck was so happy that it started to quack and splash around in the water. It was having so much fun that it didn't notice the sun coming out.
+
+Suddenly,",correct,Will,"AI draft rationale: ""ice"" correctly identifies frozen pond water."
+r_94257db0f0884305,TinyStories-33M,33M/4L,A_greedy,cust_reas_01,reasoning,team32,"Ben forgot to close the window before the big storm. When he came back to his room, the floor by the window was all",Wet (or covered in water / soaked).,wet and slippery.,"wet and slippery. Ben slipped and fell on the floor. He hurt his head and his arm. He cried and cried.
+
+Mom heard Ben's cry and ran to his room. She saw Ben on the floor and the window. She was scared and angry. She picked up Ben and hugged",correct,Will,"AI draft rationale: ""wet and slippery"" is the expected result of storm water entering the room."
+r_6a989c143c02b727,TinyStories-33M,33M/4L,A_greedy,cust_reas_02,reasoning,team32,"There were three hats on the shelf: a red one, a blue one, and a green one. Anna did not like red and she did not like green, so she picked the",The blue hat.,green hat.,"green hat. She put it on her head and said, ""I am a princess!""
+
+Ben looked at the green hat and said, ""I want to be a pirate!"" He grabbed the green hat from Anna's head and put it on his head. He said, ""I am a",incorrect,Will,"AI draft rationale: ""green hat"" violates the explicit dislike of green; blue is the only valid choice."
+r_06921ba397e4bf73,TinyStories-33M,33M/4L,A_greedy,cust_reas_03,reasoning,team32,Sara had only one coin. The apple cost one coin and the big toy cost three coins. Sara looked at both and bought the,The apple (the only affordable item).,big toy.,"big toy. She was very happy. She hugged the big toy and said, ""Thank you, Mommy! I love my new toy!""
+
+Sara played with her big toy all day. She made the big toy dance and jump. She had so much fun with her big toy.",incorrect,Will,"AI draft rationale: ""big toy"" costs three coins and is unaffordable with only one coin."
+r_1e69d1dba7bab3e9,TinyStories-33M,33M/4L,A_greedy,cust_reas_04,reasoning,team32,"Every morning Max brushed his teeth first and ate after that. This morning, as soon as Max finished brushing his teeth, he sat down to eat his",Breakfast (or a breakfast food).,breakfast.,"breakfast.
+
+Max's mommy said, ""Max, it's time to get dressed. Let's go to the park.""
+
+Max smiled and said, ""Yes, mommy!""
+
+Max and his mommy went to the park and had a lot of fun. Max played",correct,Will,"AI draft rationale: ""breakfast"" correctly completes the morning routine."
+r_e2545e882c2265ba,TinyStories-33M,33M/4L,A_greedy,cust_reas_05,reasoning,team32,"Lily was carrying a full glass of milk much too fast, and then she tripped on a toy. The milk",Spilled / fell / went everywhere.,spilled all over her dress and the floor.,"spilled all over her dress and the floor. Lily was sad and her dress was dirty.
+
+Her mommy came to help her and said, ""Don't worry, Lily. We can clean your dress and it will be as good as new."" Lily was happy to hear that and they cleaned",correct,Will,"AI draft rationale: ""spilled"" correctly follows a trip with a full glass of milk."
+r_fb1699032272bcea,TinyStories-33M,33M/4L,A_greedy,cust_reas_06,reasoning,team32,"It was freezing outside. Tom had a thin coat and a thick coat. He wanted to stay as warm as he could, so he put on the",The thick coat.,coat and the thin coat.,"coat and the thin coat. He felt much better.
+
+Tom went outside and saw his friend, Sam. Sam was also wearing a thin coat. They both smiled and laughed. They played together in the snow and had lots of fun.
+
+When it was time to go home, Tom",partial,Will,User override of AI draft label (incorrect -> partial); no additional rationale supplied.
+r_65e54cbbc99cd6a9,TinyStories-33M,33M/4L,A_greedy,cust_reas_07,reasoning,team32,Pip the puppy was very afraid of deep water. His friends ran to the lake and asked Pip to jump in with them. Pip said,"A refusal: no, or that he is scared and will not jump in.",", ""No, I don't want to.",", ""No, I don't want to. I'm scared of the deep water.""
+
+His friends said, ""Don't be scared, Pip. We'll help you."" They all jumped in the lake and swam to the puppy. Pip was so happy that he forgot about being scared",correct,Will,"AI draft rationale: ""No, I don't want to"" plus the next sentence about fear is a clear refusal."
+r_5150c0ff062dbf77,TinyStories-33M,33M/4L,A_greedy,cust_ctx_01,context,team32,Nina and her brother Leo went to the park. Nina brought a red ball and Leo brought a blue kite. Leo ran across the grass to fly his,The kite (blue kite).,kite.,"kite.
+
+Nina watched as Leo's kite flew high in the sky. She smiled and said, ""Leo, I'm so glad you're having fun!""
+
+Leo smiled back and said, ""Me too, Nina. Me too.""
+
+Nina and",correct,Will,"AI draft rationale: ""kite"" is the blue item Leo brought and could fly."
+r_6de334d085959238,TinyStories-33M,33M/4L,A_greedy,cust_ctx_02,context,team32,Sam had a toy car and his sister Ella had a toy train. Sam gave his toy car to Ella. Now Ella had her toy train and also a,The toy car.,toy train.,"toy train. They played together and had fun.
+
+Sam and Ella were happy. They learned that sharing is good. Sharing makes everyone happy. And they lived happily ever after.",incorrect,Will,"AI draft rationale: ""toy train"" merely repeats Ella's original possession; it omits Sam's transferred car."
+r_e7fd76ffabc7ac61,TinyStories-33M,33M/4L,A_greedy,cust_ctx_03,context,team32,"Mom put the cookies in a tin on the top shelf, and she put the bread in a bag on the table. Ben wanted a cookie, so he went straight to the",The tin / the top shelf (not the table or the bread).,shelf and tried to reach the cookie.,"shelf and tried to reach the cookie. But he was too short, and he could not get it. He felt sad and angry.
+
+He saw his sister, Lily, playing with her doll. She had a doll that looked like a princess. Ben wanted to play with the doll, too",correct,Will,"AI draft rationale: ""shelf"" refers to the cookies' location (top shelf); later details do not overturn the immediate correct destination."
+r_9fbc485ca73e0d9e,TinyStories-33M,33M/4L,A_greedy,cust_ctx_04,context,team32,The cup on the table was full of juice. Rosa picked it up and drank every last drop. Now the cup was,Empty.,empty.,"empty.
+
+Rosa was so happy. She had found a way to make her cup full of juice. She smiled and went off to play.",correct,Will,"AI draft rationale: ""empty"" follows drinking every last drop."
+r_47a48080b9b01c1f,TinyStories-33M,33M/4L,A_greedy,cust_ctx_05,context,team32,"On the farm there were three animals: a cow named Bella, a pig named Pip, and a duck named Dot. One of them said ""quack"", and it was",Dot (the duck).,the perfect match.,"the perfect match.
+
+The other animals were so excited to see the perfect match. They all cheered and clapped their hands.
+
+The match was so special that it made the farm even more perfect. All the animals were so happy and they celebrated with a big party.
+
+The",incorrect,Will,"AI draft rationale: ""the perfect match"" names no animal, missing Dot the duck."
+r_ed6e682842f89246,TinyStories-33M,33M/4L,A_greedy,cust_ctx_06,context,team32,"Jon put on his yellow coat and his friend Ana put on her purple coat, and they played in the snow all afternoon. When it was time to go home, Jon could not find his","His yellow coat (yellow, not purple).",coat anywhere.,"coat anywhere. He was so sad and started to cry.
+
+Ana said, ""Don't worry Jon, we will find it. Let's look around the park and see if we can find it.""
+
+They searched and searched, but they couldn't find the coat. Suddenly,",partial,Will,"AI draft rationale: ""coat anywhere"" identifies Jon's missing coat but not the required yellow attribute."
+r_2818890e75f0292d,TinyStories-33M,33M/4L,A_greedy,fig9_01,factual,paper,Alice was so tired when she got back home so she went,Says she went to bed / to sleep.,straight to bed.,"straight to bed. She was so happy to have a nice, warm bed to sleep in.",correct,Will,"AI draft rationale: ""straight to bed"" is sensible after exhaustion."
+r_3edf8d737bc4b3ed,TinyStories-33M,33M/4L,A_greedy,fig9_02,factual,paper,"Jack and Lily saw a rainbow after a rainy day. They were amazed by the colors. Jack said, ""Look, Lily. A rainbow has","Mentions many colours, or lists rainbow colours.","come after the rain.""","come after the rain."" Lily said, ""Wow, it's so pretty!"" They watched the rainbow until it disappeared.
+
+After the rain stopped, Jack and Lily went back to playing. They saw a bird with a broken wing. Jack said, ""Oh no, the bird is hurt.",partial,Will,"AI draft rationale: ""come after the rain"" states a true rainbow association but does not answer the prompt's question about colors."
+r_4c500e8b25e8d9bf,TinyStories-33M,33M/4L,A_greedy,fig9_03,factual,paper,"Jack and Lily liked to watch the moon at night. They noticed that the moon changed its shape every night. Sometimes the moon was big and round, and sometimes it was","A contrasting shape: small, thin, crescent, a sliver.",small and thin.,"small and thin.
+
+One night, Jack and Lily saw something different. The moon was not round like the moon. It was flat and thin. It looked like a ball.
+
+""What is that?"" Jack asked.
+
+""I don't know,"" Lily said. ""Maybe",correct,Will,"AI draft rationale: ""small and thin"" supplies the contrasting moon shape."
+r_3894e4f7ef4ea4b8,TinyStories-33M,33M/4L,A_greedy,fig9_04,factual,paper,"Jack wanted to read a book, so he went to","A library, bookshelf, bookstore, or somewhere to read.",the library.,"the library. He found a book about a brave knight and he read it. He was so excited to read it!
+
+When Jack got home, he was so happy. He wanted to show his mom the book. He ran to her and said, ""Mom, look what I read!""",correct,Will,"AI draft rationale: ""the library"" is a sensible place to read a book."
+r_95810785b97b970d,TinyStories-33M,33M/4L,A_greedy,fig9_05,factual,paper,"""Can cows fly?"", Alice asked her mother.","A negative answer: no, cows can't fly.","""No, sweetheart, cows can't fly,"" her mother replied.","""No, sweetheart, cows can't fly,"" her mother replied.
+
+Alice was sad, but then she saw a cow in the field. She ran to it and said, ""Hello cow! Can I ride on your back?""
+
+The cow looked at Alice and m",correct,Will,"AI draft rationale: ""No, sweetheart, cows can't fly"" correctly states the basic fact."
+r_ffc2f26e71065c25,TinyStories-33M,33M/4L,A_greedy,fig9_06,factual,paper,"""What do birds like to eat?"", Tom asked his mother.","Names a plausible bird food: worms, bugs, seeds, berries.","""They like to eat worms,"" his mother said.","""They like to eat worms,"" his mother said.
+
+Tom was excited. He wanted to try the worms. He picked up a worm and put it in his mouth.
+
+""Yuck!"" he said. ""It tastes bad!""
+
+His mother laughed. ""That",correct,Will,"AI draft rationale: ""They like to eat worms"" correctly identifies bird food."
+r_c8c4df368434e19a,TinyStories-33M,33M/4L,A_greedy,fig9_07,factual,paper,"""What language do they speak in France?"", Tom asked his mother",French.,".
+
+""Well, Tom, it's a place where people speak different languages.",".
+
+""Well, Tom, it's a place where people speak different languages. It's called French,"" his mother explained.
+
+Tom was fascinated by the language and wanted to learn more. He asked his mother if he could go to the library and find a book about French.",partial,Will,User override of AI draft label (correct -> partial); no additional rationale supplied.
+r_f6860b973ae83530,TinyStories-33M,33M/4L,A_greedy,fig9_08,factual,paper,"If I throw a ball up in the air, eventually it will",Says it will come / fall down.,"come down.""","come down.""
+
+The little girl was so excited. She grabbed the ball and threw it up in the air. It came down and landed in the grass.
+
+The little girl was so happy. She ran to get the ball and hugged it. She said, ""Thank you, Mom",correct,Will,"AI draft rationale: ""come down"" correctly predicts the thrown ball returning under gravity."
+r_8dc192f45ccfb42b,TinyStories-33M,33M/4L,A_greedy,fig9_09,factual,paper,"It was winter and cold outside so his mother told him, ""You should",Advice to wear warm clothing or stay warm.,"stay inside today, it's too dangerous outside.""","stay inside today, it's too dangerous outside.""
+
+But Jack was determined to go out and play. He put on his coat and boots and ran outside. He saw a big tree and decided to climb it. He was so excited to be up high.
+
+But as he was climbing",correct,Will,"AI draft rationale: ""stay inside today"" is a sensible way to avoid harsh winter cold, an acceptable protective alternative to a coat."
+r_50e42d686583748e,TinyStories-33M,33M/4L,A_greedy,fig10_01,reasoning,paper,"Lily likes cats and dogs. She asked her mom for a dog and her mom said no, so instead she asked","Asks a different person such as her dad, or asks for a different pet.",her dad for a cat.,"her dad for a cat. Her dad said no, because cats are too expensive. Lily was sad, but she still loved dogs.
+
+One day, Lily saw a big sign that said ""Free Puppy"". She ran to the sign and saw a cute puppy. She wanted to pet the",correct,Will,"AI draft rationale: ""her dad for a cat"" changes both the person and the requested pet after her mother's refusal."
+r_5677a75b9c84d811,TinyStories-33M,33M/4L,A_greedy,fig10_02,reasoning,paper,"Jack told Mary, ""If you give me your banana, I'll give you my apple"". Mary gave Jack her Banana so",Jack gives Mary the apple in return.,he could give her the apple.,"he could give her the apple.
+
+Jack was so happy that he gave Mary a big hug. He said, ""Thank you for the banana, Mary. You're the best friend ever"". Mary smiled and said, ""You're welcome, Jack"".",correct,Will,"AI draft rationale: ""he could give her the apple"" correctly follows the stated trade."
+r_790f0184d530d7e4,TinyStories-33M,33M/4L,A_greedy,fig10_03,reasoning,paper,"On weekends Jack went to visit his grandmother whereas on weekdays he would go to school. Last weekend, when Jack was on his way to","Going to his grandmother's, not to school.","school, he saw a big, fat cat.","school, he saw a big, fat cat. Jack was scared and he wanted to run away, but the cat just sat there and stared at him.
+
+Jack was brave and he decided to talk to the cat. He said, ""Hello, kitty. I'm Jack. What's",incorrect,Will,"AI draft rationale: ""school"" contradicts Jack's weekend visit to grandmother."
+r_8f53dd0b4dbf617b,TinyStories-33M,33M/4L,A_greedy,fig10_04,reasoning,paper,Lily and Ben were having an argument. Ben said that cake is much better than ice cream and Lily said that,Lily argues ice cream is better than cake.,ice cream is better than cake.,"ice cream is better than cake. They both wanted to have the best cake and they started to argue.
+
+""No, cake is better!"" Lily said.
+
+""No, cake is better!"" Ben said.
+
+They raised their voices and made a lot of noise. Their mom",correct,Will,"AI draft rationale: ""ice cream is better than cake"" states Lily's opposing view."
+r_91f5265e994a51bc,TinyStories-33M,33M/4L,A_greedy,fig10_05,reasoning,paper,"Lily and Ben are having an argument. They are trying to decide between the park and the swimming pool. Ben says, ""I want to go to the park"". Lily says","Lily wants the swimming pool, not the park.",", ""No, I want to go to the pool"".",", ""No, I want to go to the pool"". They both want to go different ways.
+
+They start to yell and push each other. They are not happy. They are not having fun.
+
+Mom hears them and comes to the pool. She says, ""What is going",correct,Will,"AI draft rationale: ""No, I want to go to the pool"" states Lily's alternative choice."
+r_681350cf0e185b95,TinyStories-33M,33M/4L,A_greedy,fig10_06,reasoning,paper,"Jack's mother was not home, and his father was at home. When Jack came home, he said hello to",He greets his father.,his mother and father.,"his mother and father. His father said, ""Jack, I have something for you.""
+
+Jack was very excited. His father gave him a big box. Jack opened the box and inside was a big, shiny toy car. Jack was so happy. He said, ""Thank you, Daddy",partial,Will,"AI draft rationale: ""his mother and father"" includes the father, but also wrongly includes his mother who is not home."
+r_4d44ec0176d9281c,TinyStories-33M,33M/4L,A_greedy,fig10_07,reasoning,paper,"Lily doesn't like swimming. When her father wants to take her to the swimming pool, she says",Lily refuses / says no.,", ""No, I don't want to go.",", ""No, I don't want to go. I want to stay here.""
+
+Her father says, ""But Lily, you have to go. The water is cold and you will get sick. And you will miss the fun of the pool. Please, Lily, come with me.""",correct,Will,"AI draft rationale: ""No, I don't want to go"" clearly refuses swimming."
+r_4de9fb79f8ed2338,TinyStories-33M,33M/4L,A_greedy,fig10_08,reasoning,paper,Both Ben and Lily wanted cake. Father said that there was only one piece of cake left. They,"A plausible consequence: they argue, fight, or agree to share.",both wanted the cake.,"both wanted the cake.
+
+They started to fight. They pulled and pushed and shouted. They made a big mess. The cake fell on the floor. It was dirty and messy.
+
+Mother came in and saw the mess. She was not happy. She said that they had to clean",partial,Will,User override of AI draft label (correct -> partial); no additional rationale supplied.
+r_7d2bc90d5ab9ef2a,TinyStories-33M,33M/4L,A_greedy,fig10_09,reasoning,paper,"Ben went to visit Lily in her house, but she was not at home. Ben knocked on the door,",No one answers the door.,but no one answered.,"but no one answered. He knocked again, but still no one came. He felt sad and lonely. He wished he had a friend who liked to play with him.
+
+He decided to go to the park and look for Lily. He put on his shoes and coat and opened the door.",correct,Will,"AI draft rationale: ""but no one answered"" follows nobody being home."
+r_82928f4b857b946e,TinyStories-33M,33M/4L,A_greedy,fig11_01,context,paper,"""Hi Jane, have you seen Alice? I can't find her anywhere"", said Jack.",Jane answers Jack about Alice; roles are not swapped.,"Jane smiled and said, ""I know where she is.","Jane smiled and said, ""I know where she is. She's in the garden"".
+
+Jack ran to the garden and found Alice. He was so happy to see her.
+
+""Alice, I found you!"" said Jack.
+
+Alice smiled and said, ""Thank",correct,Will,"AI draft rationale: Jane answers Jack about Alice, indicating she knows where Alice is; roles remain correct."
+r_a8778b8a7d384aa3,TinyStories-33M,33M/4L,A_greedy,fig11_02,context,paper,"Max had two dogs. One was white and the other was black. Max walked up the street and saw a kid with a dog. He told the kid, ""I see you have a Brown dog. I also have",Says two dogs (optionally white and black).,a ball.,"a ball. Do you want to play with me and my dogs?""
+
+The kid said, ""Yes, I do. My name is Sam. What is your name?""
+
+""My name is Max. And this is my dog, Spot,"" Max said.
+
+Sam and Spot",incorrect,Will,"AI draft rationale: ""a ball"" does not report that Max owns two dogs."
+r_59275d791058ae27,TinyStories-33M,33M/4L,A_greedy,fig11_03,context,paper,"Anne had a piece of candy in her left pocket and a piece of chocolate in her right pocket. Anne's mom asked her, ""Anne, what is that you have in your left pocket?""",Candy (not chocolate).,"Anne replied, ""It's a piece of candy, Mommy.","Anne replied, ""It's a piece of candy, Mommy. It's so yummy!""
+
+Anne's mom smiled and said, ""That's great, Anne. But remember, you must always be careful with your candy. Don't eat too much or you'll get a",correct,Will,"AI draft rationale: ""It's a piece of candy"" identifies Anne's left-pocket item, not the chocolate."
+r_36671c054f2e4688,TinyStories-33M,33M/4L,A_greedy,fig11_04,context,paper,Alice had both an apple and a carrot in her bag. She took the apple out of the bag and gave it to Jack. She reached into the bag again and took,The carrot.,out the carrot.,"out the carrot. She gave it to Jack and said, ""Here you go, Jack. This is for you.""
+
+Jack took the carrot and bit into it. He smiled and said, ""Thank you, Lily. This is very yummy.""
+
+Lily smiled back and said",correct,Will,"AI draft rationale: ""out the carrot"" correctly tracks the item remaining in Alice's bag."
+r_bc091d828242247b,TinyStories-33M,33M/4L,A_greedy,fig11_05,context,paper,"Alice and Jack walked up the street and met a girl in a red dress. The girl said to them, ""Hi, I'm Jane. What are your names?""","Gives Alice and/or Jack, not 'Jane'.","Alice and Jack introduced themselves and said, ""We're Alice and Jack.","Alice and Jack introduced themselves and said, ""We're Alice and Jack. We live in the same street.""
+
+Jane smiled and said, ""That's nice. I'm Jane and this is Jack. What are you two doing here?""
+
+Alice and Jack introduced themselves and said",correct,Will,"AI draft rationale: Alice and Jack introduce themselves using the correct names, answering Jane without role swaps."
+r_730fc80097adaef9,TinyStories-33M,33M/4L,A_greedy,fig11_06,context,paper,"Diva was hungry, and wanted to bake a cake, but she didn't have any sugar at home, so she decided to go ask around. She started walking and met a squirrel. She asked the squirrel, ""Would you happen",Continues into asking for sugar.,"to have some sugar?""","to have some sugar?""
+
+The squirrel said, ""Yes, I do. I have some sugar in my pocket. Would you like some?""
+
+The kangaroo was so happy and said, ""Yes, please!""
+
+The squirrel gave the kangaroo some sugar and the",correct,Will,"AI draft rationale: ""to have some sugar?"" directly asks for Diva's missing ingredient."
+r_800b7c6588c655e9,TinyStories-8M,8.3M/8L,A_greedy,cust_fact_01,factual,team32,"Tom left his ice cream outside in the hot sun. After a little while, the ice cream started to",Says it melted / started to melt or drip.,melt.,"melt. Tom was sad because he wanted his ice cream to be cool.
+
+Tom's mom saw him and said, ""Don't worry, Tom. We can make your ice cream cool again."" Tom smiled and said, ""Thank you, Mom!"" They went to the kitchen and made the",correct,Will,"AI draft rationale: ""melt"" is correct for ice cream left in the sun."
+r_df8aed9b0c943dc1,TinyStories-8M,8.3M/8L,A_greedy,cust_fact_02,factual,team32,"The room was dark, so Lucy wanted to make it bright. She walked over and turned on the","A light, lamp, or light switch.",light.,"light. Suddenly, the room lit up with a bright light. Lucy was so happy! She ran around the room, playing and laughing.
+
+The room was so bright that Lucy couldn't help but smile. She was so happy that she had made it all by herself. She knew that she",correct,Will,"AI draft rationale: ""light"" is what makes the dark room bright."
+r_d5b86f4dbe79afe9,TinyStories-8M,8.3M/8L,A_greedy,cust_fact_03,factual,team32,Ben ran and ran until he was very thirsty. He went inside and drank a big glass of,"A drink: water, milk, or juice.",water.,"water. He felt better and better.
+
+""Mom, mom, I'm sorry. I drank too much. I was thirsty. I was thirsty. I was thirsty. I was thirsty. I was not thirsty. I was not thirsty. I was not thirsty. I was not happy.",correct,Will,"AI draft rationale: ""water"" is an appropriate drink for thirst."
+r_d9bb05e028c64aff,TinyStories-8M,8.3M/8L,A_greedy,cust_fact_04,factual,team32,"The little duck lived beside a pond. When she wanted to get to the other side of the water, she began to",Says she swam / began to swim (paddling is acceptable).,struggle.,"struggle. She was so small and the water was so deep.
+
+The little duck was getting tired, but she kept trying. She kept trying and trying, but she just couldn't get to the other side.
+
+Then, one day, she had an idea. She decided to ask",partial,Will,"AI draft rationale: ""struggle"" plausibly describes difficulty crossing the pond but does not give the targeted swimming behavior."
+r_7371c231b489c255,TinyStories-8M,8.3M/8L,A_greedy,cust_fact_05,factual,team32,Mia looked up at the sky late at night. She saw the big round moon and lots of tiny,Stars.,stars.,"stars. She smiled and said, ""I'm so glad I got to see the moon!""
+
+Mia's mom smiled and said, ""Me too! I'm glad you like it.""
+
+Mia smiled and said, ""I love it!""
+
+Mia and her mom",correct,Will,"AI draft rationale: ""stars"" matches the night sky prompt."
+r_b80384c4b05cb2d6,TinyStories-8M,8.3M/8L,A_greedy,cust_fact_06,factual,team32,"Dad looked out and said it was raining hard. Before Sam went outside, he picked up his","Umbrella, raincoat, or boots.",toys and put them in the bin.,"toys and put them in the bin.
+
+When he was done, he looked around and saw that the rain had stopped. He was so happy that he had found something so special. He ran inside and told his dad all about it.
+
+His dad smiled and said, ""That's",incorrect,Will,"AI draft rationale: ""toys"" is unrelated to protection from heavy rain; it misses umbrella/raincoat/boots."
+r_0d14beaef67b4201,TinyStories-8M,8.3M/8L,A_greedy,cust_fact_07,factual,team32,It got very cold in the winter. The water in the pond outside slowly turned into,Ice (frozen / froze is acceptable).,ash.,"ash. The ash was so thick that it made the pond very dirty.
+
+The little girl was sad. She wanted to help the pond, but she didn't know how. She thought and thought until she had an idea. She ran to the store and bought some water.
+
+The",incorrect,Will,"AI draft rationale: ""ash"" is not ice produced by freezing pond water."
+r_ffa19c12129a2b7b,TinyStories-8M,8.3M/8L,A_greedy,cust_reas_01,reasoning,team32,"Ben forgot to close the window before the big storm. When he came back to his room, the floor by the window was all",Wet (or covered in water / soaked).,wet.,"wet. He was very sad.
+
+His mom came into his room and saw the wet floor. She said, ""Oh no, Ben! You forgot to close the window. Now we have to clean up the mess.""
+
+Ben felt bad. He knew he should have listened to his",correct,Will,"AI draft rationale: ""wet"" correctly follows rain coming through the open window."
+r_09d6285f1d9c0e96,TinyStories-8M,8.3M/8L,A_greedy,cust_reas_02,reasoning,team32,"There were three hats on the shelf: a red one, a blue one, and a green one. Anna did not like red and she did not like green, so she picked the",The blue hat.,green one.,"green one. She put it on her head and looked at herself in the mirror. She felt very pretty and happy.
+
+She wanted to show her mom her new hat. She ran to the kitchen, where her mom was making lunch. She said, ""Mom, look at me! I",incorrect,Will,"AI draft rationale: ""green one"" explicitly violates Anna's dislike of green."
+r_0a8b318031a9ce1d,TinyStories-8M,8.3M/8L,A_greedy,cust_reas_03,reasoning,team32,Sara had only one coin. The apple cost one coin and the big toy cost three coins. Sara looked at both and bought the,The apple (the only affordable item).,apple.,"apple. She was very happy. She took the apple and the toy and ran to her room. She put the apple on her bed and the toy car on her bed. She thought she was very clever.
+
+But Sara did not know that the apple was not a toy. It was a",correct,Will,"AI draft rationale: ""apple"" is the only affordable option with one coin."
+r_645477c6977c36df,TinyStories-8M,8.3M/8L,A_greedy,cust_reas_04,reasoning,team32,"Every morning Max brushed his teeth first and ate after that. This morning, as soon as Max finished brushing his teeth, he sat down to eat his",Breakfast (or a breakfast food).,breakfast.,"breakfast.
+
+Max was so happy that he had been able to eat his breakfast all by himself. He was so proud of himself for being so obedient and eating his breakfast.
+
+Max was so happy that he had been able to eat his breakfast all by himself. He was so proud of",correct,Will,"AI draft rationale: ""breakfast"" is the morning meal."
+r_d44a9b9cc680194f,TinyStories-8M,8.3M/8L,A_greedy,cust_reas_05,reasoning,team32,"Lily was carrying a full glass of milk much too fast, and then she tripped on a toy. The milk",Spilled / fell / went everywhere.,spilled all over the floor and made a big mess.,"spilled all over the floor and made a big mess. Lily's mommy was very upset and told her to clean it up.
+
+Lily didn't want to clean up, but she knew she had to. She started to pick up the milk and put it in the trash. As she",correct,Will,"AI draft rationale: ""spilled all over"" correctly describes the consequence of tripping with milk."
+r_c38361d243358c2b,TinyStories-8M,8.3M/8L,A_greedy,cust_reas_06,reasoning,team32,"It was freezing outside. Tom had a thin coat and a thick coat. He wanted to stay as warm as he could, so he put on the",The thick coat.,coat and went outside.,"coat and went outside.
+
+Tom was so happy to be warm and cozy. He stayed in the warm coat for a long time. He stayed in the warm coat for a long time.
+
+When it was time to go home, Tom was sad. He wanted to stay in the warm",partial,Will,"AI draft rationale: ""coat"" has no thick-versus-thin distinction; later ""warm coat"" is suggestive but not an explicit selection of the stated thick coat."
+r_4609c1119fd37594,TinyStories-8M,8.3M/8L,A_greedy,cust_reas_07,reasoning,team32,Pip the puppy was very afraid of deep water. His friends ran to the lake and asked Pip to jump in with them. Pip said,"A refusal: no, or that he is scared and will not jump in.",yes and jumped in.,"yes and jumped in. The puppy was so happy and started to play with Pip. They had so much fun together.
+
+After a while, Pip's friends got tired and they all went home. Pip was sad to leave the lake, but he knew he could come back and play again soon",incorrect,Will,"AI draft rationale: ""yes and jumped in"" contradicts Pip being afraid of deep water and expected to refuse."
+r_d7c0fc68ed79b05c,TinyStories-8M,8.3M/8L,A_greedy,cust_ctx_01,context,team32,Nina and her brother Leo went to the park. Nina brought a red ball and Leo brought a blue kite. Leo ran across the grass to fly his,The kite (blue kite).,kite.,"kite. Nina and Leo laughed and ran around the park.
+
+Suddenly, a big dog came running towards them. The dog barked and growled. Nina and Leo were scared. They dropped their ball and ran away. The dog chased them and tried to bite them.
+
+N",correct,Will,"AI draft rationale: ""kite"" correctly follows Leo's ownership of the blue kite."
+r_ef28c6991e115451,TinyStories-8M,8.3M/8L,A_greedy,cust_ctx_02,context,team32,Sam had a toy car and his sister Ella had a toy train. Sam gave his toy car to Ella. Now Ella had her toy train and also a,The toy car.,toy train.,"toy train. They both played with their toys and had fun.
+
+After a while, they got tired and sat down to rest. They talked about their day and how much fun they had. They both felt happy and loved. They knew that sharing and being kind made them feel good.",incorrect,Will,"AI draft rationale: ""toy train"" repeats Ella's existing item and omits the car transferred from Sam."
+r_7ee0affc9b4a4e90,TinyStories-8M,8.3M/8L,A_greedy,cust_ctx_03,context,team32,"Mom put the cookies in a tin on the top shelf, and she put the bread in a bag on the table. Ben wanted a cookie, so he went straight to the",The tin / the top shelf (not the table or the bread).,shelf.,"shelf. He reached for the bag, but it was too high. He tried to jump, but he could not reach it. He felt sad and angry.
+
+""Mom, help me!"" he shouted.
+
+Mom heard him and came to the kitchen. She saw him on the shelf",correct,Will,"AI draft rationale: ""shelf"" locates the cookies rather than the bread; later mention of a bag on the shelf is a secondary inconsistency."
+r_10c27ff14cbdec9e,TinyStories-8M,8.3M/8L,A_greedy,cust_ctx_04,context,team32,The cup on the table was full of juice. Rosa picked it up and drank every last drop. Now the cup was,Empty.,full and it was time for a nap.,full and it was time for a nap. Rosa was so happy that she had found the cup.,incorrect,Will,"AI draft rationale: ""full"" directly contradicts having drunk every last drop."
+r_f4697cf8940d6992,TinyStories-8M,8.3M/8L,A_greedy,cust_ctx_05,context,team32,"On the farm there were three animals: a cow named Bella, a pig named Pip, and a duck named Dot. One of them said ""quack"", and it was",Dot (the duck).,very loud.,"very loud. Bella and Pip were very excited.
+
+Bella said ""Let's go for a walk!"" and they both started walking. They walked and walked until they came to a big field. Bella said ""Let's go in the field!"" and Pip said ""Yes!""
+
+They",incorrect,Will,"AI draft rationale: ""very loud"" describes the quack, but does not identify Dot as the speaker."
+r_3d916b777cab8357,TinyStories-8M,8.3M/8L,A_greedy,cust_ctx_06,context,team32,"Jon put on his yellow coat and his friend Ana put on her purple coat, and they played in the snow all afternoon. When it was time to go home, Jon could not find his","His yellow coat (yellow, not purple).",friend.,"friend. He looked everywhere, but he could not find her. He was so sad.
+
+Jon asked his mom, ""Where is my friend?"" His mom said, ""I don't know, but let's look together."" They searched and searched, but still could not find her.",incorrect,Will,"AI draft rationale: ""friend"" replaces the lost yellow coat with Ana, contrary to the prompt's object."
+r_56d792b471684fcd,TinyStories-8M,8.3M/8L,A_greedy,fig9_01,factual,paper,Alice was so tired when she got back home so she went,Says she went to bed / to sleep.,to bed.,"to bed. She had a dream about the moon and the stars. She dreamed about the moon and the stars.
+
+When she woke up, she was so happy. She had a dream about the moon and the stars. She was so excited to tell her mom and dad about her dream.",correct,Will,"AI draft rationale: ""to bed"" follows Alice's tiredness."
+r_7bc950eede617190,TinyStories-8M,8.3M/8L,A_greedy,fig9_02,factual,paper,"Jack and Lily saw a rainbow after a rainy day. They were amazed by the colors. Jack said, ""Look, Lily. A rainbow has","Mentions many colours, or lists rainbow colours.","a lot of colors!""","a lot of colors!"" Lily smiled and said, ""Yes, it's so pretty!""
+
+After a while, Jack and Lily got thirsty. Jack said, ""Let's go get some water from the river."" They went to the river and filled their bottles. Jack drank the water and said",correct,Will,"AI draft rationale: ""a lot of colors"" states a rainbow has many colors, meeting the broad criterion."
+r_9fd95fd65ed27ba2,TinyStories-8M,8.3M/8L,A_greedy,fig9_03,factual,paper,"Jack and Lily liked to watch the moon at night. They noticed that the moon changed its shape every night. Sometimes the moon was big and round, and sometimes it was","A contrasting shape: small, thin, crescent, a sliver.",small.,"small.
+
+One night, they saw a bright light in the sky. It was a comet! It was a big ball of ice and dust. It was very pretty.
+
+""Wow, look at that!"" Lily said. ""It is so pretty!""
+
+""I want to",correct,Will,"AI draft rationale: ""small"" is a valid contrast to big-and-round moon shape."
+r_1492d1ecff52475b,TinyStories-8M,8.3M/8L,A_greedy,fig9_04,factual,paper,"Jack wanted to read a book, so he went to","A library, bookshelf, bookstore, or somewhere to read.",the library.,"the library. He saw a book about a big, red dog. He was so excited! He picked it up and started to read.
+
+Jack read and read until he was very tired. He went home and told his mom about the big, red dog. His mom was so proud of",correct,Will,"AI draft rationale: ""the library"" is an appropriate place to read a book."
+r_e73f897ba30394e7,TinyStories-8M,8.3M/8L,A_greedy,fig9_05,factual,paper,"""Can cows fly?"", Alice asked her mother.","A negative answer: no, cows can't fly.","""Yes, sweetheart,"" her mother said.","""Yes, sweetheart,"" her mother said. ""But be careful, don't go too close to the road.""
+
+Alice nodded and ran to the road. She was so excited to see the cows. She saw a big, yellow cow and a big, yellow cow. She",incorrect,Will,"AI draft rationale: ""Yes, sweetheart"" wrongly implies cows can fly."
+r_a575e74674c4a78a,TinyStories-8M,8.3M/8L,A_greedy,fig9_06,factual,paper,"""What do birds like to eat?"", Tom asked his mother.","Names a plausible bird food: worms, bugs, seeds, berries.","""I don't know,"" his mother replied.","""I don't know,"" his mother replied. ""But I think they are hungry.""
+
+Tom was curious. He asked his mother if he could have a snack. She said yes, and Tom was very happy. He ran to the kitchen and grabbed a snack.
+
+Tom",incorrect,Will,"AI draft rationale: ""I don't know"" does not identify what birds eat."
+r_bf4d9ca48fff39a8,TinyStories-8M,8.3M/8L,A_greedy,fig9_07,factual,paper,"""What language do they speak in France?"", Tom asked his mother",French.,".
+
+""They speak in French,"" his mother replied.",".
+
+""They speak in French,"" his mother replied.
+
+Tom was amazed. He had never heard of a language like this before. He asked his mother if he could learn it.
+
+""Of course you can,"" his mother said. ""But you must be careful. You",correct,Will,"AI draft rationale: The first meaningful dialogue in full_completion says ""They speak in French""; an initial punctuation-only fragment confuses the extractor."
+r_5082532250ee893a,TinyStories-8M,8.3M/8L,A_greedy,fig9_08,factual,paper,"If I throw a ball up in the air, eventually it will",Says it will come / fall down.,"be gone.""","be gone.""
+
+The little girl was so excited. She ran to the ball and threw it as hard as she could. The ball flew up into the sky and disappeared.
+
+The little girl was so happy. She had thrown the ball so high and it was so much fun. She",incorrect,Will,"AI draft rationale: ""be gone"" does not correctly say the thrown ball comes/falls back down; the rest says it disappeared."
+r_1b8d696dff129e82,TinyStories-8M,8.3M/8L,A_greedy,fig9_09,factual,paper,"It was winter and cold outside so his mother told him, ""You should",Advice to wear warm clothing or stay warm.,"be careful and stay inside until the snow melts.""","be careful and stay inside until the snow melts.""
+
+The little boy was sad, but he listened to his mother and stayed inside. He was still excited to go outside and play in the snow.
+
+The little boy was so happy that he had listened to his mother and stayed inside.",correct,Will,"AI draft rationale: ""stay inside until the snow melts"" is sensible winter cold protection, though not a warm garment."
+r_72afaa62fe985b65,TinyStories-8M,8.3M/8L,A_greedy,fig10_01,reasoning,paper,"Lily likes cats and dogs. She asked her mom for a dog and her mom said no, so instead she asked","Asks a different person such as her dad, or asks for a different pet.",her dad.,"her dad. Her dad said no, because cats are not pets. He said they are pets and they need to live.
+
+Lily was sad and angry. She did not want to play with her toys or read her books. She wanted a dog. She thought her dad was mean and",correct,Will,"AI draft rationale: ""her dad"" identifies an alternative person to ask after her mother's refusal."
+r_8ad882fcae8b2383,TinyStories-8M,8.3M/8L,A_greedy,fig10_02,reasoning,paper,"Jack told Mary, ""If you give me your banana, I'll give you my apple"". Mary gave Jack her Banana so",Jack gives Mary the apple in return.,he could have it.,"he could have it.
+
+Jack was so happy and thanked Mary. He said, ""Thank you so much! I'm so glad I found my banana.""
+
+Mary smiled and said, ""You're welcome. I'm glad you like it.""
+
+Jack and Mary became good friends",incorrect,Will,"AI draft rationale: ""he could have it"" refers to keeping the banana, not giving Mary the promised apple."
+r_05ab643f162c10d0,TinyStories-8M,8.3M/8L,A_greedy,fig10_03,reasoning,paper,"On weekends Jack went to visit his grandmother whereas on weekdays he would go to school. Last weekend, when Jack was on his way to","Going to his grandmother's, not to school.","school, he saw a big, red bus.","school, he saw a big, red bus. He was so excited to see it!
+
+Jack asked his grandmother, ""Can I go on the bus?""
+
+His grandmother smiled and said, ""Yes, of course you can. But first, you must be very careful.""",incorrect,Will,"AI draft rationale: ""school"" contradicts the weekend-versus-weekday rule."
+r_4c084e36b5685412,TinyStories-8M,8.3M/8L,A_greedy,fig10_04,reasoning,paper,Lily and Ben were having an argument. Ben said that cake is much better than ice cream and Lily said that,Lily argues ice cream is better than cake.,cake is yucky.,"cake is yucky. Lily said that cake is not good for her tummy. Ben said that cake is good for you and only for a little bit.
+
+Lily felt angry and sad. She did not like Ben's words. She wanted to make him sorry. She thought of a",partial,Will,"AI draft rationale: ""cake is yucky"" argues against cake but does not explicitly argue ice cream is superior."
+r_03be5ec5f3fddd68,TinyStories-8M,8.3M/8L,A_greedy,fig10_05,reasoning,paper,"Lily and Ben are having an argument. They are trying to decide between the park and the swimming pool. Ben says, ""I want to go to the park"". Lily says","Lily wants the swimming pool, not the park.",", ""No, I want to go to the pool.",", ""No, I want to go to the pool. I want to go to the pool."" They start to argue and shout.
+
+Mom hears them and comes to the pool. She says, ""Stop fighting, you two. You can both go to the park and have fun. But",correct,Will,"AI draft rationale: ""No, I want to go to the pool"" states the expected alternative."
+r_f3330bc56ae8d459,TinyStories-8M,8.3M/8L,A_greedy,fig10_06,reasoning,paper,"Jack's mother was not home, and his father was at home. When Jack came home, he said hello to",He greets his father.,his father.,"his father. His father was very happy to see him and said, ""Jack, I'm glad you're here. I'm glad you're here.""
+
+Jack was so happy that he had a new friend. He said, ""I'm glad you're here, Daddy. I'm glad",correct,Will,"AI draft rationale: ""his father"" is the only parent home."
+r_a1f65020c0fd81cf,TinyStories-8M,8.3M/8L,A_greedy,fig10_07,reasoning,paper,"Lily doesn't like swimming. When her father wants to take her to the swimming pool, she says",Lily refuses / says no.,", ""No, I don't want to go.""",", ""No, I don't want to go."" Her father says, ""Lily, you have to listen to me. It's not nice to be selfish.""
+
+Lily still refuses to go to the pool. She says, ""No, I don't want to go. I",correct,Will,"AI draft rationale: ""No, I don't want to go"" refuses the pool consistent with Lily's stated dislike."
+r_2c2184d0ed5eb1b4,TinyStories-8M,8.3M/8L,A_greedy,fig10_08,reasoning,paper,Both Ben and Lily wanted cake. Father said that there was only one piece of cake left. They,"A plausible consequence: they argue, fight, or agree to share.",had to wait until they could get it.,"had to wait until they could get it.
+
+Ben and Lily were very sad. They wanted cake now. They started to cry. They said they were sorry. They said they would share the cake with their friends.
+
+Father and Lily's friends heard them. They came to see what",partial,Will,"AI draft rationale: ""had to wait"" does not resolve the one-piece competition; later sharing with friends is only loosely relevant."
+r_04a6bed4aca4cf12,TinyStories-8M,8.3M/8L,A_greedy,fig10_09,reasoning,paper,"Ben went to visit Lily in her house, but she was not at home. Ben knocked on the door,",No one answers the door.,but Lily did not answer.,"but Lily did not answer. He was busy playing with his toys. He did not hear Lily's voice.
+
+Lily felt sad and lonely. She missed Ben. She wished he would come back. She wished he would come back. She wondered if he would ever come back.",correct,Will,"AI draft rationale: ""Lily did not answer"" is consistent with her absence, although a later sentence mixes up actors."
+r_d58f8f1ec826bdd7,TinyStories-8M,8.3M/8L,A_greedy,fig11_01,context,paper,"""Hi Jane, have you seen Alice? I can't find her anywhere"", said Jack.",Jane answers Jack about Alice; roles are not swapped.,Jane was very sad.,"Jane was very sad. She wanted to help Jack find Alice. She looked around the garden and found a big, shiny rock. She picked it up and gave it to Jack.
+
+""Here it is,"" said Jack. He gave the rock to Jane.
+
+Jane was so",incorrect,Will,User override of AI draft label (partial -> incorrect); no additional rationale supplied.
+r_0d39b16cdd8bc05f,TinyStories-8M,8.3M/8L,A_greedy,fig11_02,context,paper,"Max had two dogs. One was white and the other was black. Max walked up the street and saw a kid with a dog. He told the kid, ""I see you have a Brown dog. I also have",Says two dogs (optionally white and black).,a dog.,"a dog. His name is Spot.""
+
+The kid said, ""Hi, I'm Max. I like your dog. Can I pet him?""
+
+Max said, ""Sure, he is very nice. His name is Spot. He likes to play fetch.""
+
+The kid said",partial,Will,"AI draft rationale: ""a dog"" recalls the species but fails the stated count of two dogs."
+r_2bc278e8c8f5ff3e,TinyStories-8M,8.3M/8L,A_greedy,fig11_03,context,paper,"Anne had a piece of candy in her left pocket and a piece of chocolate in her right pocket. Anne's mom asked her, ""Anne, what is that you have in your left pocket?""",Candy (not chocolate).,"Anne replied, ""It's a piece of candy, Mommy.""","Anne replied, ""It's a piece of candy, Mommy.""
+
+Anne's mom smiled and said, ""That's a very special piece of candy, Anne. You can have it if you like."" Anne was so excited and said, ""Yes, Mommy, I want it!""",correct,Will,"AI draft rationale: ""It's a piece of candy"" correctly uses left-pocket identity."
+r_4ba54d72ecb3189d,TinyStories-8M,8.3M/8L,A_greedy,fig11_04,context,paper,Alice had both an apple and a carrot in her bag. She took the apple out of the bag and gave it to Jack. She reached into the bag again and took,The carrot.,out the carrot.,"out the carrot. She gave it to Jack and he smiled.
+
+Alice said, ""Let's share this apple and carrot. That way, we can both have a piece of the apple and carrot.""
+
+Jack smiled and said, ""Yes, that sounds like a good idea!""",correct,Will,"AI draft rationale: ""out the carrot"" identifies the remaining item."
+r_4562d3e63c302c98,TinyStories-8M,8.3M/8L,A_greedy,fig11_05,context,paper,"Alice and Jack walked up the street and met a girl in a red dress. The girl said to them, ""Hi, I'm Jane. What are your names?""","Gives Alice and/or Jack, not 'Jane'.",Alice and Jack said their names back and they started to talk.,"Alice and Jack said their names back and they started to talk. They talked about their favorite things and how they liked to play together.
+
+After a while, Jane said, ""I'm getting tired. Can we go home now?""
+
+Alice and Jack said, ""Yes,",correct,Will,"AI draft rationale: ""Alice and Jack said their names"" indicates both named themselves, despite not quoting the names word for word."
+r_8ae5623497e2a5bc,TinyStories-8M,8.3M/8L,A_greedy,fig11_06,context,paper,"Diva was hungry, and wanted to bake a cake, but she didn't have any sugar at home, so she decided to go ask around. She started walking and met a squirrel. She asked the squirrel, ""Would you happen",Continues into asking for sugar.,"to bake a cake?""","to bake a cake?"" The squirrel said, ""Yes, I would love to!""
+
+So, the squirrel and the bird baked a cake together. They put the cake in the oven and waited for it to bake. When the cake was done, they took it out of the oven and let",partial,Will,"AI draft rationale: ""to bake a cake?"" stays on topic but does not ask for sugar, the missing ingredient."
