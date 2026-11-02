@@ -37,10 +37,8 @@ sampling:
 
 generation:
   # Section 4.4.1 does not state a temperature. We use greedy decoding because
-  # it is deterministic (so the replication is reproducible) and because it is
-  # the STRICTEST memorisation test: if a model had memorised the story, greedy
-  # is when it would reproduce it. Sampling could only lower the overlap, so our
-  # "not memorising" conclusion is the conservative one.
+  # it is deterministic, so the replication is reproducible. We have not tested
+  # sampling and cannot say how it would change the overlap numbers.
   max_new_tokens: 200
   do_sample: false
   num_return_sequences: 1

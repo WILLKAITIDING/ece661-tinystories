@@ -59,27 +59,11 @@ The paper argues embedding dimension drives factual recall while depth drives co
 
 528 completions (3 per prompt, T=1.0, top-p 0.95, seed 42) have no human labels. `consistency_protocolB.csv` reports how many of the three sampled answers differ, with a keyword proxy that is a crude heuristic, not a judgement.
 
-## Files
-
-- `annotation_template.csv`
-- `comparison_custom_20.csv`
-- `comparison_custom_20.md`
-- `comparison_paper_figures_9_11.csv`
-- `comparison_paper_figures_9_11.md`
-- `consistency_protocolB.csv`
-- `fig_ours_vs_paper.png`
-- `fig_paper_verdicts.png`
-- `fig_results_by_category.png`
-- `ours_vs_paper.csv`
-- `results_by_category.csv`
-- `results_by_model.csv`
-- `summary.md`
-- `task2_annotations_final.csv`
-- `task2_annotations_final.numbers`
 
 ## Caveats
 
 - Labels are human-reviewed AI drafts; disclose this in the report.
 - Protocol B is unlabelled and must not be reported as accuracy.
-- We reproduce the paper's qualitative TREND, not its exact strings (0/24 exact matches on TinyStories-1M).
+- We reproduce the paper's qualitative trend, not its exact strings (0/24 exact matches on TinyStories-1M).
+- Our labels and the paper's colours come from different judges and different generated text, so the two are not directly comparable.
 - n is small: 44 prompts per model. Differences of a few points are not meaningful; no significance testing was done.

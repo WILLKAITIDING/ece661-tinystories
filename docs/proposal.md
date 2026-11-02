@@ -74,7 +74,7 @@ A negative result counts as success if it is measured carefully and explained.
 
 ## Budget note
 
-The course provides a personal API key per student with a **shared team budget of $250** split between Gemini API calls and TPU compute. See `CLAUDE.md` for the hard rules about not spending it.
+The course provides a personal API key per student with a **shared team budget of $250** split between Gemini API calls and TPU compute. See the README for the spending limits we agreed.
 
 ## Not specified by the proposal
 

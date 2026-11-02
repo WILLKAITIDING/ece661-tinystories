@@ -1,8 +1,8 @@
 # Task 3 - Section 4.4.1 quantitative replication
 
-Four measures, as defined on pp. 17-18 of arXiv:2305.07759v2. 100 stories per split, cut at 40% of their words, completed with greedy decoding (the paper does not state a temperature; greedy is the strictest memorisation test and is reproducible).
+Four measures, as defined on pp. 17-18 of arXiv:2305.07759v2. 100 stories per split, cut at 40% of their words, completed with greedy decoding. The paper does not state a temperature for 4.4.1; we chose greedy because it is reproducible. We have not measured how sampling would change these overlaps.
 
-Figures 16 and 17 scan the training corpus: **2,119,719 stories, 374,105,331 2-grams**, in one pass (603s).
+Figures 16 and 17 scan the training corpus: **2,119,719 stories, 374,105,331 2-grams**, in one pass (466s).
 
 ## Figure 14 - is the generation contained in the real ending?
 
@@ -68,7 +68,7 @@ Figures 16 and 17 scan the training corpus: **2,119,719 stories, 374,105,331 2-g
 
 ## Train vs validation - is the model memorising?
 
-The paper runs this on TRAINING stories: if a model had memorised them, its completion would match the real ending. We add the validation split, whose prefixes the models never trained on. **If training-set scores are not higher than validation scores, there is no memorisation to find.**
+The paper runs this on TRAINING stories: if a model had memorised them, its completion would match the real ending. We add the validation split, whose prefixes the models never trained on. If training-set scores are not higher than validation scores, we have no evidence of copying for the prefixes we tested. That is weaker than a claim that these models do not memorise at all.
 
 | model | Fig 14 train | Fig 14 validation | difference |
 |---|---:|---:|---:|
@@ -86,20 +86,10 @@ The paper runs this on TRAINING stories: if a model had memorised them, its comp
 
 ## Limitations
 
-- The paper does not state the decoding temperature for 4.4.1. We used greedy; sampling would lower the overlaps further, so our conclusion is the conservative one.
+- The paper does not state the decoding temperature for 4.4.1. We used greedy because it is reproducible. We did not test sampling, so we cannot say how it would change these numbers.
 - We cannot verify which corpus snapshot each released checkpoint was trained on. We use the current `roneneldan/TinyStories` parquet config; if a checkpoint saw different data, Figures 16/17 are measured against a near-but-not-identical corpus.
 - `R_k,p` is implemented on k-gram SETS, exactly as the paper defines it. The common `rouge_score` package intersects multisets and gives slightly different numbers; `compare_with_rouge_score()` quantifies it.
 - A very short completion can reach h_i = 1.0 trivially, because all of its handful of 2-grams fit inside one training story. `per_story_scores.csv` records `n_generated_2grams` so these are identifiable; they are a small minority.
 - n = 100 stories per split, as in the paper. These are distributions to be read as such, not precise point estimates.
+- The validation split and the Figure 15 comparison against real dataset continuations are OUR additions, not part of the paper's Section 4.4.1.
 
-## Files
-
-- `corpus_scan_cache.json`
-- `fig_14_15_17_train.png`
-- `fig_14_15_17_validation.png`
-- `fig_16_train.png`
-- `fig_16_validation.png`
-- `figure_summaries.csv`
-- `per_story_scores.csv`
-- `run_info.json`
-- `summary.md`

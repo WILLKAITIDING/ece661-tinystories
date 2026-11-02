@@ -8,7 +8,7 @@ Shared library for all three project phases:
     config.py    YAML experiment configs                      (shared)
 
 Rachel's architectures and Luel's Amharic data get their own modules when that
-work starts; see CLAUDE.md for the layout and the TextGenerator contract.
+work starts; see the README for the layout and the TextGenerator contract.
 """
 
 __version__ = "0.1.0"

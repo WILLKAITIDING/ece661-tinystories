@@ -321,8 +321,9 @@ def _summary(out, cfg, models, splits, fig14, fig15, fig16, fig17, corpus_stats)
          "Four measures, as defined on pp. 17-18 of arXiv:2305.07759v2. "
          f"{cfg['sampling']['n_stories']} stories per split, cut at "
          f"{cfg['sampling']['prompt_fraction']:.0%} of their words, completed with "
-         "greedy decoding (the paper does not state a temperature; greedy is the "
-         "strictest memorisation test and is reproducible).", ""]
+         "greedy decoding. The paper does not state a temperature for 4.4.1; we "
+         "chose greedy because it is reproducible. We have not measured how "
+         "sampling would change these overlaps.", ""]
     if corpus_stats:
         L += [f"Figures 16 and 17 scan the training corpus: "
               f"**{corpus_stats['n_stories']:,} stories, "
@@ -390,8 +391,9 @@ def _summary(out, cfg, models, splits, fig14, fig15, fig16, fig17, corpus_stats)
               "The paper runs this on TRAINING stories: if a model had memorised "
               "them, its completion would match the real ending. We add the "
               "validation split, whose prefixes the models never trained on. "
-              "**If training-set scores are not higher than validation scores, "
-              "there is no memorisation to find.**", "",
+              "If training-set scores are not higher than validation scores, we "
+              "have no evidence of copying for the prefixes we tested. That is "
+              "weaker than a claim that these models do not memorise at all.", "",
               "| model | Fig 14 train | Fig 14 validation | difference |",
               "|---|---:|---:|---:|"]
         for m in models:
@@ -412,8 +414,8 @@ def _summary(out, cfg, models, splits, fig14, fig15, fig16, fig17, corpus_stats)
 
     L += ["", "## Limitations", "",
           "- The paper does not state the decoding temperature for 4.4.1. We used "
-          "greedy; sampling would lower the overlaps further, so our conclusion is "
-          "the conservative one.",
+          "greedy because it is reproducible. We did not test sampling, so we "
+          "cannot say how it would change these numbers.",
           "- We cannot verify which corpus snapshot each released checkpoint was "
           "trained on. We use the current `roneneldan/TinyStories` parquet config; "
           "if a checkpoint saw different data, Figures 16/17 are measured against "
@@ -427,8 +429,10 @@ def _summary(out, cfg, models, splits, fig14, fig15, fig16, fig17, corpus_stats)
           "identifiable; they are a small minority.",
           "- n = 100 stories per split, as in the paper. These are distributions "
           "to be read as such, not precise point estimates.",
-          "", "## Files", ""]
-    L += [f"- `{f.name}`" for f in sorted(out.iterdir())]
+          "- The validation split and the Figure 15 comparison against real "
+          "dataset continuations are OUR additions, not part of the paper's "
+          "Section 4.4.1.",
+          ""]
     (out / "summary.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 
 
