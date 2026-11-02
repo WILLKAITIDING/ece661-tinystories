@@ -393,15 +393,22 @@ def test_annotation_provenance_is_recoverable():
     assert prov["annotators"] == ["Will"]
 
 
-def test_annotations_cover_exactly_the_greedy_records():
-    """Guards against labels drifting out of sync with the generations."""
+def test_every_annotation_matches_a_real_generation():
+    """Labels must never reference a record that does not exist.
+
+    Deliberately NOT the reverse: a newly added model has generations with no
+    labels yet, which is a normal state the analysis reports rather than an
+    error. We only guard against labels drifting onto records that are gone.
+    """
     from tinystories_project.evaluation.annotations import load_annotations
     from tinystories_project.records import read_jsonl
     greedy_dir = ROOT / "results" / "task2" / "A_greedy"
     if not greedy_dir.exists():
         pytest.skip("Task 2 generations not present; run scripts/run_task2.py")
-    ids = [r.record_id for f in greedy_dir.glob("*.jsonl") for r in read_jsonl(f)]
-    load_annotations(ANNOTATIONS).validate_against(ids)   # raises on mismatch
+    ids = {r.record_id for f in greedy_dir.glob("*.jsonl") for r in read_jsonl(f)}
+    orphans = [a.record_id for a in load_annotations(ANNOTATIONS)
+               if a.record_id not in ids]
+    assert not orphans, f"{len(orphans)} labels reference missing records"
 
 
 def test_validate_against_rejects_a_mismatch():
@@ -443,3 +450,57 @@ def test_ambiguous_is_excluded_from_the_denominator():
     from tinystories_project.evaluation.annotations import accuracy
     a = accuracy(["correct", "ambiguous", "incorrect"])
     assert a["n"] == 2 and a["strict"] == 0.5
+
+
+# --- custom-model integration (Phase 2 / Phase 3 path) --------------------
+
+def test_a_custom_generator_flows_through_the_task2_analysis(tmp_path):
+    """A model that is not a Hugging Face model must reach the result tables.
+
+    This is the promise the README makes to Rachel and Luel, so it is tested
+    rather than asserted. It previously failed two ways: the analysis took its
+    model list from the run manifest (so a new JSONL was invisible), and it
+    raised outright when a model had no labels yet (blocking even the
+    baselines).
+    """
+    import csv as _csv
+    import subprocess
+    import sys as _sys
+
+    from tinystories_project.config import find_project_root
+    from tinystories_project.evaluation import load_prompt_set, run_prompt_set
+    from tinystories_project.inference.interface import TextGenerator
+    from tinystories_project.records import write_jsonl
+
+    root = find_project_root()
+    greedy_dir = root / "results" / "task2" / "A_greedy"
+    if not greedy_dir.exists():
+        pytest.skip("Task 2 generations absent; run scripts/run_task2.py")
+
+    gen = FakeGenerator(model_id="test/integration-model")
+    prompts = load_prompt_set(root / "data" / "prompts" / "custom_20.json")
+    records = run_prompt_set(gen, prompts, protocol="A_greedy",
+                             run_id="integration", seed=42)
+    assert isinstance(gen, TextGenerator)
+    assert len(records) == len(prompts)
+
+    jsonl = greedy_dir / "ZZ_integration_test__custom_20.jsonl"
+    try:
+        write_jsonl(records, jsonl)
+        # The analysis must still succeed, report the unlabelled model, and
+        # leave the baseline numbers untouched.
+        proc = subprocess.run(
+            [_sys.executable, "scripts/make_task2_tables.py",
+             "--out", str(tmp_path / "out")],
+            cwd=root, capture_output=True, text=True)
+        assert proc.returncode == 0, proc.stdout + proc.stderr
+        assert "integration-model" in proc.stdout, "unlabelled model not reported"
+
+        # Its rows must appear in the annotation template, ready to label.
+        tmpl = list(_csv.DictReader(
+            (tmp_path / "out" / "annotation_template.csv").open()))
+        mine = [r for r in tmpl if r["model"] == "integration-model"]
+        assert len(mine) == len(prompts)
+        assert all(r["label"] == "" for r in mine), "should await a human label"
+    finally:
+        jsonl.unlink(missing_ok=True)

@@ -22,6 +22,7 @@ are described with a keyword proxy that is clearly marked as such.
 
 from __future__ import annotations
 
+import argparse
 import csv
 import json
 from collections import defaultdict
@@ -57,8 +58,19 @@ def pct(x: float | None) -> str:
     return "-" if x is None else f"{100 * x:.0f}%"
 
 
-def main() -> int:
-    OUT.mkdir(parents=True, exist_ok=True)
+def parse_args(argv=None):
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--annotations", default=str(ANNOTATIONS),
+                   help="label CSV to score against (default: the Task 2 labels)")
+    p.add_argument("--out", default=str(OUT), help="where to write the tables")
+    return p.parse_args(argv)
+
+
+def main(argv=None) -> int:
+    args = parse_args(argv)
+    annotations_path = Path(args.annotations)
+    out = Path(args.out)
+    out.mkdir(parents=True, exist_ok=True)
 
     prompts = {}
     for name in ("paper_figures_9_11", "custom_20"):
@@ -77,17 +89,60 @@ def main() -> int:
         print("No A_greedy results. Run scripts/run_task2.py first.")
         return 1
 
-    ann = load_annotations(ANNOTATIONS)
-    ann.validate_against(r.record_id for r in greedy)   # raises on any mismatch
+    ann = load_annotations(annotations_path)
     label_of = {a.record_id: a.label for a in ann}
     prov = ann.provenance()
 
-    manifest = sorted(RESULTS.glob("manifest_*.json"))[-1]
-    model_meta = {m["model_id"]: m for m in
-                  json.loads(manifest.read_text(encoding="utf-8"))["models"]}
-    models = list(model_meta)
+    # Model metadata comes from the records themselves - every GenerationRecord
+    # carries the ModelMetadata its generator reported - so a teammate who drops
+    # in their own JSONL gets layer counts and parameter counts for free. Run
+    # manifests only add `figure_column`, which is specific to our baselines.
+    model_meta: dict[str, dict] = {}
+    for r in greedy:
+        model_meta.setdefault(r.model["model_id"], dict(r.model))
+    baseline_order: list[str] = []      # the order our own runs were configured in
+    for mf in sorted(RESULTS.glob("manifest_*.json")):
+        for m in json.loads(mf.read_text(encoding="utf-8")).get("models", []):
+            model_meta.setdefault(m["model_id"], {}).update(
+                {k: v for k, v in m.items() if v is not None})
+            if m["model_id"] not in baseline_order:
+                baseline_order.append(m["model_id"])
+
+    # Records without a label are not an error: a new model simply has not been
+    # annotated yet. Score what is labelled and say plainly what is not, rather
+    # than refusing to produce the baseline tables at all.
+    greedy_all = list(greedy)      # every generation, labelled or not
+    unlabelled = [r for r in greedy if r.record_id not in label_of]
+    if unlabelled:
+        missing_by_model = defaultdict(int)
+        for r in unlabelled:
+            missing_by_model[r.model["model_id"]] += 1
+        print("NOTE: these models have generations but no labels yet, so they "
+              "are omitted from the accuracy tables:")
+        for mid, n in sorted(missing_by_model.items()):
+            print(f"   {mid}: {n} unlabelled completions")
+        print("   Label them in annotation_template.csv and add them to "
+              f"{annotations_path.name} to include them.")
+        greedy = [r for r in greedy if r.record_id in label_of]
+        if not greedy:
+            print("No labelled completions at all - nothing to aggregate.")
+            return 1
+
+    models = []
+    for r in greedy:
+        mid = r.model["model_id"]
+        if mid not in models:
+            models.append(mid)
+    # Keep the configured baselines first, then any extra models, for stable
+    # column order across runs.
+    # Baselines keep their configured order; any extra model follows, by name.
+    models.sort(key=lambda m: (baseline_order.index(m)
+                               if m in baseline_order else len(baseline_order), m))
     name_of = {m: m.split("/")[-1] for m in models}
-    col_of = {m: model_meta[m]["figure_column"] for m in models}
+    for r in greedy_all:                       # include unlabelled models too
+        name_of.setdefault(r.model["model_id"], r.model["model_id"].split("/")[-1])
+    col_of = {m: (model_meta.get(m, {}) or {}).get("figure_column") or "-"
+              for m in models}
 
     recs = defaultdict(dict)        # prompt_id -> model_id -> record
     labels = defaultdict(list)      # (model, category|None, origin|None) -> labels
@@ -102,7 +157,7 @@ def main() -> int:
         labels[(mid, r.extra["category"], r.extra["origin"])].append(lab)
 
     # ------------------------------------------------------- result tables
-    with (OUT / "results_by_model.csv").open("w", newline="", encoding="utf-8") as fh:
+    with (out / "results_by_model.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["model", "figure_column", "layers", "hidden",
                     "n_params_total", "n_params_non_embedding", "n",
@@ -110,14 +165,16 @@ def main() -> int:
                     "strict_accuracy", "lenient_accuracy", "partial_rate"])
         for m in models:
             a = accuracy(labels[(m, None, None)])
-            d = model_meta[m]
-            w.writerow([name_of[m], col_of[m], d["n_layers"], d["hidden_size"],
-                        d["n_parameters_total"], d["n_parameters_non_embedding"],
+            d = model_meta.get(m, {})
+            w.writerow([name_of[m], col_of[m], d.get("n_layers", ""),
+                        d.get("hidden_size", ""),
+                        d.get("n_parameters_total", ""),
+                        d.get("n_parameters_non_embedding", ""),
                         a["n"], a["correct"], a["partial"], a["incorrect"],
                         f"{a['strict']:.4f}", f"{a['lenient']:.4f}",
                         f"{a['partial_rate']:.4f}"])
 
-    with (OUT / "results_by_category.csv").open("w", newline="", encoding="utf-8") as fh:
+    with (out / "results_by_category.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["model", "category", "origin", "n", "correct", "partial",
                     "incorrect", "strict_accuracy", "lenient_accuracy"])
@@ -130,6 +187,23 @@ def main() -> int:
                     w.writerow([name_of[m], cat, origin or "all", a["n"],
                                 a["correct"], a["partial"], a["incorrect"],
                                 f"{a['strict']:.4f}", f"{a['lenient']:.4f}"])
+
+    # ---- annotation template: every generation, with any existing label ----
+    # This is how a newly added model gets annotated: its rows appear here with
+    # an empty `label` for a human to fill in.
+    with (out / "annotation_template.csv").open("w", newline="", encoding="utf-8") as fh:
+        w = csv.writer(fh)
+        w.writerow(["record_id", "model", "figure_column", "protocol", "prompt_id",
+                    "category", "origin", "prompt", "expected", "answer_span",
+                    "full_completion", "label", "annotator", "notes"])
+        for r in greedy_all:
+            pr = prompts[r.extra["prompt_id"]]
+            mid = r.model["model_id"]
+            w.writerow([r.record_id, name_of.get(mid, mid.split("/")[-1]),
+                        r.extra.get("figure_column"), r.extra["protocol"], pr.id,
+                        pr.category, pr.origin, pr.text, pr.expected,
+                        r.extra["answer_span"], r.completion.strip(),
+                        label_of.get(r.record_id, ""), "", ""])
 
     # --------------------------------------------- ours vs the paper's verdicts
     paper_rows = []
@@ -151,7 +225,7 @@ def main() -> int:
             })
             agree += ours == theirs
             disagree += ours != theirs
-    with (OUT / "ours_vs_paper.csv").open("w", newline="", encoding="utf-8") as fh:
+    with (out / "ours_vs_paper.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=list(paper_rows[0]))
         w.writeheader()
         w.writerows(paper_rows)
@@ -166,7 +240,7 @@ def main() -> int:
             continue
         is_paper = set_name == "paper_figures_9_11"
 
-        with (OUT / f"comparison_{set_name}.csv").open("w", newline="", encoding="utf-8") as fh:
+        with (out / f"comparison_{set_name}.csv").open("w", newline="", encoding="utf-8") as fh:
             w = csv.writer(fh)
             head = ["prompt_id", "category", "prompt", "expected"]
             for m in models:
@@ -219,7 +293,7 @@ def main() -> int:
                             f"*[{reference[pid]['paper_verdicts'].get(col_of[m], '')}]*")
                 md.append("| " + " | ".join(c.replace("|", "\\|") for c in cells) + " |")
             md.append("")
-        (OUT / f"comparison_{set_name}.md").write_text("\n".join(md), encoding="utf-8")
+        (out / f"comparison_{set_name}.md").write_text("\n".join(md), encoding="utf-8")
 
     # --------------------------------------------------- protocol B (unlabelled)
     sampled = []
@@ -228,7 +302,7 @@ def main() -> int:
     grouped = defaultdict(list)
     for r in sampled:
         grouped[(r.model["model_id"], r.extra["prompt_id"])].append(r)
-    with (OUT / "consistency_protocolB.csv").open("w", newline="", encoding="utf-8") as fh:
+    with (out / "consistency_protocolB.csv").open("w", newline="", encoding="utf-8") as fh:
         w = csv.writer(fh)
         w.writerow(["model", "prompt_id", "category", "n_samples",
                     "n_distinct_spans", "keyword_proxy_hits",
@@ -267,14 +341,19 @@ def main() -> int:
     fig.suptitle("Task 2 final labels by category (protocol A, greedy; n=44 prompts "
                  "per model)\nhuman-reviewed AI-drafted labels", fontsize=11)
     fig.tight_layout(rect=(0, 0, 1, 0.88))
-    fig.savefig(OUT / "fig_results_by_category.png", dpi=150)
+    fig.savefig(out / "fig_results_by_category.png", dpi=150)
     plt.close(fig)
 
+    # Only models with a counterpart column in the paper can be compared to it;
+    # a teammate's own model has no paper verdict and is simply left out here.
+    comparable = [m for m in models
+                  if accuracy([r["paper_verdict"] for r in paper_rows
+                               if r["model"] == name_of[m]])["strict"] is not None]
     fig, ax = plt.subplots(figsize=(8.5, 4.5))
-    xs = range(len(models))
+    xs = range(len(comparable))
     width = 0.38
     ours, theirs = [], []
-    for m in models:
+    for m in comparable:
         mine = [r["our_label"] for r in paper_rows if r["model"] == name_of[m]]
         pap = [r["paper_verdict"] for r in paper_rows if r["model"] == name_of[m]]
         ours.append(100 * accuracy(mine)["strict"])
@@ -284,14 +363,14 @@ def main() -> int:
     ax.bar([x + width / 2 for x in xs], theirs, width,
            label="the paper (its own verdicts)", color="#bbb")
     ax.set_xticks(list(xs))
-    ax.set_xticklabels([f"{name_of[m]}\n{col_of[m]}" for m in models], fontsize=8)
+    ax.set_xticklabels([f"{name_of[m]}\n{col_of[m]}" for m in comparable], fontsize=8)
     ax.set_ylabel("% judged correct (strict)")
     ax.set_ylim(0, 100)
     ax.set_title("Same 24 Figure 9-11 prompts, same checkpoints:\n"
                  "our greedy reproduction vs the completions published in the paper")
     ax.legend(fontsize=8)
     fig.tight_layout()
-    fig.savefig(OUT / "fig_ours_vs_paper.png", dpi=150)
+    fig.savefig(out / "fig_ours_vs_paper.png", dpi=150)
     plt.close(fig)
 
     # ------------------------------------------------------------- summary
@@ -311,9 +390,11 @@ def main() -> int:
          "|---|---|---:|---:|---:|---:|---:|---:|---:|---:|"]
     for m in models:
         a = accuracy(labels[(m, None, None)])
-        d = model_meta[m]
-        L.append(f"| {name_of[m]} | {col_of[m]} | {d['n_layers']} | {d['hidden_size']} "
-                 f"| {d['n_parameters_non_embedding']:,} | {a['correct']} | "
+        d = model_meta.get(m, {})
+        nonemb = d.get("n_parameters_non_embedding")
+        L.append(f"| {name_of[m]} | {col_of[m]} | {d.get('n_layers', '?')} | "
+                 f"{d.get('hidden_size', '?')} "
+                 f"| {f'{nonemb:,}' if nonemb else '?'} | {a['correct']} | "
                  f"{a['partial']} | {a['incorrect']} | **{pct(a['strict'])}** | "
                  f"{pct(a['lenient'])} |")
 
@@ -343,7 +424,7 @@ def main() -> int:
           "are not the same strings the paper printed. Treat it as a sanity "
           "check on the trend, not as a measured delta.", "",
           "| checkpoint | ours (strict) | the paper (strict) |", "|---|---:|---:|"]
-    for m in models:
+    for m in comparable:
         mine = [r["our_label"] for r in paper_rows if r["model"] == name_of[m]]
         pap = [r["paper_verdict"] for r in paper_rows if r["model"] == name_of[m]]
         L.append(f"| {name_of[m]} ({col_of[m]}) | {pct(accuracy(mine)['strict'])} "
@@ -356,34 +437,39 @@ def main() -> int:
           "| checkpoint | layers | hidden | factual | context | gap |",
           "|---|---:|---:|---:|---:|---:|"]
     for m in models:
-        d = model_meta[m]
+        d = model_meta.get(m, {})
         f = accuracy(labels[(m, "factual", None)])["strict"]
         c = accuracy(labels[(m, "context", None)])["strict"]
-        L.append(f"| {name_of[m]} | {d['n_layers']} | {d['hidden_size']} | "
-                 f"{pct(f)} | {pct(c)} | {100 * (f - c):+.0f} pts |")
+        gap = f"{100 * (f - c):+.0f} pts" if (f is not None and c is not None) else "-"
+        L.append(f"| {name_of[m]} | {d.get('n_layers', '?')} | "
+                 f"{d.get('hidden_size', '?')} | "
+                 f"{pct(f)} | {pct(c)} | {gap} |")
 
     L += ["", "## Protocol B (sampling) - NOT labelled", "",
           f"{len(sampled)} completions (3 per prompt, T=1.0, top-p 0.95, seed 42) "
           "have no human labels. `consistency_protocolB.csv` reports how many of "
           "the three sampled answers differ, with a keyword proxy that is a crude "
           "heuristic, not a judgement.", "",
-          "## Files", ""]
-    # Drop the superseded keyword-screen artefacts first, so the file list
-    # below cannot advertise something that no longer exists.
+          ]
     for stale in ("auto_screen.csv", "fig_auto_screen.png"):
-        (OUT / stale).unlink(missing_ok=True)
-    L += [f"- `{f.name}`" for f in sorted(OUT.iterdir())]
+        (out / stale).unlink(missing_ok=True)
     L += ["", "## Caveats", "",
           "- Labels are human-reviewed AI drafts; disclose this in the report.",
           "- Protocol B is unlabelled and must not be reported as accuracy.",
-          "- We reproduce the paper's qualitative TREND, not its exact strings "
+          "- We reproduce the paper's qualitative trend, not its exact strings "
           "(0/24 exact matches on TinyStories-1M).",
+          "- Our labels and the paper's colours come from different judges and "
+          "different generated text, so the two are not directly comparable.",
           f"- n is small: {len(prompts)} prompts per model. Differences of a few "
           "points are not meaningful; no significance testing was done."]
-    (OUT / "summary.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+    (out / "summary.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 
-    print(f"Wrote {len(list(OUT.iterdir()))} files to {OUT.relative_to(ROOT)}")
-    for f in sorted(OUT.iterdir()):
+    try:
+        shown = out.relative_to(ROOT)
+    except ValueError:      # --out may point outside the repo
+        shown = out
+    print(f"Wrote {len(list(out.iterdir()))} files to {shown}")
+    for f in sorted(out.iterdir()):
         print(f"   {f.name}")
     return 0
 
