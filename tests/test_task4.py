@@ -320,7 +320,12 @@ def test_resume_never_repays_for_a_completed_score():
 
 
 def test_analysis_refuses_dry_run_rows(tmp_path):
-    """A placeholder must never be aggregated as if it were a judgement."""
+    """A placeholder must never be aggregated as if it were a judgement.
+
+    Runs the real analysis script, which imports matplotlib from the optional
+    `.[analysis]` extra, so it skips rather than fails on a bare install.
+    """
+    pytest.importorskip("matplotlib", reason="install .[analysis] for this check")
     import json as _json
     import subprocess
     import sys as _sys

@@ -94,8 +94,10 @@ def test_our_definition_differs_from_the_rouge_score_package_as_documented():
     """The paper uses SET k-grams; the package intersects multisets.
 
     We measure the gap rather than assume it is zero, so the deviation is a
-    documented fact rather than a surprise.
+    documented fact rather than a surprise. Needs the optional `.[task3]`
+    extra, so it skips rather than fails on a `.[dev]`-only install.
     """
+    pytest.importorskip("rouge_score", reason="install .[task3] for this check")
     a = "the cat the cat the cat sat"
     b = "the cat sat"
     got = compare_with_rouge_score(a, b, 2)
