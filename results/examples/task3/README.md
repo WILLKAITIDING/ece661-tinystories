@@ -9,6 +9,10 @@ Committed snapshots of the Section 4.4.1 replication. Regenerate everything
 
 Full outputs land in `results/task3/`, which is git-ignored.
 
+Committed here are the Figure 14/15/17 histogram panels for both splits
+(`fig_14_15_17_train.png`, `fig_14_15_17_validation.png`). The Figure 16 panels
+and the per-story CSVs regenerate with the commands above.
+
 The second step scans all 2,119,719 training stories once and caches the result
 in `results/task3/analysis/corpus_scan_cache.json`, so re-running it to tweak a
 table or figure takes seconds instead of ten minutes. The cache is keyed to the

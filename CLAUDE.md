@@ -37,15 +37,16 @@ seeds give different ids. Prompts must be unique within a config (enforced in
 
 ## Status
 
-**Tasks 1–3 are done. Task 4 and Phases 2–3 are not started — do not implement
-them speculatively.**
+**Tasks 1–3 are done. Task 4's code is complete but cannot run (gateway 403 —
+see `docs/task4_status.md`). Phases 2–3 are not started; do not implement them
+speculatively.**
 
 | Task | Owner | Status |
 |---|---|---|
 | 1 — Load checkpoint, generate, save JSONL | Will | **Done** |
 | 2 — Figures 9–11 + 20 new prompts | Will | **Done** |
 | 3 — ROUGE (Section 4.4.1, Figures 14–17) | Will | **Done** |
-| 4 — Gemini judge | Will | Not started |
+| 4 — Gemini judge | Will | **Code complete, blocked on the gateway** |
 | Phase 2 / Phase 3 | Rachel / Luel | Not started |
 
 ## Layout
@@ -54,6 +55,7 @@ them speculatively.**
 configs/task1.yaml       Task 1 settings (never hardcode these in code)
 configs/task2.yaml       Task 2: models, protocols, prompt sets
 configs/task3.yaml       Task 3: dataset, sampling, ROUGE run
+configs/task4.yaml       Task 4: judge model, budget cap
 data/prompts/            paper_figures_9_11.json (24), custom_20.json (20)
 data/reference/          the PAPER's own completions + verdicts (not ours)
 data/annotations/        task2_final.csv - the final Task 2 labels
@@ -65,6 +67,8 @@ scripts/run_task2.py     Task 2 runner (one model at a time, resumable)
 scripts/make_task2_tables.py   comparison tables, annotation CSV, figures
 scripts/run_task3.py     Task 3 runner (samples prefixes, generates)
 scripts/make_task3_tables.py   Figures 14-17 (caches the corpus scan)
+scripts/run_task4.py     Task 4 judge runner (resumable, budget-capped)
+scripts/make_task4_tables.py   judge tables, figures, methodology note
 scripts/extract_paper_figures.py   rebuilds the prompt files from the PDF
 src/tinystories_project/
   config.py              YAML -> dataclasses; paths resolve to project root
@@ -81,6 +85,7 @@ src/tinystories_project/
     annotations.py       load_annotations, accuracy, provenance
     rouge.py             Section 4.4.1 measures + scan_corpus
     corpus.py            TinyStories parquet loading / streaming
+    judge.py             Gemini judge client, rubric, budget guard
 tests/                   test_core, test_generation, test_records, test_task2,
                          test_integration
 ```
@@ -157,7 +162,7 @@ Amharic SentencePiece vocab (4K/8K) is far smaller than GPT-Neo's 50,257.
 ## Testing
 
 ```bash
-pytest                   # 152 unit tests, offline, tiny random model, ~3 s
+pytest                   # 186 unit tests, offline, tiny random model, ~3 s
 pytest -m integration    # 12 tests against real checkpoints
 ```
 
@@ -214,6 +219,27 @@ download or test fails, say so plainly and leave the code ready to retry.
 - The paper does not state a temperature for 4.4.1. We use **greedy**: strictest
   memorisation test and reproducible. Say so when reporting.
 - Result: train-minus-validation is ~0 on every model, i.e. no memorisation.
+
+## Task 4 facts (established 2026-11-02)
+
+- **Blocked upstream.** Every chat model returns Vertex `403 PERMISSION_DENIED`
+  while embeddings succeed. Tested 9 models, both base URLs, curl and the SDK.
+  Do NOT keep retrying it — read `docs/task4_status.md` first and check whether
+  the gateway has been fixed.
+- **Spend to date: $0.00.** The agreed cap is **$10 total including earlier
+  calls**; the portal's "Unlimited" personal allowance does not override it.
+- Base URL is `https://34-127-166-57.sslip.io/api` (the gateway says so itself
+  at `/api/v1/health`). Judge model `gemini-3.6-flash`, temperature 0.
+- Pricing is pinned in `judge.py` ($0.75/$3.75 per 1M in/out). Cost per call is
+  `max(gateway header, our calculation)` so an under-reporting gateway cannot
+  hide spend. 800 records project to ~$0.75.
+- The key lives in `.env` (git-ignored). It was once pasted into the TRACKED
+  `.env.example` but never committed (verified across every blob). A test
+  asserts `.env.example` stays key-free — keep it.
+- Resume is by `judge_id` (record + judge model + temperature + rubric version).
+  **Never re-run a successful paid call.**
+- `--dry-run` writes to `results/task4/dry_run/` and the analysis script refuses
+  dry-run rows outright, so placeholders can never become results.
 
 ## Security and budget — hard rules
 

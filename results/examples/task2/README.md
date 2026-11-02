@@ -9,6 +9,11 @@ figures, which are not committed) with:
 
 Full outputs land in `results/task2/`, which is git-ignored.
 
+Two figures are committed here: `fig_results_by_category.png` (our labelled
+results per category) and `fig_ours_vs_paper.png` (our reproduction beside the
+paper's published verdicts on the same 24 prompts). The remaining figures and
+all per-record CSVs regenerate with the commands above.
+
 ## What the numbers are
 
 Strict accuracy over 176 greedy (protocol A) completions - 4 checkpoints x 44
