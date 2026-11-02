@@ -125,7 +125,7 @@ Tables and figures: `results/examples/task2/` and `results/examples/task3/`.
 
 ## Using your own model
 
-Rachel and Luel: you shouldn't need to rewrite any evaluation code. Implement
+Implement
 one class with a `metadata` property and a `generate` method. The protocol is in
 `src/tinystories_project/inference/interface.py`; `inference/generate.py` is the
 Hugging Face version to copy the shape of.
@@ -186,29 +186,4 @@ it needs a Unicode-aware version before any Amharic ROUGE number means anything.
 Please raise that before changing it in place; our Task 3 numbers depend on the
 current behaviour.
 
-## Limitations
 
-- We don't reproduce the paper's exact generated text (0/24 exact matches on
-  TinyStories-1M, 7/24 share a prefix) — probably library and hardware drift
-  since 2023 plus hand-trimmed figures. We reproduce the trend, not the strings.
-- Our ROUGE follows the paper's formulas over k-gram sets, which differs a
-  little from the `rouge_score` package. `compare_with_rouge_score()` measures
-  the gap.
-- The paper doesn't give a decoding temperature for Section 4.4.1. We used
-  greedy because it's reproducible; we don't know how sampling would change the
-  overlap numbers.
-- Our scores and the paper's GPT-4 scores come from different judges and
-  different text, so they aren't directly comparable. The same will apply to
-  Task 4's Gemini scores if we get any.
-- Small samples (44 prompts per model, 100 stories per split) and no
-  significance testing.
-- Three of the seven checkpoints weren't evaluated; GPT-2 XL wasn't run (its
-  column is quoted from the paper and marked as such).
-- Protocol B (528 sampled completions) has no labels, so it isn't accuracy.
-
-Seed is 42 everywhere and recorded in every output file. Tasks 2 and 3 use batch
-size 1 on purpose, since sampling seeds are derived per batch. Every run writes a
-manifest with the config, git commit, and library versions.
-
-Parts of this repo — code, the Task 2 draft labels, and documentation — were
-written with AI assistance (Claude Code) and reviewed by the team.
