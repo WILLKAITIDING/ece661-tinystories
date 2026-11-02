@@ -36,9 +36,11 @@ analysis = ["matplotlib>=3.8", "pymupdf>=1.24"]
 # implementation against the common package (rouge-score, used in tests only).
 task3 = ["pyarrow>=15.0", "rouge-score>=0.1.2"]
 
+# Task 4: the Gemini judge through the OpenAI-compatible course gateway.
+# Retries and .env parsing are implemented in judge.py, so no extra deps.
+judge = ["openai>=1.30"]
+
 # --- NOT INSTALLED YET. Documented so later tasks are a one-line install. ---
-# Task 4 (Gemini judge via the OpenAI-compatible course proxy)
-judge = ["openai>=1.30", "tenacity>=8.3", "python-dotenv>=1.0"]
 # Phase 2 (Rachel) / Phase 3 (Luel)
 training = ["accelerate>=0.30", "datasets>=2.19", "sentencepiece>=0.2", "wandb>=0.17"]
 

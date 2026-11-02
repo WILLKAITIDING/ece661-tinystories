@@ -1,0 +1,34 @@
+# Task 4 - Gemini-as-judge scoring of the Task 3 story completions.
+#
+#   python scripts/run_task4.py --config configs/task4.yaml --dry-run   # free
+#   python scripts/run_task4.py --config configs/task4.yaml --limit 8   # pilot
+#   python scripts/run_task4.py --config configs/task4.yaml             # full
+#   python scripts/make_task4_tables.py
+#
+# The API key lives in .env (git-ignored). NEVER put it in .env.example.
+
+run_name: task4
+output_dir: results/task4
+
+# Judge the Task 3 generations: all four checkpoints answered the SAME 100
+# story prefixes per split, so the scores are matched across models.
+source_dir: results/task3
+
+judge:
+  # Overridden by COURSE_JUDGE_MODEL in .env if that is set.
+  model: gemini-3.6-flash
+  # The proposal grades at temperature 0 so the judging is deterministic.
+  temperature: 0.0
+  max_tokens: 200
+  timeout: 60
+  max_retries: 3
+
+budget:
+  # HARD CAP IN US DOLLARS, covering every call ever made with this key.
+  # The gateway reports cumulative key spend, so this does not reset per run.
+  max_spend_usd: 10.00
+  max_calls: 1000
+  # Conservative pre-call estimate used to refuse a call that would breach the
+  # cap. ~650 input + ~120 output tokens at Gemini Flash rates is well under
+  # this; the figure only has to be an upper bound.
+  estimated_cost_per_call_usd: 0.0015
