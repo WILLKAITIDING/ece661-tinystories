@@ -125,8 +125,8 @@ Tables and figures: `results/examples/task2/` and `results/examples/task3/`.
 
 ## Using your own model
 
-Implement
-one class with a `metadata` property and a `generate` method. The protocol is in
+You shouldn't need to rewrite any evaluation code. Implement one class with a
+`metadata` property and a `generate` method. The protocol is in
 `src/tinystories_project/inference/interface.py`; `inference/generate.py` is the
 Hugging Face version to copy the shape of.
 
@@ -186,4 +186,7 @@ it needs a Unicode-aware version before any Amharic ROUGE number means anything.
 Please raise that before changing it in place; our Task 3 numbers depend on the
 current behaviour.
 
+## AI assistance
 
+Parts of this repo — code, the Task 2 draft labels, and documentation — were
+written with AI assistance (Claude Code) and reviewed by the team.
