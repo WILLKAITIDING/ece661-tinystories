@@ -34,20 +34,30 @@ code. See "Using your own model" below.
   on the course side. `python scripts/run_task4.py --config configs/task4.yaml
   --limit 1` is the quickest way to check if it's back.
 
-## Structure
+## Project structure
 
-```
-configs/    one YAML per task - all experiment settings live here
-data/       prompts/ (24 paper + 20 ours), reference/ (the paper's own outputs),
-            annotations/ (the 176 Task 2 labels)
+```text
+configs/                 Experiment settings, one YAML per task
+data/
+  prompts/               Evaluation prompts (24 from the paper, 20 ours)
+  annotations/           Task 2 labels (176 rows) and how they were made
+  reference/             The paper's own completions and verdicts
 src/tinystories_project/
-  inference/  interface.py (the TextGenerator protocol), loader.py, generate.py
-  evaluation/ prompts, qualitative (T2), rouge (T3), judge (T4), annotations
-  records.py  the JSONL format every task reads and writes
-scripts/    run_task{1,2,3,4}.py and make_task{2,3,4}_tables.py
-tests/      190 offline tests + 12 that use the real checkpoints
-results/    git-ignored except results/examples/ (small committed summaries)
+  inference/             Model loading and text generation
+  evaluation/            Qualitative (T2), ROUGE (T3), Gemini judge (T4)
+  records.py             The JSONL format every task reads and writes
+scripts/                 Run experiments and generate results
+results/examples/
+  task2/                 Figures 9-11, qualitative results
+  task3/                 Figures 14-17, quantitative results
+tests/                   Code tests
 ```
+
+In `results/examples/`, filenames starting `fig9-11` are Task 2 and `fig14-17`
+are Task 3. `fig9-11_paper_own_verdicts.png` is the **paper's** result, taken
+from the published figures; everything else is ours. Only the final figures and
+CSV tables are committed - the full generated output lives in `results/`, which
+is git-ignored and rebuilt by the `make_task*_tables.py` scripts.
 
 ## Install
 

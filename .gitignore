@@ -54,6 +54,15 @@ results/*
 !results/.gitkeep
 !results/examples/
 !results/examples/**
+# ...but not every generated file inside examples/. These stay on disk and are
+# useful locally, they just are not worth sharing. Only the final figures and
+# CSV tables under results/examples/task2 and task3 are tracked. (These rules
+# must come AFTER the negation above to take effect.)
+results/examples/**/summary.md
+results/examples/task1_example*
+
+# The notebook folder was deleted on GitHub; keep any local copy out of git.
+notebooks/
 
 # ---- OS / editor ------------------------------------------------------------
 .DS_Store
