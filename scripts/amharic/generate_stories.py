@@ -7,14 +7,16 @@ story with the sampled inputs, the story, the words the model says it used, and 
 
 Usage
     export GEMINI_API_KEY=...                      # public Gemini API (default)
-    python amharic/scripts/generate_stories.py --n 100 --model gemini-3.8-flash --out amharic/generation/pilot/pilot_flash.jsonl
-    python amharic/scripts/generate_stories.py --n 20  --model gemini-3.1-flash-lite --out amharic/generation/pilot/pilot_lite.jsonl --seed 1
+    python generate_stories.py --words amharic_wordlist.csv --template generation_prompt.txt \
+        --n 100 --out stories.jsonl
 
-Defaults: words and names from amharic/vocab/, template from amharic/generation/, output to
-amharic/generation/corpus/stories.jsonl.
+    # any other OpenAI-compatible endpoint (same script):
+    export OPENAI_BASE_URL=https://<host>/v1 OPENAI_API_KEY=...
 
-    # course gateway instead (same script):
-    export OPENAI_BASE_URL=https://34-127-166-57.sslip.io/api/v1 OPENAI_API_KEY=$ECE661_API_KEY
+Inputs
+    --words      CSV with columns amharic,pos (pos is verb, noun or adj)
+    --template   prompt text with the placeholders {VERB} {NOUN} {ADJECTIVE} {FEATURES}
+    --names      CSV with columns name,gender (default: names.csv next to this script)
 
 Resumable: re-running with the same --out skips story ids already present.
 """
@@ -23,9 +25,7 @@ import argparse, csv, json, os, random, re, sys, time
 from pathlib import Path
 from openai import OpenAI
 
-# Default paths are anchored at the repo root, so the script runs from any directory.
-ROOT = Path(__file__).resolve().parents[2]
-VOCAB, GEN = ROOT / "amharic/vocab", ROOT / "amharic/generation"
+HERE = Path(__file__).resolve().parent
 
 # ----------------------------------------------------------------- features
 # Explicit instructions, not labels (labels were ignored in testing).
@@ -64,8 +64,8 @@ def sample_features(rng):
         chosen.append(pick)
     return chosen
 
-# The pilot showed heavy repetition (ዮናስ in 39% of stories, "ትንሹ/ትንሿ" opening 46%, backyard+ball in a third),
-# so names, relationship and setting are sampled too.
+# Character names, their relationship and the setting are sampled as well. Left to the model, a few
+# names, openings and scenes dominate the corpus.
 SETTINGS = [
     "at home in the living room", "in the kitchen while food is being prepared", "in the family compound (ግቢ)",
     "at the neighborhood shop (ሱቅ)", "at the market (ገበያ)", "at school or kindergarten", "on the way to school",
@@ -93,8 +93,8 @@ def load_names(path):
     return [(r["name"], r.get("gender", "")) for r in csv.DictReader(open(path, encoding="utf-8")) if r["name"].strip()]
 
 def sample_cast(rng, names):
-    """Returns (cast, relation, setting, instruction text). Drawn AFTER words/features so story ids
-    keep the same word triples as the pilot."""
+    """Returns (cast, relation, setting, instruction text). Drawn after the words and features, so the
+    word triple of a story id does not depend on the name list."""
     k = rng.choices([1, 2], weights=[0.45, 0.55])[0]
     cast = rng.sample(names, k) if names else []
     relation = rng.choice(RELATIONS_TWO if k == 2 else RELATIONS_ONE)
@@ -169,15 +169,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--n", type=int, default=100)
     ap.add_argument("--model", default="gemini-3.8-flash")
-    ap.add_argument("--out", default=str(GEN / "corpus/stories.jsonl"))
-    ap.add_argument("--words", default=str(VOCAB / "amharic_wordlist.csv"))
-    ap.add_argument("--names", default=str(VOCAB / "names.csv"), help="CSV with columns name,gender (f/m); skipped if missing")
-    ap.add_argument("--template", default=str(GEN / "generation_prompt.txt"))
+    ap.add_argument("--out", default="stories.jsonl", help="output JSONL; existing story ids are skipped")
+    ap.add_argument("--words", required=True, help="CSV with columns amharic,pos")
+    ap.add_argument("--names", default=str(HERE / "names.csv"), help="CSV with columns name,gender (f/m); skipped if missing")
+    ap.add_argument("--template", required=True, help="prompt template file")
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--sleep", type=float, default=0.0, help="seconds to wait after each call, per worker")
     ap.add_argument("--start", type=int, default=0, help="first story id")
     ap.add_argument("--effort", default="minimal", help="thinking level: minimal | low | medium | high")
-    ap.add_argument("--workers", type=int, default=1, help="parallel requests (8-16 for the full run on a paid key)")
+    ap.add_argument("--workers", type=int, default=1, help="parallel requests")
     a = ap.parse_args()
 
     import threading

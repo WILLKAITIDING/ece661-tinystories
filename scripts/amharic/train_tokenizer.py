@@ -11,9 +11,7 @@ share of unknown tokens. tokenizer_report.json holds the same numbers.
 import argparse, json, re, tempfile
 from pathlib import Path
 import sentencepiece as spm
-from common import load_stories, to_line, SPTok, NL, UNK
-
-WORD = re.compile(r"[ሀ-ፚ]+")
+from common import load_stories, to_line, SPTok, NL, UNK, WORD
 
 
 def stats(tok: SPTok, stories):
@@ -35,6 +33,7 @@ def main():
     ap.add_argument("--out", default="tokenizers")
     ap.add_argument("--sizes", type=int, nargs="+", default=[4000, 8000])
     ap.add_argument("--model-type", default="bpe", choices=["bpe", "unigram"])
+    ap.add_argument("--prefix", default="am", help="start of the tokenizer file name (am = Amharic, en = English)")
     a = ap.parse_args()
 
     train, valid = load_stories(a.train), load_stories(a.valid)
@@ -49,7 +48,7 @@ def main():
 
     report = {}
     for V in a.sizes:
-        prefix = out / f"am_{a.model_type}_{V}"
+        prefix = out / f"{a.prefix}_{a.model_type}_{V}"
         spm.SentencePieceTrainer.train(
             input=corpus, model_prefix=str(prefix), vocab_size=V, model_type=a.model_type,
             character_coverage=1.0, pad_id=0, unk_id=1, bos_id=2, eos_id=3,

@@ -1,6 +1,7 @@
 """
-Wraps a model trained by train_lm.py so the team's evaluation scripts (Task 2/3/4) can use it.
-Satisfies tinystories_project.inference.interface.TextGenerator.
+Adapter that exposes a model trained by train_lm.py through the project's common generation
+interface (tinystories_project.inference.interface.TextGenerator), so the shared evaluation code
+can run on it.
 
     gen = SPGenerator("runs/am_8M_scratch/best")
     outs = gen.generate(["አንድ ቀን"], GenerationParams(max_new_tokens=200))

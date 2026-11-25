@@ -1,10 +1,12 @@
 """Shared helpers for the Amharic tokenizer / training / generation scripts."""
 from __future__ import annotations
-import json
+import json, re
 from pathlib import Path
 
 NL = "<nl>"            # paragraph break, kept as one token (SentencePiece drops raw newlines)
 PAD, UNK, BOS, EOS = 0, 1, 2, 3
+GEEZ = re.compile(r"[ሀ-ፚ]")
+WORD = re.compile(r"[ሀ-ፚ]+|[A-Za-z]+")      # a word: Ge'ez letters, or Latin letters (English baseline)
 
 
 def load_stories(path: str | Path) -> list[str]:
@@ -23,6 +25,8 @@ def load_stories(path: str | Path) -> list[str]:
 def normalize(text: str) -> str:
     """Light, meaning-preserving normalization so human-written text matches the synthetic corpus:
     the old two-colon full stop (፡፡) becomes ።, every style of double quote becomes « », ዉ becomes ው."""
+    if not GEEZ.search(text):                   # not Amharic (English baseline): leave untouched
+        return text
     text = text.replace("፡፡", "።").replace("ዉ", "ው")
     for a_, b_ in (("‹‹", "«"), ("››", "»"), ("<<", "«"), (">>", "»"), ("“", "«"), ("”", "»"), ("„", "«")):
         text = text.replace(a_, b_)
