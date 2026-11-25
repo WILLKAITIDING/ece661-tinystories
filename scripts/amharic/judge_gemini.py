@@ -1,7 +1,7 @@
 """
 Gemini as a judge of the model continuations (the TinyStories paper's GPT-Eval, Section 3).
 
-    export GEMINI_API_KEY=...
+    export GEMINI_API_KEY=...        # or OPENAI_BASE_URL + OPENAI_API_KEY; the endpoint in use is printed
     python judge_gemini.py runs/quality/completions.jsonl --out runs/quality
 
 Reads the continuations written by eval_quality.py. For each one, the judge sees the story with
@@ -19,6 +19,7 @@ import argparse, csv, json, os, re, threading, time
 from collections import defaultdict
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
+from urllib.parse import urlsplit
 
 DEFAULT_MODELS = ["reference", "am_1M_scratch", "am_1M_transfer", "am_3M_scratch", "am_3M_transfer",
                   "am_8M_scratch", "am_8M_transfer"]
@@ -64,8 +65,18 @@ def parse(text: str):
 
 def make_caller(model: str, effort: str):
     from openai import OpenAI
-    client = OpenAI(api_key=os.environ["GEMINI_API_KEY"],
-                    base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
+    # Same rule as generate_stories.py: GEMINI_API_KEY first, then OPENAI_BASE_URL + OPENAI_API_KEY.
+    other = os.environ.get("OPENAI_BASE_URL")
+    if os.environ.get("GEMINI_API_KEY"):
+        print("endpoint: Gemini API (GEMINI_API_KEY)" + ("; OPENAI_BASE_URL is set but not used" if other else ""))
+        client = OpenAI(api_key=os.environ["GEMINI_API_KEY"],
+                        base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
+    elif other and os.environ.get("OPENAI_API_KEY"):
+        u = urlsplit(other)
+        print(f"endpoint: {u.scheme}://{u.hostname}{u.path} (OPENAI_BASE_URL)")
+        client = OpenAI()
+    else:
+        raise SystemExit("set GEMINI_API_KEY (or OPENAI_BASE_URL and OPENAI_API_KEY for another OpenAI-compatible endpoint)")
 
     def call(prompt: str):
         last = ""

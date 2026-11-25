@@ -2,7 +2,7 @@
 # Train and summarise every Amharic model.
 #
 # Usage:  DATA=/path/to/data RUNS=/path/to/runs bash run_all.sh
-#   DATA  folder holding clean/train.txt, clean/valid.txt, extracted/ (human-written stories)
+#   DATA  folder holding clean/train.txt, clean/valid.txt, extracted/ (human-written stories, optional)
 #         and tokenizers/am_bpe_4000.model (see clean_corpus.py and train_tokenizer.py)
 #   RUNS  output folder; each run writes RUNS/<name>/ and RUNS/<name>.log
 #
@@ -10,7 +10,12 @@
 set -u
 : "${DATA:?set DATA to the data folder}"; : "${RUNS:?set RUNS to the output folder}"
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-COMMON="--train $DATA/clean/train.txt --valid $DATA/clean/valid.txt --natural $DATA/extracted --tokenizer $DATA/tokenizers/am_bpe_4000.model"
+COMMON="--train $DATA/clean/train.txt --valid $DATA/clean/valid.txt --tokenizer $DATA/tokenizers/am_bpe_4000.model"
+if [ -d "$DATA/extracted" ]; then          # human-written test set, if present
+  COMMON="$COMMON --natural $DATA/extracted"; echo "human-written test set: $DATA/extracted"
+else
+  echo "human-written test set: none ($DATA/extracted not found); new runs report synthetic validation only"
+fi
 
 run () {            # run <name> <extra args...>
   local name=$1; shift

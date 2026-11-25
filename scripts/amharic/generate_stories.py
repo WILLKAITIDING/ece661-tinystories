@@ -10,8 +10,10 @@ Usage
     python generate_stories.py --words amharic_wordlist.csv --template generation_prompt.txt \
         --n 100 --out stories.jsonl
 
-    # any other OpenAI-compatible endpoint (same script):
+    # any other OpenAI-compatible endpoint (same script); used only when GEMINI_API_KEY is not set:
     export OPENAI_BASE_URL=https://<host>/v1 OPENAI_API_KEY=...
+
+The endpoint in use is printed when the run starts.
 
 Inputs
     --words      CSV with columns amharic,pos (pos is verb, noun or adj)
@@ -23,6 +25,7 @@ Resumable: re-running with the same --out skips story ids already present.
 
 import argparse, csv, json, os, random, re, sys, time
 from pathlib import Path
+from urllib.parse import urlsplit
 from openai import OpenAI
 
 HERE = Path(__file__).resolve().parent
@@ -123,10 +126,18 @@ def parse_output(text):
     return text, words_used
 
 def client_from_env():
-    if os.environ.get("OPENAI_BASE_URL") and os.environ.get("OPENAI_API_KEY"):
+    """GEMINI_API_KEY takes precedence over OPENAI_BASE_URL + OPENAI_API_KEY. The endpoint in use is
+    printed, so a variable left set in the shell cannot redirect a run unnoticed."""
+    other = os.environ.get("OPENAI_BASE_URL")
+    if os.environ.get("GEMINI_API_KEY"):
+        print("endpoint: Gemini API (GEMINI_API_KEY)" + ("; OPENAI_BASE_URL is set but not used" if other else ""))
+        return OpenAI(api_key=os.environ["GEMINI_API_KEY"],
+                      base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
+    if other and os.environ.get("OPENAI_API_KEY"):
+        u = urlsplit(other)
+        print(f"endpoint: {u.scheme}://{u.hostname}{u.path} (OPENAI_BASE_URL)")
         return OpenAI()
-    return OpenAI(api_key=os.environ["GEMINI_API_KEY"],
-                  base_url="https://generativelanguage.googleapis.com/v1beta/openai/")
+    sys.exit("set GEMINI_API_KEY (or OPENAI_BASE_URL and OPENAI_API_KEY for another OpenAI-compatible endpoint)")
 
 def call(client, model, prompt, max_tokens=4000, effort="minimal"):
     """Thinking is billed as output and counts against max_tokens, so keep it minimal.

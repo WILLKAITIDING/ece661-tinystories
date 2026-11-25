@@ -6,6 +6,7 @@ Statistics and figures for the Amharic experiments.
 Reads (produced by train_lm.py, eval_quality.py, judge_gemini.py and make_rating_sheet.py):
     runs/results.csv                       perplexity for every run
     runs/quality/completions.jsonl         continuations with name-drift flags
+    runs/quality_*/completions.jsonl       the same for additional seeds (optional, name drift only)
     runs/quality/judge.jsonl               Gemini judge scores
     runs/quality/rating_key.csv            which model wrote each rating item
     runs/quality/ratings/*.csv             filled-in rating sheets, one file per person (optional)
@@ -14,14 +15,16 @@ Writes into runs/quality/analysis/:
     stats.txt        confidence intervals, scratch-vs-transfer tests, judge/human agreement
     fig_size.png     perplexity by model size
     fig_data.png     perplexity by amount of training data (equal training steps)
-    fig_drift.png    name drift by model size
+    fig_drift.png    name drift by model size, pooled over seeds
     fig_judge.png    judge scores by model size
 
 Uncertainty is computed over the 50 story openings (the continuations of one opening are not
 independent): 95% intervals by bootstrap, p-values by a paired sign-flip permutation test.
+Name drift pools all seeds of a setting before this step, so its intervals reflect variation
+across openings, not across training seeds.
 """
 from __future__ import annotations
-import argparse, csv, json
+import argparse, csv, json, re
 from collections import defaultdict
 from pathlib import Path
 import numpy as np
@@ -146,23 +149,48 @@ def main():
 
     # ---------------- name drift ----------------
     comp = [json.loads(l) for l in open(Q / "completions.jsonl", encoding="utf-8")]
-    drift = per_prompt([c for c in comp if c["model"] != "reference"], lambda c: float(bool(c.get("new_names"))))
     name = lambda s, k: f"am_{s}_{k}"
-    say("\nNAME DRIFT (share of continuations with a new character name), 95% interval over openings")
+    # All seeds of one setting (am_3M_scratch, am_3M_scratch_s1, ...) are pooled under the seed-0 name.
+    seed_of = re.compile(r"^(am_(?:1M|3M|8M)_(?:scratch|transfer))(?:_s\d+)?$")
+    # Additional seeds may be evaluated into sibling folders (runs/quality_*/). Each model is read
+    # once: the main folder first, then the first sibling folder (in name order) that has it.
+    have = {c["model"] for c in comp}
+    extra, folders = [], []
+    for d in sorted(p for p in R.glob("quality_*") if (p / "completions.jsonl").exists()):
+        recs = [json.loads(l) for l in open(d / "completions.jsonl", encoding="utf-8")]
+        new = {c["model"] for c in recs if seed_of.match(c["model"])} - have
+        extra += [c for c in recs if c["model"] in new]
+        have |= new
+        folders.append(f"{d.name}/: " + (", ".join(sorted(new)) if new else "nothing new, not used"))
+    pooled, n_seeds = [], defaultdict(set)
+    for c in comp + extra:
+        m = seed_of.match(c["model"])
+        if m:
+            n_seeds[m.group(1)].add(c["model"]); pooled.append({**c, "model": m.group(1)})
+    drift = per_prompt(pooled, lambda c: float(bool(c.get("new_names"))))
+    say("\nNAME DRIFT (share of continuations with a new character name), pooled over seeds, 95% interval over openings")
+    for line in folders:
+        say(f"  also read {line}")
     dm, dlo, dhi = ({k: [] for k in C} for _ in range(3))
-    dsizes = [s for s in SIZES if name(s, "scratch") in drift and name(s, "transfer") in drift]
+    # scratch and transfer are compared on the openings that both were evaluated on
+    shared = {s: sorted(set(drift.get(name(s, "scratch"), {})) & set(drift.get(name(s, "transfer"), {}))) for s in SIZES}
+    dsizes = [s for s in SIZES if shared[s]]
     for s in dsizes:
-        pids = sorted(drift[name(s, "scratch")])
+        pids = shared[s]
+        either = set(drift[name(s, "scratch")]) | set(drift[name(s, "transfer")])
+        if len(pids) < len(either):
+            say(f"  {s}: {len(either) - len(pids)} openings were not evaluated for both; using the {len(pids)} shared ones")
         v = {k: np.array([drift[name(s, k)][p] for p in pids]) for k in C}
         for k in C:
             m, lo, hi = boot_ci(v[k]); dm[k].append(100 * m); dlo[k].append(100 * lo); dhi[k].append(100 * hi)
         d = v["transfer"] - v["scratch"]; m, lo, hi = boot_ci(d)
-        say(f"  {s}: scratch {v['scratch'].mean():.1%}  transfer {v['transfer'].mean():.1%}  "
+        say(f"  {s}: scratch {v['scratch'].mean():.1%} ({len(n_seeds[name(s, 'scratch')])} seeds)  "
+            f"transfer {v['transfer'].mean():.1%} ({len(n_seeds[name(s, 'transfer')])} seeds)  "
             f"difference {m:+.1%} [{lo:+.1%}, {hi:+.1%}]  p={paired_p(d):.4f}")
     if dsizes:
         fig, ax = plt.subplots(figsize=(5.2, 3.6))
         two_lines(ax, dsizes, dm, dlo, dhi, fmt="{:.0f}%")
-        style(ax, "continuations with a new name, % (lower is better)", "Character-name drift by model size")
+        style(ax, "continuations with a new name, % (lower is better)", "Character-name drift by model size (pooled over seeds)")
         ax.set_xlabel("model size", color=MUTED, fontsize=9); ax.set_ylim(0, 108)
         ax.legend(frameon=False, fontsize=8, labelcolor=MUTED, loc="lower left"); save(fig, out / "fig_drift.png")
 
